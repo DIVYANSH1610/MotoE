@@ -27,7 +27,7 @@ urlpatterns = [
     path('', home),
     path("admin/", admin.site.urls),
     path('api/cars/', include('cars.urls')),
-    path("api/ai/", include("ai.urls")),
+    #path("api/ai/", include("ai.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
