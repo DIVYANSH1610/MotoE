@@ -1,0 +1,1022 @@
+[
+  {
+    "id": 1,
+    "company": "FERRARI",
+    "car_name": "SF90 STRADALE",
+    "engine": "V8",
+    "cc_battery_capacity": "3990 cc",
+    "horsepower": "963 hp",
+    "top_speed": "340 km/h",
+    "performance_0_100": "2.5 sec",
+    "price": "\u20b99,13,00,000",
+    "fuel_type": "plug in hyrbrid",
+    "seats": "2",
+    "torque": "800 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id1-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id1-1.webp",
+      "http://127.0.0.1:8000/media/images/id1-2.webp",
+      "http://127.0.0.1:8000/media/images/id1-3.webp",
+      "http://127.0.0.1:8000/media/images/id1-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Series-production supercar / plug-in hybrid halo model"
+    },
+    "story": "The SF90 Stradale was conceived as Ferrari\u2019s statement that hybridization could enhance emotion rather than dilute it. It combines a twin-turbo V8 with electric motors to create one of Ferrari\u2019s most advanced road cars. For enthusiasts, it marks a major turning point: a Ferrari flagship that blends traditional combustion character with instant electric response.",
+    "design_notes": "Its design focuses on aerodynamic efficiency, cooling performance, and low-slung exotic proportions. The body surfaces were shaped to balance extreme speed with daily usability.",
+    "fun_facts": [
+      "The SF90 Stradale is one of Ferrari\u2019s most technologically ambitious road cars.",
+      "It represents Ferrari\u2019s move deeper into electrified performance.",
+      "Its power figure makes it one of the strongest entries in your dataset."
+    ],
+    "slug": "ferrari-sf90-stradale"
+  },
+  {
+    "id": 2,
+    "company": "ROLLS ROYCE",
+    "car_name": "PHANTOM",
+    "engine": "V12",
+    "cc_battery_capacity": "6749 cc",
+    "horsepower": "563 hp",
+    "top_speed": "250 km/h",
+    "performance_0_100": "5.3 sec",
+    "price": "\u20b93,81,80,000",
+    "fuel_type": "Petrol",
+    "seats": "5",
+    "torque": "900 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id2-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id2-1.webp",
+      "http://127.0.0.1:8000/media/images/id2-2.webp",
+      "http://127.0.0.1:8000/media/images/id2-3.webp",
+      "http://127.0.0.1:8000/media/images/id2-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Rolls-Royce Motor Cars",
+      "country_of_origin": "United Kingdom",
+      "division": "Ultra-luxury flagship sedan"
+    },
+    "story": "The Phantom exists as a symbol of absolute luxury rather than raw aggression. Rolls-Royce developed it for owners who value silence, craftsmanship, prestige, and road presence above all else. Among enthusiasts, the Phantom is admired because it proves performance is not always about lap times; sometimes it is about serenity, stature, and engineering refinement.",
+    "design_notes": "Its upright stance, long hood, and near-monolithic body emphasize authority. Inside, the cabin is designed to feel more like a handcrafted lounge than a conventional car interior.",
+    "fun_facts": [
+      "The Phantom is widely seen as one of the benchmark luxury sedans in the world.",
+      "Its V12 is tuned for smoothness and effortless torque delivery.",
+      "The appeal is as much about craftsmanship as it is about engineering."
+    ],
+    "slug": "rolls-royce-phantom"
+  },
+  {
+    "id": 3,
+    "company": "KOENIGSEGG",
+    "car_name": "JESKO",
+    "engine": "V8",
+    "cc_battery_capacity": "5,000 cc",
+    "horsepower": "1600 hp",
+    "top_speed": "480 km/h (estimated)",
+    "performance_0_100": "2.5 sec",
+    "price": "\u20b924,90,00,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "1500 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id30-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id30-1.webp",
+      "http://127.0.0.1:8000/media/images/id30-2.webp",
+      "http://127.0.0.1:8000/media/images/id30-3.webp",
+      "http://127.0.0.1:8000/media/images/id30-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Koenigsegg Automotive",
+      "country_of_origin": "Sweden",
+      "division": "Hypercar"
+    },
+    "story": "The Jesko was designed to break speed limits and redefine hypercar engineering. It represents Koenigsegg\u2019s obsession with innovation, lightweight design, and extreme performance.",
+    "design_notes": "Massive rear wing and extreme aerodynamic body make it track-focused.",
+    "fun_facts": [
+      "Named after founder\u2019s father",
+      "Built for world speed records",
+      "Advanced transmission system"
+    ],
+    "slug": "koenigsegg-jesko"
+  },
+  {
+    "id": 4,
+    "company": "MERCEDES",
+    "car_name": "GT 63 S",
+    "engine": "V8",
+    "cc_battery_capacity": "3,982 cc",
+    "horsepower": "630 hp",
+    "top_speed": "250 km/h",
+    "performance_0_100": "3.2 sec",
+    "price": "\u20b91,33,63,000",
+    "fuel_type": "Petrol",
+    "seats": "4",
+    "torque": "900 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id4-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id4-1.jpg",
+      "http://127.0.0.1:8000/media/images/id4-2.jpg",
+      "http://127.0.0.1:8000/media/images/id4-3.jpg",
+      "http://127.0.0.1:8000/media/images/id4-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Mercedes-AMG",
+      "country_of_origin": "Germany",
+      "division": "High-performance four-door grand tourer"
+    },
+    "story": "The GT 63 S was built to merge AMG\u2019s performance DNA with sedan practicality. It gives enthusiasts supercar-level punch in a body that can still handle everyday duties. That duality is part of its appeal.",
+    "design_notes": "Fastback styling, wide shoulders, and aggressive AMG detailing underline its blend of luxury and violence.",
+    "fun_facts": [
+      "It is one of the quickest four-door performance cars in your uploaded list.",
+      "AMG models are known for combining brutal acceleration with premium interiors.",
+      "It sits between executive sedan and super-sedan territory."
+    ],
+    "slug": "mercedes-gt-63-s"
+  },
+  {
+    "id": 5,
+    "company": "AUDI",
+    "car_name": "AUDI R8 GT",
+    "engine": "V10",
+    "cc_battery_capacity": "5,204 cc",
+    "horsepower": "602 hp",
+    "top_speed": "320 km/h",
+    "performance_0_100": "3.6 sec",
+    "price": "\u20b92,10,23,070",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "560 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id5-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id5-1.webp",
+      "http://127.0.0.1:8000/media/images/id5-2.webp",
+      "http://127.0.0.1:8000/media/images/id5-3.webp",
+      "http://127.0.0.1:8000/media/images/id5-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Audi Sport GmbH",
+      "country_of_origin": "Germany",
+      "division": "Mid-engine supercar"
+    },
+    "story": "The R8 GT represents Audi\u2019s most focused version of its V10 supercar formula. It appeals to enthusiasts because naturally aspirated V10 cars are becoming rare, and the R8 became a modern icon by blending exotic layout with Audi usability.",
+    "design_notes": "Its low roofline, side blades, and mid-engine stance give it a clean but instantly recognizable supercar silhouette.",
+    "fun_facts": [
+      "The R8 is celebrated for making a supercar feel approachable.",
+      "Its V10 soundtrack is one of its strongest enthusiast draws.",
+      "It stands out for balancing daily usability with exotic proportions."
+    ],
+    "slug": "audi-r8-gt"
+  },
+  {
+    "id": 6,
+    "company": "BMW",
+    "car_name": "Mclaren 720s",
+    "engine": "V8",
+    "cc_battery_capacity": "3,994 cc",
+    "horsepower": "710 hp",
+    "top_speed": "341 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b94,14,17,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "770 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id6-1.jpeg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id6-1.jpeg",
+      "http://127.0.0.1:8000/media/images/id6-1.webp",
+      "http://127.0.0.1:8000/media/images/id6-3.jpeg",
+      "http://127.0.0.1:8000/media/images/id6-4.jpeg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "McLaren Automotive",
+      "country_of_origin": "United Kingdom",
+      "division": "Super Series supercar"
+    },
+    "story": "The 720S was engineered to deliver extreme speed through lightweight construction, active aerodynamics, and advanced suspension. Enthusiasts love it because it feels like a road-going expression of McLaren\u2019s racing-driven philosophy.",
+    "design_notes": "Its teardrop cabin, dramatic side intakes, and minimalist bodywork all serve airflow and downforce management.",
+    "fun_facts": [
+      "The 720S is known for extraordinary straight-line speed and cornering ability.",
+      "Its styling is shaped heavily by aerodynamic function.",
+      "It is one of the most performance-focused cars in your top rows."
+    ],
+    "slug": "mclaren-720s"
+  },
+  {
+    "id": 7,
+    "company": "ASTON MARTIN",
+    "car_name": "VANTAGE F1",
+    "engine": "V8",
+    "cc_battery_capacity": "3,982 cc",
+    "horsepower": "656 hp",
+    "top_speed": "314 km/h",
+    "performance_0_100": "3.6 sec",
+    "price": "\u20b91,60,55,520",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "685 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id7-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id7-1.jpg",
+      "http://127.0.0.1:8000/media/images/id7-2.jpg",
+      "http://127.0.0.1:8000/media/images/id7-3.jpg",
+      "http://127.0.0.1:8000/media/images/id7-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Aston Martin Lagonda",
+      "country_of_origin": "United Kingdom",
+      "division": "Performance coupe inspired by F1 branding"
+    },
+    "story": "The Vantage F1 was developed to give Aston Martin\u2019s compact sports car more edge, more speed, and stronger motorsport association. It is the kind of car enthusiasts enjoy because it combines British design elegance with real aggression.",
+    "design_notes": "Its body kit, aerodynamic detailing, and sharpened stance lean more heavily into track-inspired character than the standard Vantage.",
+    "fun_facts": [
+      "The F1 branding reinforces Aston Martin\u2019s modern racing identity.",
+      "It pairs a muscular turbo V8 with classic front-engine proportions.",
+      "Its appeal lies in style as much as outright pace."
+    ],
+    "slug": "aston-martin-vantage-f1"
+  },
+  {
+    "id": 8,
+    "company": "BENTLEY",
+    "car_name": "Continental GT Azure",
+    "engine": "V8",
+    "cc_battery_capacity": "3,996 cc",
+    "horsepower": "550 hp",
+    "top_speed": "318 km/h",
+    "performance_0_100": "4.0 sec",
+    "price": "\u20b92,58,13,000",
+    "fuel_type": "Petrol",
+    "seats": "4",
+    "torque": "900 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id8-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id8-1.jpg",
+      "http://127.0.0.1:8000/media/images/id8-2.jpg",
+      "http://127.0.0.1:8000/media/images/id8-3.jpg",
+      "http://127.0.0.1:8000/media/images/id8-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Bentley Motors",
+      "country_of_origin": "United Kingdom",
+      "division": "Luxury grand tourer"
+    },
+    "story": "The Continental GT Azure is designed for long-distance performance in complete luxury. It shows why Bentley occupies a unique place in enthusiast culture: massive power, rich craftsmanship, and effortless high-speed cruising.",
+    "design_notes": "Its proportions emphasize presence and elegance, while the cabin focuses on hand-finished luxury and touring comfort.",
+    "fun_facts": [
+      "Bentley is known for mixing luxury-car craftsmanship with serious performance.",
+      "The Continental range has become one of the brand\u2019s defining modern icons.",
+      "It excels as a high-speed grand tourer rather than a stripped track machine."
+    ],
+    "slug": "bentley-continental-gt-azure"
+  },
+  {
+    "id": 9,
+    "company": "LAMBORGHINI",
+    "car_name": "VENENO ROADSTER",
+    "engine": "V12",
+    "cc_battery_capacity": "6,498 cc",
+    "horsepower": "750 hp",
+    "top_speed": "356 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b937,35,00,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "690 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id9-1.png",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id9-1.png",
+      "http://127.0.0.1:8000/media/images/id9-2.jpg",
+      "http://127.0.0.1:8000/media/images/id9-3.jpg",
+      "http://127.0.0.1:8000/media/images/id9-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Automobili Lamborghini",
+      "country_of_origin": "Italy",
+      "division": "Limited-edition hypercar"
+    },
+    "story": "The Veneno Roadster was created as an ultra-exclusive Lamborghini statement piece, combining outrageous styling with hypercar performance. Enthusiasts admire it less for practicality and more for how boldly it expresses Lamborghini\u2019s dramatic design language.",
+    "design_notes": "Every surface looks cut by air itself, with extreme vents, fins, and geometric aggression dominating the form.",
+    "fun_facts": [
+      "The Veneno is one of Lamborghini\u2019s most visually radical creations.",
+      "Its rarity and price make it a poster car for collectors.",
+      "It exists to exaggerate Lamborghini\u2019s personality to the maximum."
+    ],
+    "slug": "lamborghini-veneno-roadster"
+  },
+  {
+    "id": 10,
+    "company": "FERRARI",
+    "car_name": "F8 TRIBUTO",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "710 hp",
+    "top_speed": "340 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b92,32,40,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "770 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id10-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id10-1.jpg",
+      "http://127.0.0.1:8000/media/images/id10-2.jpg",
+      "http://127.0.0.1:8000/media/images/id10-3.jpg",
+      "http://127.0.0.1:8000/media/images/id10-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Mid-engine V8 supercar"
+    },
+    "story": "The F8 Tributo was developed as a celebration of Ferrari\u2019s modern V8 lineage. It refines the brand\u2019s mid-engine formula with sharper aero, immense speed, and unmistakable Italian drama.",
+    "design_notes": "Its shape carefully combines airflow management with classic Ferrari proportions and sculpted rear-engine visual drama.",
+    "fun_facts": [
+      "The F8 Tributo is often seen as a distilled Ferrari V8 supercar formula.",
+      "Its name reflects the idea of paying tribute to Ferrari\u2019s V8 heritage.",
+      "It sits among the most desirable modern mid-engine Ferraris."
+    ],
+    "slug": "ferrari-f8-tributo"
+  },
+  {
+    "id": 11,
+    "company": "FERRARI",
+    "car_name": "812 GTS",
+    "engine": "V12",
+    "cc_battery_capacity": "6496 cc",
+    "horsepower": "789 hp",
+    "top_speed": "340 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b92,90,50,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "718 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id11-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id11-1.avif",
+      "http://127.0.0.1:8000/media/images/id11-2.avif",
+      "http://127.0.0.1:8000/media/images/id11-3.avif",
+      "http://127.0.0.1:8000/media/images/id11-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Front-engine V12 grand touring supercar"
+    },
+    "story": "The 812 GTS represents the emotional appeal of a big naturally aspirated Ferrari V12 with open-air driving. For enthusiasts, that combination is special because it ties high-revving drama to one of Ferrari\u2019s most celebrated engine traditions.",
+    "design_notes": "Its long hood and cab-rearward proportions reinforce its classic front-engine exotic identity.",
+    "fun_facts": [
+      "Naturally aspirated V12 Ferraris are highly prized by enthusiasts.",
+      "The 812 GTS blends grand touring comfort with extreme output.",
+      "Open-top V12 performance is central to its character."
+    ],
+    "slug": "ferrari-812-gts"
+  },
+  {
+    "id": 12,
+    "company": "FERRARI",
+    "car_name": "PORTOFINO",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "592 hp",
+    "top_speed": "320 km/h",
+    "performance_0_100": "3.2 sec",
+    "price": "\u20b91,74,30,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "760 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id12-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id12-1.jpg",
+      "http://127.0.0.1:8000/media/images/id12-2.jpg",
+      "http://127.0.0.1:8000/media/images/id12-3.jpg",
+      "http://127.0.0.1:8000/media/images/id12-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Convertible grand tourer"
+    },
+    "story": "The Portofino was designed as a more approachable Ferrari grand tourer, delivering speed, style, and open-top usability in one package. Enthusiasts appreciate it because it offers Ferrari identity in a more relaxed, versatile format.",
+    "design_notes": "Its retractable roof and elegant surfacing make it look more flowing and less aggressive than Ferrari\u2019s focused mid-engine cars.",
+    "fun_facts": [
+      "The Portofino is positioned as a stylish open-top GT rather than a track-first Ferrari.",
+      "Its 2+2 layout adds practicality compared with two-seat exotics.",
+      "It emphasizes ease of use without losing Ferrari performance."
+    ],
+    "slug": "ferrari-portofino"
+  },
+  {
+    "id": 13,
+    "company": "FERRARI",
+    "car_name": "ROMA",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "612 hp",
+    "top_speed": "320 km/h",
+    "performance_0_100": "3.4 sec",
+    "price": "\u20b91,90,90,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "760 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id13-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id13-1.webp",
+      "http://127.0.0.1:8000/media/images/id13-2.webp",
+      "http://127.0.0.1:8000/media/images/id13-3.webp",
+      "http://127.0.0.1:8000/media/images/id13-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Front-engine grand touring coupe"
+    },
+    "story": "The Ferrari Roma was developed to express a cleaner, more elegant side of Ferrari design without giving up the brand\u2019s performance DNA. It targets enthusiasts who love speed but also appreciate understated Italian styling and grand touring comfort.",
+    "design_notes": "Its surfacing is smoother and more minimal than many modern Ferraris, emphasizing sophistication over aggression.",
+    "fun_facts": [
+      "The Roma is one of Ferrari\u2019s most design-focused GT cars.",
+      "It uses a front-engine layout but still delivers supercar-level pace.",
+      "Its 2+2 seating makes it more versatile than a strict two-seater."
+    ],
+    "slug": "ferrari-roma"
+  },
+  {
+    "id": 14,
+    "company": "FERRARI",
+    "car_name": "MONZA SP2",
+    "engine": "V12",
+    "cc_battery_capacity": "6,496 cc",
+    "horsepower": "789 hp",
+    "top_speed": "340 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b914,11,00,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "719 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id14-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id14-1.jpg",
+      "http://127.0.0.1:8000/media/images/id14-2.jpeg",
+      "http://127.0.0.1:8000/media/images/id14-3.jpg",
+      "http://127.0.0.1:8000/media/images/id14-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Icona series open-top collector supercar"
+    },
+    "story": "The Monza SP2 was created as part of Ferrari\u2019s Icona line, a family of cars that reinterpret classic Ferrari racing spirit for modern collectors. It is a machine built as much for emotion and design heritage as for raw numbers.",
+    "design_notes": "The barchetta-style body eliminates a traditional windshield and focuses on pure open-air drama.",
+    "fun_facts": [
+      "The Monza SP2 is aimed squarely at Ferrari collectors and enthusiasts.",
+      "Its styling pays tribute to historic Ferrari race cars.",
+      "It combines a naturally aspirated V12 with one of Ferrari\u2019s boldest modern body styles."
+    ],
+    "slug": "ferrari-monza-sp2"
+  },
+  {
+    "id": 15,
+    "company": "FERRARI",
+    "car_name": "F8 SPIDER",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "710 hp",
+    "top_speed": "340 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b92,32,40,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "770 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id15-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id15-1.webp",
+      "http://127.0.0.1:8000/media/images/id15-2.avif",
+      "http://127.0.0.1:8000/media/images/id15-3.avif",
+      "http://127.0.0.1:8000/media/images/id15-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Convertible mid-engine V8 supercar"
+    },
+    "story": "The F8 Spider takes the F8 Tributo formula and adds open-top driving, giving enthusiasts the full soundtrack and sensation of Ferrari\u2019s turbocharged V8. It exists for drivers who want theater without sacrificing serious pace.",
+    "design_notes": "It retains much of the Tributo\u2019s aerodynamic intelligence while integrating a retractable roof system.",
+    "fun_facts": [
+      "The F8 Spider offers near-coupe performance with roof-down driving.",
+      "Its appeal is strongly tied to the sound and feel of Ferrari\u2019s V8 at speed.",
+      "It sits between emotional grand touring and focused supercar performance."
+    ],
+    "slug": "ferrari-f8-spider"
+  },
+  {
+    "id": 16,
+    "company": "FERRARI",
+    "car_name": "PORTOFINO M",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "612 hp",
+    "top_speed": "320 km/h",
+    "performance_0_100": "3.2 sec",
+    "price": "\u20b91,82,60,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "760 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id16-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id16-1.avif",
+      "http://127.0.0.1:8000/media/images/id16-2.avif",
+      "http://127.0.0.1:8000/media/images/id16-3.avif",
+      "http://127.0.0.1:8000/media/images/id16-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Updated convertible grand tourer"
+    },
+    "story": "The Portofino M refines Ferrari\u2019s accessible GT-convertible idea with more power and a sharper dynamic edge. It is for enthusiasts who want Ferrari style and speed in a car that feels less intimidating than the company\u2019s mid-engine exotics.",
+    "design_notes": "Its folding hardtop and elegant proportions keep it usable while preserving a true Ferrari silhouette.",
+    "fun_facts": [
+      "The Portofino M builds on the original Portofino with stronger performance intent.",
+      "Its 2+2 configuration gives it more flexibility than many exotic convertibles.",
+      "It is one of Ferrari\u2019s friendlier entry points into open-top V8 ownership."
+    ],
+    "slug": "ferrari-portofino-m"
+  },
+  {
+    "id": 17,
+    "company": "FERRARI",
+    "car_name": "ROMA SPIDER",
+    "engine": "V8",
+    "cc_battery_capacity": "3,900 cc",
+    "horsepower": "612 hp",
+    "top_speed": "320 km/h",
+    "performance_0_100": "3.4 sec",
+    "price": "\u20b91,99,20,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "760 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id17-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id17-1.avif",
+      "http://127.0.0.1:8000/media/images/id17-2.jpg",
+      "http://127.0.0.1:8000/media/images/id17-3.jpg",
+      "http://127.0.0.1:8000/media/images/id17-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ferrari S.p.A.",
+      "country_of_origin": "Italy",
+      "division": "Convertible grand touring Ferrari"
+    },
+    "story": "The Roma Spider extends the Roma\u2019s elegant GT philosophy into open-air territory. For enthusiasts, it blends old-school glamour with modern Ferrari engineering, making it as much a style statement as a performance car.",
+    "design_notes": "It preserves the Roma\u2019s soft, flowing body language while introducing a convertible roof that suits its grand-touring personality.",
+    "fun_facts": [
+      "The Roma Spider emphasizes elegance more than overt aggression.",
+      "It is aimed at buyers who want relaxed Ferrari speed with premium design appeal.",
+      "Its character is more Riviera GT than track-day weapon."
+    ],
+    "slug": "ferrari-roma-spider"
+  },
+  {
+    "id": 18,
+    "company": "TOYOTA",
+    "car_name": "GR SUPRA",
+    "engine": "I4",
+    "cc_battery_capacity": "2,998 cc",
+    "horsepower": "382 hp",
+    "top_speed": "250 km/h",
+    "performance_0_100": "4.1 sec",
+    "price": "\u20b944,73,700",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "500 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id18-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id18-1.avif",
+      "http://127.0.0.1:8000/media/images/id18-2.avif",
+      "http://127.0.0.1:8000/media/images/id18-3.avif",
+      "http://127.0.0.1:8000/media/images/id18-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Toyota Gazoo Racing",
+      "country_of_origin": "Japan",
+      "division": "Modern rear-wheel-drive sports coupe"
+    },
+    "story": "The GR Supra was revived to bring the Supra name back into modern enthusiast culture. It represents Toyota\u2019s renewed commitment to fun driver-focused machines under the Gazoo Racing banner.",
+    "design_notes": "Its compact proportions, short wheelbase, and dramatic surfacing underline its sports-car purpose.",
+    "fun_facts": [
+      "The Supra name carries huge enthusiast nostalgia.",
+      "The GR Supra is central to Toyota\u2019s modern performance revival.",
+      "Its blend of Japanese identity and modern engineering keeps it highly discussed among enthusiasts."
+    ],
+    "slug": "toyota-gr-supra"
+  },
+  {
+    "id": 19,
+    "company": "TOYOTA",
+    "car_name": "TOYOTA 86",
+    "engine": "BOXER-4",
+    "cc_battery_capacity": "1,998 cc",
+    "horsepower": "205 hp",
+    "top_speed": "226 km/h",
+    "performance_0_100": "6.4 sec",
+    "price": "\u20b922,41,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "205 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id19-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id19-1.jpg",
+      "http://127.0.0.1:8000/media/images/id19-2.jpg",
+      "http://127.0.0.1:8000/media/images/id19-3.jpg",
+      "http://127.0.0.1:8000/media/images/id19-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Toyota",
+      "country_of_origin": "Japan",
+      "division": "Lightweight rear-wheel-drive coupe"
+    },
+    "story": "The Toyota 86 was created to bring simple rear-wheel-drive fun back to an affordable segment. Enthusiasts value it because it focuses on balance, weight, and driver engagement rather than huge power figures.",
+    "design_notes": "Its low center of gravity and compact coupe shape support its lightweight handling-first philosophy.",
+    "fun_facts": [
+      "The 86 is often praised for chassis feel rather than straight-line speed.",
+      "It became popular in enthusiast circles for tuning and track-day use.",
+      "Its affordable sports-car mission makes it culturally important."
+    ],
+    "slug": "toyota-86"
+  },
+  {
+    "id": 20,
+    "company": "TOYOTA",
+    "car_name": "TOYOTA GR86",
+    "engine": "BOXER-4",
+    "cc_battery_capacity": "2,387 cc",
+    "horsepower": "228 hp",
+    "top_speed": "226 km/h",
+    "performance_0_100": "5.6 sec",
+    "price": "\u20b924,90,000",
+    "fuel_type": "Petrol",
+    "seats": "4",
+    "torque": "250 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id20-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id20-1.avif",
+      "http://127.0.0.1:8000/media/images/id20-2.avif",
+      "http://127.0.0.1:8000/media/images/id20-3.avif",
+      "http://127.0.0.1:8000/media/images/id20-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Toyota Gazoo Racing",
+      "country_of_origin": "Japan",
+      "division": "Second-generation affordable sports coupe"
+    },
+    "story": "The GR86 improves on the original 86 formula with more power and a more mature setup while keeping the same lightweight enthusiast spirit. It is built for people who care about handling feel as much as numbers.",
+    "design_notes": "The GR86 keeps a compact silhouette and low stance, but with sharper detailing and a more assertive road presence than the earlier car.",
+    "fun_facts": [
+      "The GR86 is a direct enthusiast favorite because it keeps driving fun accessible.",
+      "It improves performance without abandoning the original concept.",
+      "It is often compared with other affordable rear-drive sports cars for pure engagement."
+    ],
+    "slug": "toyota-gr86"
+  },
+  {
+    "id": 21,
+    "company": "TOYOTA",
+    "car_name": "TOYOTA LAND CRUISER",
+    "engine": "V8",
+    "cc_battery_capacity": "5,663 cc",
+    "horsepower": "381 hp",
+    "top_speed": "220 km/h",
+    "performance_0_100": "6.7 sec",
+    "price": "\u20b970,55,000",
+    "fuel_type": "Diesel",
+    "seats": "7",
+    "torque": "500 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id21-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id21-1.avif",
+      "http://127.0.0.1:8000/media/images/id21-2.avif",
+      "http://127.0.0.1:8000/media/images/id21-3.avif",
+      "http://127.0.0.1:8000/media/images/id21-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Toyota",
+      "country_of_origin": "Japan",
+      "division": "Full-size off-road SUV"
+    },
+    "story": "The Land Cruiser is one of the most respected names in global off-road and overlanding culture. Enthusiasts admire it because it combines durability, prestige, and real-world all-terrain capability in a way few SUVs can match.",
+    "design_notes": "Its design emphasizes robustness, visibility, and upright SUV confidence rather than sleek crossover styling.",
+    "fun_facts": [
+      "The Land Cruiser has a legendary reputation for reliability and ruggedness.",
+      "It is beloved by both luxury-SUV buyers and serious off-road communities.",
+      "Its identity is rooted in durability as much as comfort."
+    ],
+    "slug": "toyota-land-cruiser"
+  },
+  {
+    "id": 22,
+    "company": "TOYOTA",
+    "car_name": "TOYOTA SEQUOIA",
+    "engine": "V8",
+    "cc_battery_capacity": "5,663 cc",
+    "horsepower": "381 hp",
+    "top_speed": "200 km/h",
+    "performance_0_100": "6.9 sec",
+    "price": "\u20b941,50,000",
+    "fuel_type": "Petrol",
+    "seats": "7",
+    "torque": "651 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id22-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id22-1.avif",
+      "http://127.0.0.1:8000/media/images/id22-2.avif",
+      "http://127.0.0.1:8000/media/images/id22-3.avif",
+      "http://127.0.0.1:8000/media/images/id22-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Toyota",
+      "country_of_origin": "Japan / North America market focus",
+      "division": "Large family SUV"
+    },
+    "story": "The Sequoia was developed to give Toyota a full-size SUV presence with strong practicality and towing appeal. It may not be a traditional poster car, but enthusiasts who value large-capability SUVs respect its dependable big-body formula.",
+    "design_notes": "Its size, upright shape, and large cabin packaging clearly prioritize family utility and road-trip capability.",
+    "fun_facts": [
+      "The Sequoia is built around space, strength, and SUV practicality.",
+      "It serves a different enthusiast niche: full-size utility and long-distance comfort.",
+      "Its large torque figure supports towing and heavy-duty usage."
+    ],
+    "slug": "toyota-sequoia"
+  },
+  {
+    "id": 23,
+    "company": "NISSAN",
+    "car_name": "GT-R",
+    "engine": "V6",
+    "cc_battery_capacity": "3,799 cc",
+    "horsepower": "600 hp",
+    "top_speed": "315 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b993,79,000",
+    "fuel_type": "Petrol",
+    "seats": "4",
+    "torque": "637 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id23-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id23-1.avif",
+      "http://127.0.0.1:8000/media/images/id23-2.avif",
+      "http://127.0.0.1:8000/media/images/id23-3.avif",
+      "http://127.0.0.1:8000/media/images/id23-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Nissan",
+      "country_of_origin": "Japan",
+      "division": "High-performance halo coupe"
+    },
+    "story": "The GT-R is one of Japan\u2019s great modern performance icons. It earned legendary status by delivering supercar-rivaling pace through advanced all-wheel-drive and brutal turbocharged performance, while still looking like a usable coupe rather than a pure exotic.",
+    "design_notes": "Its shape is functional and muscular, with a design language focused more on speed and confidence than delicate beauty.",
+    "fun_facts": [
+      "The GT-R is often nicknamed Godzilla in enthusiast culture.",
+      "It became famous for punching far above its price class in performance terms.",
+      "Its tuning and motorsport history massively strengthen its enthusiast appeal."
+    ],
+    "slug": "nissan-gt-r"
+  },
+  {
+    "id": 24,
+    "company": "NISSAN",
+    "car_name": "370Z",
+    "engine": "V6",
+    "cc_battery_capacity": "3,696 cc",
+    "horsepower": "332 hp",
+    "top_speed": "250 km/h",
+    "performance_0_100": "4.7 sec",
+    "price": "\u20b924,90,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "366 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id24-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id24-1.avif",
+      "http://127.0.0.1:8000/media/images/id24-2.avif",
+      "http://127.0.0.1:8000/media/images/id24-3.avif",
+      "http://127.0.0.1:8000/media/images/id24-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Nissan",
+      "country_of_origin": "Japan",
+      "division": "Two-seat sports coupe"
+    },
+    "story": "The 370Z carried the long-running Z-car tradition into the modern era with a simple formula: naturally aspirated V6 power, rear-wheel drive, and two-seat sports-car focus. Enthusiasts appreciate it because it stayed loyal to old-school sports-car values.",
+    "design_notes": "Its short wheelbase, compact cabin, and long-nose proportions clearly signal classic Z-car identity.",
+    "fun_facts": [
+      "The 370Z is valued for mechanical simplicity and tuning potential.",
+      "It is one of the last widely accessible naturally aspirated Japanese sports coupes of its era.",
+      "Its character is more analog than many newer sports cars."
+    ],
+    "slug": "nissan-370z"
+  },
+  {
+    "id": 25,
+    "company": "NISSAN",
+    "car_name": "Z PROTO",
+    "engine": "V6",
+    "cc_battery_capacity": "2,998 cc",
+    "horsepower": "400 hp",
+    "top_speed": "290 km/h",
+    "performance_0_100": "4.1 sec",
+    "price": "\u20b933,20,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "475 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id25-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id25-1.jpg",
+      "http://127.0.0.1:8000/media/images/id25-2.jpg",
+      "http://127.0.0.1:8000/media/images/id25-3.jpg",
+      "http://127.0.0.1:8000/media/images/id25-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Nissan",
+      "country_of_origin": "Japan",
+      "division": "Modern revival of the Z-car concept"
+    },
+    "story": "The Z Proto was Nissan\u2019s way of signaling that the Z lineage still matters. It mixes retro influences with modern turbocharged performance, giving enthusiasts a car that respects heritage while moving the formula forward.",
+    "design_notes": "Its styling deliberately references earlier Z generations while updating proportions, lighting, and surfacing for a modern audience.",
+    "fun_facts": [
+      "The Z Proto taps directly into classic Nissan sports-car nostalgia.",
+      "It was designed to reconnect the brand with enthusiast identity.",
+      "Its retro-modern styling is one of its strongest talking points."
+    ],
+    "slug": "nissan-z-proto"
+  },
+  {
+    "id": 26,
+    "company": "PORSCHE",
+    "car_name": "911 TURBO S",
+    "engine": "Flat-6",
+    "cc_battery_capacity": "3,745 cc",
+    "horsepower": "640 hp",
+    "top_speed": "330 km/h",
+    "performance_0_100": "2.7 sec",
+    "price": "\u20b91,71,81,000",
+    "fuel_type": "Petrol",
+    "seats": "2+2",
+    "torque": "800 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id26-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id26-1.jpg",
+      "http://127.0.0.1:8000/media/images/id26-2.avif",
+      "http://127.0.0.1:8000/media/images/id26-3.jpg",
+      "http://127.0.0.1:8000/media/images/id26-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Porsche AG",
+      "country_of_origin": "Germany",
+      "division": "High-performance sports car"
+    },
+    "story": "The 911 Turbo S represents decades of Porsche evolution. It is one of the most refined performance machines ever built, combining daily usability with extreme speed. Enthusiasts admire it because it delivers supercar performance without sacrificing comfort or reliability.",
+    "design_notes": "The iconic 911 silhouette remains unchanged in philosophy but refined with modern aerodynamics and aggressive detailing.",
+    "fun_facts": [
+      "The 911 is one of the longest-running sports car nameplates.",
+      "Turbo S models are known for insane acceleration.",
+      "Combines luxury + track performance."
+    ],
+    "slug": "porsche-911-turbo-s"
+  },
+  {
+    "id": 27,
+    "company": "PORSCHE",
+    "car_name": "TAYCAN TURBO S",
+    "engine": "Electric",
+    "cc_battery_capacity": "93.4 kWh",
+    "horsepower": "750 hp",
+    "top_speed": "260 km/h",
+    "performance_0_100": "2.6 sec",
+    "price": "\u20b91,53,55,000",
+    "fuel_type": "Electric",
+    "seats": "4",
+    "torque": "1050 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id27-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id27-1.avif",
+      "http://127.0.0.1:8000/media/images/id27-2.avif",
+      "http://127.0.0.1:8000/media/images/id27-3.avif",
+      "http://127.0.0.1:8000/media/images/id27-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Porsche AG",
+      "country_of_origin": "Germany",
+      "division": "Electric performance sedan"
+    },
+    "story": "The Taycan Turbo S proves that electric cars can deliver true Porsche driving feel. It was developed to bring performance EVs into the enthusiast world without losing the brand\u2019s heritage.",
+    "design_notes": "Low stance, aggressive lighting, and futuristic design language define its electric identity.",
+    "fun_facts": [
+      "One of the fastest EVs in the world",
+      "Instant torque delivery",
+      "Maintains Porsche DNA in EV era"
+    ],
+    "slug": "porsche-taycan-turbo-s"
+  },
+  {
+    "id": 28,
+    "company": "CHEVROLET",
+    "car_name": "CORVETTE C8",
+    "engine": "V8",
+    "cc_battery_capacity": "6,162 cc",
+    "horsepower": "495 hp",
+    "top_speed": "312 km/h",
+    "performance_0_100": "2.9 sec",
+    "price": "\u20b953,95,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "637 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id28-1.jpg",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id28-1.jpg",
+      "http://127.0.0.1:8000/media/images/id28-2.jpg",
+      "http://127.0.0.1:8000/media/images/id28-3.avif",
+      "http://127.0.0.1:8000/media/images/id28-4.jpg"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Chevrolet",
+      "country_of_origin": "USA",
+      "division": "Mid-engine sports car"
+    },
+    "story": "The Corvette C8 changed everything by switching to a mid-engine layout. It brought supercar proportions to an affordable segment, making it one of the most revolutionary Corvettes ever.",
+    "design_notes": "Sharp lines and mid-engine stance give it exotic supercar appeal.",
+    "fun_facts": [
+      "First mid-engine Corvette ever",
+      "Supercar design at sports car price",
+      "Highly popular among enthusiasts"
+    ],
+    "slug": "chevrolet-corvette-c8"
+  },
+  {
+    "id": 29,
+    "company": "BUGATTI",
+    "car_name": "CHIRON",
+    "engine": "W16",
+    "cc_battery_capacity": "8,000 cc",
+    "horsepower": "1500 hp",
+    "top_speed": "420 km/h",
+    "performance_0_100": "2.4 sec",
+    "price": "\u20b924,90,00,000",
+    "fuel_type": "Petrol",
+    "seats": "2",
+    "torque": "1600 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id29-1.avif",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id29-1.avif",
+      "http://127.0.0.1:8000/media/images/id29-2.avif",
+      "http://127.0.0.1:8000/media/images/id29-3.avif",
+      "http://127.0.0.1:8000/media/images/id29-4.avif"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Bugatti Automobiles",
+      "country_of_origin": "France",
+      "division": "Hypercar"
+    },
+    "story": "The Bugatti Chiron represents the absolute peak of automotive engineering. Built without compromise, it pushes speed, luxury, and engineering beyond traditional limits.",
+    "design_notes": "Signature horseshoe grille and extreme aerodynamic curves define its identity.",
+    "fun_facts": [
+      "Among the fastest cars ever built",
+      "Quad-turbo W16 engine",
+      "Ultra-limited production"
+    ],
+    "slug": "bugatti-chiron"
+  },
+  {
+    "id": 30,
+    "company": "Ford",
+    "car_name": "KA+",
+    "engine": "1.2L Petrol",
+    "cc_battery_capacity": "1,200 cc",
+    "horsepower": "70-85 hp",
+    "top_speed": "165 km/h",
+    "performance_0_100": "10.5 sec",
+    "price": "\u20b99,96,000 - \u20b912,45,000",
+    "fuel_type": "Petrol",
+    "seats": "5",
+    "torque": "100 - 140 Nm",
+    "image": "http://127.0.0.1:8000/media/images/id3-1.webp",
+    "gallery": [
+      "http://127.0.0.1:8000/media/images/id3-1.webp",
+      "http://127.0.0.1:8000/media/images/id3-2.webp",
+      "http://127.0.0.1:8000/media/images/id3-3.webp",
+      "http://127.0.0.1:8000/media/images/id3-4.webp"
+    ],
+    "manufacturer_details": {
+      "manufacturer": "Ford Motor Company",
+      "country_of_origin": "United States",
+      "division": "Budget urban hatchback"
+    },
+    "story": "The Ford KA+ was created for buyers who wanted a practical, affordable city car with straightforward engineering. It does not chase exotic status, but it matters because enthusiast culture also values honest, lightweight, accessible cars that serve daily life well.",
+    "design_notes": "Its simple shape prioritizes cabin practicality and ease of ownership rather than visual drama.",
+    "fun_facts": [
+      "Cars like the KA+ are often appreciated for simplicity and low running costs.",
+      "Its relevance comes from accessibility rather than prestige.",
+      "It represents the entry-level side of car culture."
+    ],
+    "slug": "ford-ka"
+  }
+]

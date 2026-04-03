@@ -1,0 +1,135 @@
+.tyre-loader-wrap {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.tyre-loader-wrap--small {
+  min-height: 140px;
+}
+
+.tyre-loader-wrap--large {
+  min-height: 300px;
+}
+
+.tyre-loader {
+  display: grid;
+  place-items: center;
+}
+
+.tyre-loader--small {
+  width: 74px;
+  height: 74px;
+}
+
+.tyre-loader--medium {
+  width: 110px;
+  height: 110px;
+}
+
+.tyre-loader--large {
+  width: 132px;
+  height: 132px;
+}
+
+.tyre-loader--small .tyre-outer {
+  width: 74px;
+  height: 74px;
+  border-width: 6px;
+}
+
+.tyre-loader--small .tyre-inner {
+  inset: 12px;
+}
+
+.tyre-loader--small .tyre-center {
+  width: 16px;
+  height: 16px;
+}
+
+.tyre-loader--medium .tyre-outer {
+  width: 110px;
+  height: 110px;
+  border-width: 8px;
+}
+
+.tyre-loader--medium .tyre-inner {
+  inset: 18px;
+}
+
+.tyre-loader--medium .tyre-center {
+  width: 24px;
+  height: 24px;
+}
+
+.tyre-loader--large .tyre-outer {
+  width: 132px;
+  height: 132px;
+  border-width: 9px;
+}
+
+.tyre-loader--large .tyre-inner {
+  inset: 22px;
+}
+
+.tyre-loader--large .tyre-center {
+  width: 28px;
+  height: 28px;
+}
+
+.tyre-outer {
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at center, #1b1b1f 0 28%, transparent 28%),
+    repeating-conic-gradient(
+      from 0deg,
+      #111 0deg 10deg,
+      #232329 10deg 20deg
+    );
+  border: solid #0a0a0d;
+  box-shadow:
+    inset 0 0 0 3px #2b2b31,
+    inset 0 0 24px rgba(255, 255, 255, 0.05),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: tyreSpin 1s linear infinite;
+}
+
+.tyre-inner {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      #90909b 0deg 20deg,
+      #c7c7d1 20deg 40deg
+    );
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.25);
+}
+
+.tyre-center {
+  border-radius: 50%;
+  background: #5f6068;
+  box-shadow:
+    inset 0 0 6px rgba(255, 255, 255, 0.18),
+    0 0 0 4px #81828c;
+}
+
+.tyre-loader-label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+@keyframes tyreSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}

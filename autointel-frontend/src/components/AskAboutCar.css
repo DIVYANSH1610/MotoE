@@ -1,0 +1,163 @@
+.ask-about-car {
+  margin-top: 28px;
+}
+
+.ask-about-car-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.ask-about-car-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ask-about-car-title h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.ask-about-car-badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff6a00, #ff2d55);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.ask-about-car-subtitle {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.8;
+}
+
+.ask-about-car-textarea {
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  outline: none;
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  font: inherit;
+  line-height: 1.7;
+}
+
+.ask-about-car-textarea:focus {
+  border-color: rgba(255, 106, 0, 0.35);
+  box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.08);
+}
+
+.ask-about-car-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.ask-about-car-actions {
+  margin-top: 14px;
+}
+
+.ask-about-car-button {
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ff6a00, #ff2d55);
+  box-shadow: 0 14px 28px rgba(255, 90, 40, 0.24);
+}
+
+.ask-about-car-prompts {
+  margin-top: 20px;
+}
+
+.ask-about-car-prompts-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #ff9b57;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.ask-about-car-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ask-about-car-chip {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.ask-about-car-answer {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ask-md-h2 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.ask-md-h3 {
+  margin: 14px 0 8px;
+  font-size: 1rem;
+  color: #ff9a52;
+}
+
+.ask-md-p {
+  margin: 0 0 12px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.ask-md-ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.ask-md-li {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.8;
+}
+
+.ask-md-strong {
+  color: white;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .ask-about-car-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ask-about-car-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
