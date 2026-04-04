@@ -12,13 +12,11 @@ urlpatterns = [
     path("", home),
     path("admin/", admin.site.urls),
     path("api/cars/", include("cars.urls")),
-    path("api/ai/", include("ai.urls")),   # ✅ add this
+    path("api/ai/", include("ai.urls")),
 ]
 
-# Keep this for local development
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# Force media serving on Render / production too
 urlpatterns += [
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
