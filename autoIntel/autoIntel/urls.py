@@ -12,6 +12,7 @@ urlpatterns = [
     path("", home),
     path("admin/", admin.site.urls),
     path("api/cars/", include("cars.urls")),
+    path("api/ai/", include("ai.urls")),   # ✅ add this
 ]
 
 # Keep this for local development
