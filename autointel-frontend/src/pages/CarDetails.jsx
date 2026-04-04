@@ -622,25 +622,17 @@ function CarDetails() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="garage-ai-header">
-                <button
-                  type="button"
-                  className="garage-ai-back-btn"
-                  onClick={() => setShowAI(false)}
-                >
-                  Back
-                </button>
-
                 <h3>
                   <Bot size={16} />
                   AI Garage Assistant
                 </h3>
-
-
-
-
-
-
-                
+                <button
+                  type="button"
+                  className="garage-ai-close-btn"
+                  onClick={() => setShowAI(false)}
+                >
+                  <X size={18} />
+                </button>
               </div>
 
               <div className="garage-ai-chat">
