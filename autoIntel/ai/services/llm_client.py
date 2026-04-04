@@ -152,39 +152,44 @@ def generate_used_car_advice(user_data: dict, scoring_result: dict) -> str:
     client = get_client()
 
     full_prompt = f"""
-You are an expert used car advisor for an automotive platform in India.
+You are a premium used car buying advisor for the Indian market.
+
+You must provide a practical, decisive evaluation based on the available data.
+Do not ask for more data unless the input is almost empty.
+If some data is limited, make cautious assumptions and clearly mention uncertainty.
 
 You are given:
-1. User-submitted used car details
-2. Scoring engine output already calculated by the backend
+1. User-submitted vehicle details
+2. Backend-generated scoring output
 
-Write a clean markdown response.
+Your response must feel like a real pre-owned intelligence report.
 
-IMPORTANT:
-- Be practical and honest
-- Explain whether the user should buy, be cautious, or avoid the car
-- Use the scores given; do not invent new scores
-- Mention fair price range, negotiation view, major risks, and reliability
-- Keep the answer easy to understand and premium in tone
-
-Preferred structure:
+Required response format:
 ## Verdict
-Short direct conclusion
+A direct recommendation in 2-3 lines.
 
-## Score Summary
-Short explanation of strongest and weakest scoring areas
+## Why This Verdict
+Explain why the vehicle falls into this category.
 
 ## Price Guidance
-Use the fair price range and not-worth-above number
+Discuss the fair range, asking price comfort, and negotiation angle.
 
-## Red Flags
-Bullet list
+## Key Risks
+Use bullet points.
 
 ## Inspection Priorities
-Bullet list
+Use bullet points.
 
 ## Final Advice
-One practical closing recommendation
+A practical closing recommendation with buyer confidence.
+
+Important rules:
+- Be decisive
+- Be practical
+- Use the scoring output as the backbone
+- Do not respond by saying you need more data
+- Do not invent exact numbers beyond the given scoring result
+- Keep the tone premium, researched, and buyer-focused
 
 User Data:
 {user_data}
