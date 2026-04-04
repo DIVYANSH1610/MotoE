@@ -1,47 +1,55 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
+  return "";
+}
 
-const authApi = axios.create({
-  baseURL: `${BASE_URL}/auth`,
+const AUTH_API = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/auth/`,
   withCredentials: true,
 });
 
 export const getCsrf = async () => {
-  const res = await authApi.get("/csrf/");
-  return res.data.csrfToken;
+  return AUTH_API.get("csrf/");
 };
 
 export const loginUser = async (data) => {
-  const csrfToken = await getCsrf();
-  return authApi.post("/login/", data, {
+  await getCsrf();
+  return AUTH_API.post("login/", data, {
     headers: {
-      "X-CSRFToken": csrfToken,
+      "X-CSRFToken": getCookie("csrftoken"),
     },
   });
 };
 
 export const registerUser = async (data) => {
-  const csrfToken = await getCsrf();
-  return authApi.post("/register/", data, {
+  await getCsrf();
+  return AUTH_API.post("register/", data, {
     headers: {
-      "X-CSRFToken": csrfToken,
+      "X-CSRFToken": getCookie("csrftoken"),
     },
   });
 };
 
 export const logoutUser = async () => {
-  const csrfToken = await getCsrf();
-  return authApi.post(
-    "/logout/",
+  await getCsrf();
+  return AUTH_API.post(
+    "logout/",
     {},
     {
       headers: {
-        "X-CSRFToken": csrfToken,
+        "X-CSRFToken": getCookie("csrftoken"),
       },
     }
   );
 };
 
-export const getSession = () => authApi.get("/session/");
-export const getDashboard = () => authApi.get("/dashboard/");
+export const getSession = () => AUTH_API.get("session/");
+export const getDashboard = () => AUTH_API.get("dashboard/");
+
+export default AUTH_API;
