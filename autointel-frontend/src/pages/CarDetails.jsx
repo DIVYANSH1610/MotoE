@@ -25,6 +25,9 @@ import GalleryLightbox from "../components/GalleryLightbox";
 import TyreLoader from "../components/TyreLoader";
 import "./CarDetails.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const BACKEND_ORIGIN = API_BASE.replace("/api/cars", "");
+
 function CarDetails() {
   const navigate = useNavigate();
   const { slug } = useParams();
@@ -42,13 +45,19 @@ function CarDetails() {
 
   const chatEndRef = useRef(null);
 
-  
+  const getImageUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    return `${BACKEND_ORIGIN}${path}`;
+  };
 
   useEffect(() => {
     setLoading(true);
 
     axios
-      .get(`http://127.0.0.1:8000/api/cars/${slug}/`)
+      .get(`${API_BASE}/${slug}/`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setCar(res.data);
       })
@@ -159,7 +168,7 @@ function CarDetails() {
       setAiLoading(true);
 
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/ai/garage/",
+        `${BACKEND_ORIGIN}/api/ai/garage/`,
         {
           question: finalQuestion,
           context_car_slug: car.slug,
@@ -325,7 +334,7 @@ function CarDetails() {
           <div className="garage-hero-media">
             <div className="garage-hero-glow"></div>
             <img
-              src={car.image || galleryImages[0] || ""}
+              src={getImageUrl(car.image || galleryImages[0] || "")}
               alt={car.car_name}
               className="garage-hero-image"
               onClick={() => openLightbox(0)}
@@ -582,7 +591,10 @@ function CarDetails() {
                   onClick={() => openLightbox(index)}
                 >
                   <div className="garage-gallery-overlay"></div>
-                  <img src={img} alt={`${car.car_name} ${index + 1}`} />
+                  <img
+                    src={getImageUrl(img)}
+                    alt={`${car.car_name} ${index + 1}`}
+                  />
                 </motion.button>
               ))
             ) : (
@@ -719,18 +731,18 @@ function CarDetails() {
       </AnimatePresence>
 
       <AnimatePresence>
-  {lightboxOpen && galleryImages.length > 0 && (
-    <GalleryLightbox
-      images={galleryImages}
-      currentIndex={currentImageIndex}
-      onClose={closeLightbox}
-      onPrev={handlePrevImage}
-      onNext={handleNextImage}
-      onSelect={setCurrentImageIndex}
-      carName={car?.car_name}
-    />
-  )}
-</AnimatePresence>
+        {lightboxOpen && galleryImages.length > 0 && (
+          <GalleryLightbox
+            images={galleryImages.map(getImageUrl)}
+            currentIndex={currentImageIndex}
+            onClose={closeLightbox}
+            onPrev={handlePrevImage}
+            onNext={handleNextImage}
+            onSelect={setCurrentImageIndex}
+            carName={car?.car_name}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
