@@ -27,6 +27,9 @@ function FavouriteButton({ slug }) {
 
   const handleToggleFavourite = async (e) => {
     e.stopPropagation();
+    e.preventDefault();
+
+    if (loading) return;
 
     try {
       setLoading(true);
@@ -38,13 +41,15 @@ function FavouriteButton({ slug }) {
         await addFavourite(slug);
         setIsFavourited(true);
       }
+
+      window.dispatchEvent(new Event("favourites-updated"));
     } catch (error) {
       console.error("Favourite toggle failed:", error.response?.data || error);
 
       if (error.response?.status === 401) {
         alert("Please login first to use favourites.");
       } else if (error.response?.status === 403) {
-        alert("Request blocked. This is likely a CSRF/auth permission issue.");
+        alert("Request blocked. CSRF/session permission issue on deployed server.");
       } else {
         alert("Something went wrong while updating favourites.");
       }
@@ -55,14 +60,14 @@ function FavouriteButton({ slug }) {
 
   return (
     <button
-  type="button"
-  onClick={handleToggleFavourite}
-  disabled={loading}
-  className="race-fav-btn"
-  title={isFavourited ? "Remove from favourites" : "Add to favourites"}
->
-  {isFavourited ? "❤️" : "🤍"}
-</button>
+      type="button"
+      onClick={handleToggleFavourite}
+      disabled={loading}
+      className="race-fav-btn"
+      title={isFavourited ? "Remove from favourites" : "Add to favourites"}
+    >
+      {loading ? "..." : isFavourited ? "❤️" : "🤍"}
+    </button>
   );
 }
 
