@@ -260,13 +260,13 @@ function UsedCarAdvisor() {
             {result && (
               <div className="used-result">
                 <div className="used-verdict-row">
-                  <div className={`used-verdict used-verdict--${result.recommendation}`}>
-                    {result.recommendation.toUpperCase()}
-                  </div>
-                  <div className="used-overall-score">
-                    Overall Score: <strong>{result.overall_score}/10</strong>
-                  </div>
-                </div>
+  <div className={`used-verdict used-verdict--${result?.recommendation || "unknown"}`}>
+    {(result?.recommendation || "unknown").toUpperCase()}
+  </div>
+  <div className="used-overall-score">
+    Overall Score: <strong>{result?.overall_score ?? "N/A"}/10</strong>
+  </div>
+</div>
 
                 <div className="used-score-grid">
                   {Object.entries(result.scores).map(([key, value]) => (
