@@ -16,7 +16,6 @@ class CarListView(View):
     def get(self, request):
         cars = get_all_cars()
 
-        # Optional: remove heavy fields for list view
         minimal_cars = [
             {
                 "id": car["id"],
@@ -27,6 +26,7 @@ class CarListView(View):
                 "top_speed": car["top_speed"],
                 "price": car["price"],
                 "image": car["image"],
+                "gallery": car.get("gallery", []),
             }
             for car in cars
         ]
