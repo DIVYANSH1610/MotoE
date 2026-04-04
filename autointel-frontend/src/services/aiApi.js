@@ -1,36 +1,37 @@
 import axios from "axios";
 import { getCsrf } from "./authApi";
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return parts.pop().split(";").shift();
-  }
-  return "";
-}
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const BACKEND_ORIGIN = API_BASE.replace("/api/cars", "");
 
-const BACKEND_ORIGIN = import.meta.env.VITE_API_BASE_URL.replace("/api/cars", "");
-
-const AI_API = axios.create({
-  baseURL: `${BACKEND_ORIGIN}/api/ai/`,
-  withCredentials: true,
-});
-
+// AI Garage Assistant
 export const askGarageAI = async (payload) => {
-  await getCsrf();
-  return AI_API.post("garage/", payload, {
-    headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
-    },
-  });
+  const csrfToken = await getCsrf();
+
+  return axios.post(
+    `${BACKEND_ORIGIN}/api/ai/garage/`,
+    payload,
+    {
+      withCredentials: true,
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+    }
+  );
 };
 
+// Used Car Advisor
 export const getUsedCarAdvice = async (payload) => {
-  await getCsrf();
-  return AI_API.post("used-car-advisor/", payload, {
-    headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
-    },
-  });
+  const csrfToken = await getCsrf();
+
+  return axios.post(
+    `${BACKEND_ORIGIN}/api/ai/used-car-advisor/`,
+    payload,
+    {
+      withCredentials: true,
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+    }
+  );
 };
