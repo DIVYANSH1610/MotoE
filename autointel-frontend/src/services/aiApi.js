@@ -10,8 +10,10 @@ function getCookie(name) {
   return "";
 }
 
+const BACKEND_ORIGIN = import.meta.env.VITE_API_BASE_URL.replace("/api/cars", "");
+
 const AI_API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/ai/",
+  baseURL: `${BACKEND_ORIGIN}/api/ai/`,
   withCredentials: true,
 });
 
