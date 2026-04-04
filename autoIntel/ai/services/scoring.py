@@ -1,386 +1,306 @@
-def clamp_score(value, minimum=0, maximum=10):
+from datetime import datetime
+
+
+def clamp(value, minimum=0, maximum=10):
     return max(minimum, min(maximum, round(value, 1)))
 
 
-def score_reliability(brand, fuel_type, transmission, service_history):
-    brand = (brand or "").lower()
-    fuel_type = (fuel_type or "").lower()
-    transmission = (transmission or "").lower()
-    service_history = (service_history or "").lower()
-
-    score = 6.5
-
-    highly_reliable = ["toyota", "honda", "suzuki", "lexus"]
-    decent_reliable = ["hyundai", "kia", "mazda", "nissan"]
-
-    if brand in highly_reliable:
-        score += 2
-    elif brand in decent_reliable:
-        score += 1
-
-    if "full" in service_history or "complete" in service_history or "well" in service_history:
-        score += 1
-
-    if fuel_type == "diesel":
-        score -= 0.3
-
-    if transmission in ["dct", "cvt"]:
-        score -= 0.3
-
-    return clamp_score(score)
+def compute_age(year):
+    current_year = datetime.now().year
+    if not year:
+        return None
+    return max(0, current_year - int(year))
 
 
-def score_engine_reliability(brand, year, kilometers_driven):
-    brand = (brand or "").lower()
-    score = 6.5
-
-    if brand in ["toyota", "honda", "lexus"]:
-        score += 2
-    elif brand in ["hyundai", "kia", "mazda"]:
-        score += 1
-
-    if year and year < 2012:
-        score -= 0.5
-
-    if kilometers_driven and kilometers_driven > 100000:
-        score -= 1
-    elif kilometers_driven and kilometers_driven > 70000:
-        score -= 0.5
-
-    return clamp_score(score)
-
-
-def score_economy(fuel_type, kilometers_driven, car_type):
-    fuel_type = (fuel_type or "").lower()
-    car_type = (car_type or "").lower()
-
-    score = 6
-
-    if fuel_type in ["hybrid", "cng"]:
-        score += 2
-    elif fuel_type == "petrol":
-        score += 1
-    elif fuel_type == "electric":
-        score += 1.5
-    elif fuel_type == "diesel":
-        score += 0.5
-
-    if car_type in ["suv", "pickup"]:
-        score -= 1
-    elif car_type in ["hatchback", "sedan"]:
-        score += 0.5
-
-    if kilometers_driven and kilometers_driven > 120000:
-        score -= 0.5
-
-    return clamp_score(score)
-
-
-def score_maintenance_burden(brand, transmission, fuel_type, service_history):
-    brand = (brand or "").lower()
-    transmission = (transmission or "").lower()
-    fuel_type = (fuel_type or "").lower()
-    service_history = (service_history or "").lower()
-
-    score = 6.5
-
-    premium_brands = ["bmw", "mercedes", "audi", "jaguar", "land rover", "porsche"]
-    affordable_brands = ["maruti", "suzuki", "honda", "hyundai", "toyota", "kia"]
-
-    if brand in premium_brands:
-        score -= 2
-    elif brand in affordable_brands:
-        score += 1.5
-
-    if transmission in ["dct", "cvt"]:
-        score -= 0.5
-
-    if fuel_type == "diesel":
-        score -= 0.3
-
-    if "full" in service_history or "complete" in service_history:
-        score += 0.8
-
-    return clamp_score(score)
-
-
-def score_practicality(car_type, seats):
-    car_type = (car_type or "").lower()
-    seats = int(seats) if str(seats).isdigit() else 5
-
-    score = 6
-
-    if car_type in ["suv", "mpv"]:
-        score += 2
-    elif car_type in ["sedan", "hatchback"]:
-        score += 1
-    elif car_type in ["sports", "coupe", "convertible"]:
-        score -= 1
-
-    if seats >= 5:
-        score += 1
-
-    return clamp_score(score)
-
-
-def score_used_car_risk(
-    year,
-    kilometers_driven,
-    owner_count,
-    accident_history,
-    tyre_condition,
-    insurance_status,
-    service_history,
-):
-    score = 8.5
-
-    if year and year < 2015:
-        score -= 1
-
-    if kilometers_driven and kilometers_driven > 120000:
-        score -= 2
-    elif kilometers_driven and kilometers_driven > 80000:
-        score -= 1
-
-    if owner_count and owner_count >= 3:
-        score -= 2
-    elif owner_count and owner_count == 2:
-        score -= 0.8
-
-    accident_history = (accident_history or "").lower()
-    if accident_history == "major":
-        score -= 3
-    elif accident_history == "minor":
-        score -= 1
-
-    tyre_condition = (tyre_condition or "").lower()
-    if tyre_condition in ["worn", "needs replacement"]:
-        score -= 1
-
-    insurance_status = (insurance_status or "").lower()
-    if insurance_status == "expired":
-        score -= 0.8
-
-    service_history = (service_history or "").lower()
-    if not service_history or "none" in service_history or "partial" in service_history:
-        score -= 1.5
-
-    return clamp_score(score)
-
-
-def score_value_for_money(asking_price, estimated_low, estimated_high):
-    if not asking_price:
-        return 5.5
-
-    if asking_price < estimated_low:
+def score_age(year):
+    age = compute_age(year)
+    if age is None:
+        return 5.0
+    if age <= 2:
         return 9.0
-    if estimated_low <= asking_price <= estimated_high:
-        return 7.5
-    if asking_price <= estimated_high * 1.1:
-        return 5.8
+    if age <= 4:
+        return 8.2
+    if age <= 6:
+        return 7.4
+    if age <= 8:
+        return 6.5
+    if age <= 10:
+        return 5.6
+    if age <= 12:
+        return 4.8
     return 3.8
 
 
-def score_enthusiast_appeal(car_type, brand, transmission, fuel_type):
-    car_type = (car_type or "").lower()
-    brand = (brand or "").lower()
-    transmission = (transmission or "").lower()
-    fuel_type = (fuel_type or "").lower()
+def score_mileage(km, year):
+    if not km:
+        return 6.0
 
-    score = 5.5
+    age = compute_age(year)
+    if age is None or age <= 0:
+        if km <= 20000:
+            return 8.5
+        if km <= 50000:
+            return 7.0
+        if km <= 80000:
+            return 5.8
+        return 4.5
 
-    enthusiast_brands = ["bmw", "audi", "porsche", "ford", "subaru", "mazda", "toyota"]
-    if brand in enthusiast_brands:
-        score += 1
+    expected_km = age * 12000
+    ratio = km / max(expected_km, 1)
 
-    if car_type in ["sports", "coupe", "sedan"]:
-        score += 1
-
-    if transmission == "manual":
-        score += 1
-
-    if fuel_type in ["petrol", "hybrid"]:
-        score += 0.5
-
-    return clamp_score(score)
-
-
-def estimate_price_range(year, kilometers_driven, owner_count, accident_history, asking_price):
-    if not asking_price:
-        asking_price = 500000
-
-    current_estimate = float(asking_price)
-
-    if year:
-        age_penalty_factor = max(0.55, 1 - ((2026 - year) * 0.04))
-        current_estimate *= age_penalty_factor
-
-    if kilometers_driven:
-        if kilometers_driven > 120000:
-            current_estimate *= 0.82
-        elif kilometers_driven > 80000:
-            current_estimate *= 0.9
-        elif kilometers_driven < 40000:
-            current_estimate *= 1.05
-
-    if owner_count:
-        if owner_count >= 3:
-            current_estimate *= 0.88
-        elif owner_count == 2:
-            current_estimate *= 0.95
-
-    accident_history = (accident_history or "").lower()
-    if accident_history == "major":
-        current_estimate *= 0.8
-    elif accident_history == "minor":
-        current_estimate *= 0.93
-
-    low = round(current_estimate * 0.95)
-    high = round(current_estimate * 1.08)
-    not_worth_above = round(high * 1.05)
-
-    return low, high, not_worth_above
+    if ratio <= 0.7:
+        return 9.0
+    if ratio <= 1.0:
+        return 8.0
+    if ratio <= 1.25:
+        return 6.8
+    if ratio <= 1.5:
+        return 5.6
+    if ratio <= 2.0:
+        return 4.2
+    return 3.2
 
 
-def build_inspection_checklist(accident_history, tyre_condition, service_history, transmission):
-    checklist = [
-        "Check service history and invoices",
-        "Inspect suspension, steering, and braking feel",
-        "Scan for hidden warning lights or electrical faults",
-        "Check engine bay for leaks and unusual noises",
-        "Verify chassis number, insurance, and registration documents",
-    ]
-
-    if (accident_history or "").lower() in ["minor", "major"]:
-        checklist.append("Inspect body panels, frame alignment, and repaint evidence")
-
-    if (tyre_condition or "").lower() in ["worn", "needs replacement"]:
-        checklist.append("Inspect tyre age, tread depth, and wheel alignment")
-
-    if not service_history or "partial" in service_history.lower() or "none" in service_history.lower():
-        checklist.append("Get a pre-purchase inspection from a trusted mechanic")
-
-    if (transmission or "").lower() in ["automatic", "cvt", "dct"]:
-        checklist.append("Check transmission smoothness, jerks, and delayed shifts")
-
-    return checklist
+def score_owner_count(owner_count):
+    owner_count = int(owner_count or 1)
+    if owner_count == 1:
+        return 9.0
+    if owner_count == 2:
+        return 7.0
+    if owner_count == 3:
+        return 5.2
+    return 3.8
 
 
-def build_red_flags(accident_history, owner_count, service_history, tyre_condition, insurance_status):
-    red_flags = []
+def score_service_history(service_history):
+    text = (service_history or "").strip().lower()
+    if not text:
+        return 4.8
+    if "complete" in text or "full" in text or "authorized" in text:
+        return 8.8
+    if "partial" in text or "some" in text:
+        return 6.3
+    return 5.8
+
+
+def score_accident_history(accident_history):
+    value = (accident_history or "unknown").strip().lower()
+    if value == "none":
+        return 9.0
+    if value == "minor":
+        return 6.0
+    if value == "major":
+        return 2.5
+    return 4.5
+
+
+def score_tyre_condition(tyre_condition):
+    value = (tyre_condition or "good").strip().lower()
+    if value == "new":
+        return 9.0
+    if value == "good":
+        return 7.5
+    if value == "worn":
+        return 5.0
+    if value == "needs replacement":
+        return 2.8
+    return 5.5
+
+
+def score_insurance_status(insurance_status):
+    value = (insurance_status or "expired").strip().lower()
+    if value == "comprehensive":
+        return 8.5
+    if value == "third-party":
+        return 6.0
+    if value == "expired":
+        return 3.5
+    return 5.0
+
+
+def score_price_value(asking_price, year, km, owner_count, accident_history):
+    if not asking_price or asking_price <= 0:
+        return 5.5
+
+    age = compute_age(year)
+    if age is None:
+        age = 7
+
+    base = 8.5
+    base -= min(age * 0.35, 3.2)
+    base -= min((km or 0) / 50000, 2.5) * 0.6
+    base -= max(0, (owner_count or 1) - 1) * 0.6
 
     if (accident_history or "").lower() == "major":
-        red_flags.append("Major accident history can reduce structural confidence and resale value")
+        base -= 1.8
     elif (accident_history or "").lower() == "minor":
-        red_flags.append("Minor accident history should be checked carefully for repair quality")
+        base -= 0.7
 
-    if owner_count and owner_count >= 3:
-        red_flags.append("High owner count may indicate inconsistent upkeep or resale difficulty")
+    if asking_price >= 1500000:
+        base -= 0.8
+    elif asking_price >= 800000:
+        base -= 0.4
 
-    if not service_history or "none" in service_history.lower() or "partial" in service_history.lower():
-        red_flags.append("Incomplete service history increases ownership uncertainty")
+    return clamp(base)
 
-    if (tyre_condition or "").lower() in ["worn", "needs replacement"]:
-        red_flags.append("Tyres may need immediate replacement, adding near-term cost")
 
-    if (insurance_status or "").lower() == "expired":
-        red_flags.append("Expired insurance adds immediate paperwork and renewal cost")
+def estimate_fair_price_range(data, scores):
+    asking_price = int(data.get("asking_price") or 0)
+
+    if asking_price <= 0:
+        return {"low": 0, "high": 0}, 0
+
+    weighted_score = (
+        scores["age_condition"] * 0.18
+        + scores["mileage_health"] * 0.18
+        + scores["ownership_history"] * 0.10
+        + scores["service_history"] * 0.14
+        + scores["accident_risk"] * 0.16
+        + scores["tyre_condition"] * 0.08
+        + scores["insurance_status"] * 0.06
+        + scores["price_value"] * 0.10
+    )
+
+    if weighted_score >= 8.0:
+        multiplier_low = 0.95
+        multiplier_high = 1.05
+        not_worth_above = asking_price * 1.08
+    elif weighted_score >= 6.5:
+        multiplier_low = 0.88
+        multiplier_high = 0.98
+        not_worth_above = asking_price * 1.00
+    elif weighted_score >= 5.0:
+        multiplier_low = 0.78
+        multiplier_high = 0.90
+        not_worth_above = asking_price * 0.92
+    else:
+        multiplier_low = 0.60
+        multiplier_high = 0.78
+        not_worth_above = asking_price * 0.82
+
+    fair_range = {
+        "low": int(round(asking_price * multiplier_low, -3)),
+        "high": int(round(asking_price * multiplier_high, -3)),
+    }
+    not_worth_above = int(round(not_worth_above, -3))
+
+    return fair_range, not_worth_above
+
+
+def build_red_flags(data, scores):
+    red_flags = []
+
+    if int(data.get("owner_count") or 1) >= 3:
+        red_flags.append("Higher owner count reduces resale confidence and often hints at inconsistent long-term care.")
+
+    if (data.get("accident_history") or "").lower() == "major":
+        red_flags.append("Major accident history is a serious structural and resale risk.")
+    elif (data.get("accident_history") or "").lower() == "minor":
+        red_flags.append("Minor accident history should be verified carefully for repair quality.")
+
+    if int(data.get("kilometers_driven") or 0) >= 100000:
+        red_flags.append("High mileage raises the chance of suspension, clutch, gearbox, and engine wear.")
+
+    if (data.get("insurance_status") or "").lower() == "expired":
+        red_flags.append("Expired insurance may indicate poor upkeep or delayed paperwork attention.")
+
+    if (data.get("tyre_condition") or "").lower() == "needs replacement":
+        red_flags.append("Tyres need immediate replacement, which adds direct post-purchase cost.")
+
+    service_history = (data.get("service_history") or "").strip()
+    if not service_history:
+        red_flags.append("Missing or unclear service history reduces confidence in maintenance quality.")
+
+    if not red_flags:
+        red_flags.append("No major red flags from the submitted data, but physical inspection is still essential.")
 
     return red_flags
 
 
-def calculate_used_car_scores(data):
-    asking_price = data.get("asking_price") or 0
-    year = data.get("year")
-    kilometers_driven = data.get("kilometers_driven") or 0
-    owner_count = data.get("owner_count") or 1
+def build_inspection_checklist(data):
+    checklist = [
+        "Check engine idle quality, unusual sounds, smoke, and cold-start behavior.",
+        "Inspect clutch, gearbox shifts, and test-drive response under load.",
+        "Look for repaint mismatch, panel gaps, weld marks, and accident repair signs.",
+        "Inspect suspension noise, steering alignment, and uneven tyre wear.",
+        "Verify service records, insurance papers, RC details, and ownership transfer history.",
+    ]
 
-    low, high, not_worth_above = estimate_price_range(
-        year=year,
-        kilometers_driven=kilometers_driven,
-        owner_count=owner_count,
-        accident_history=data.get("accident_history"),
-        asking_price=asking_price,
+    if (data.get("fuel_type") or "").lower() == "diesel":
+        checklist.append("Inspect turbo response, injector health, and diesel smoke levels.")
+
+    if (data.get("transmission") or "").lower() in {"automatic", "cvt", "dct"}:
+        checklist.append("Check transmission smoothness, hesitation, and service history for gearbox maintenance.")
+
+    if (data.get("accident_history") or "").lower() in {"minor", "major"}:
+        checklist.append("Get the underbody and structural members inspected by a trusted workshop.")
+
+    return checklist
+
+
+def build_recommendation(overall_score, red_flags):
+    severe_flag = any(
+        phrase in " ".join(red_flags).lower()
+        for phrase in ["major accident", "structural", "serious"]
     )
 
+    if severe_flag and overall_score < 6:
+        return "avoid"
+
+    if overall_score >= 8.0:
+        return "buy"
+    if overall_score >= 6.5:
+        return "cautious-buy"
+    if overall_score >= 5.0:
+        return "negotiate-hard"
+    return "avoid"
+
+
+def score_used_car(data):
     scores = {
-        "reliability": score_reliability(
-            data.get("brand"),
-            data.get("fuel_type"),
-            data.get("transmission"),
-            data.get("service_history"),
+        "age_condition": score_age(data.get("year")),
+        "mileage_health": score_mileage(
+            int(data.get("kilometers_driven") or 0),
+            data.get("year"),
         ),
-        "engine_reliability": score_engine_reliability(
-            data.get("brand"),
-            year,
-            kilometers_driven,
-        ),
-        "economy": score_economy(
-            data.get("fuel_type"),
-            kilometers_driven,
-            data.get("car_type"),
-        ),
-        "maintenance_burden": score_maintenance_burden(
-            data.get("brand"),
-            data.get("transmission"),
-            data.get("fuel_type"),
-            data.get("service_history"),
-        ),
-        "practicality": score_practicality(
-            data.get("car_type"),
-            data.get("seats", 5),
-        ),
-        "used_car_risk": score_used_car_risk(
-            year,
-            kilometers_driven,
-            owner_count,
+        "ownership_history": score_owner_count(data.get("owner_count")),
+        "service_history": score_service_history(data.get("service_history")),
+        "accident_risk": score_accident_history(data.get("accident_history")),
+        "tyre_condition": score_tyre_condition(data.get("tyre_condition")),
+        "insurance_status": score_insurance_status(data.get("insurance_status")),
+        "price_value": score_price_value(
+            int(data.get("asking_price") or 0),
+            data.get("year"),
+            int(data.get("kilometers_driven") or 0),
+            int(data.get("owner_count") or 1),
             data.get("accident_history"),
-            data.get("tyre_condition"),
-            data.get("insurance_status"),
-            data.get("service_history"),
-        ),
-        "value_for_money": score_value_for_money(
-            asking_price,
-            low,
-            high,
-        ),
-        "enthusiast_appeal": score_enthusiast_appeal(
-            data.get("car_type"),
-            data.get("brand"),
-            data.get("transmission"),
-            data.get("fuel_type"),
         ),
     }
 
-    overall_score = round(sum(scores.values()) / len(scores), 1)
+    overall_score = clamp(
+        (
+            scores["age_condition"] * 0.16
+            + scores["mileage_health"] * 0.18
+            + scores["ownership_history"] * 0.10
+            + scores["service_history"] * 0.15
+            + scores["accident_risk"] * 0.18
+            + scores["tyre_condition"] * 0.08
+            + scores["insurance_status"] * 0.05
+            + scores["price_value"] * 0.10
+        )
+    )
 
-    if overall_score >= 7.5:
-        recommendation = "buy"
-    elif overall_score >= 5.5:
-        recommendation = "cautious"
-    else:
-        recommendation = "avoid"
+    red_flags = build_red_flags(data, scores)
+    fair_price_range, not_worth_above = estimate_fair_price_range(data, scores)
+    inspection_checklist = build_inspection_checklist(data)
+    recommendation = build_recommendation(overall_score, red_flags)
 
     return {
         "recommendation": recommendation,
         "overall_score": overall_score,
         "scores": scores,
-        "fair_price_range": {
-            "low": low,
-            "high": high,
-        },
+        "fair_price_range": fair_price_range,
         "not_worth_above": not_worth_above,
-        "inspection_checklist": build_inspection_checklist(
-            data.get("accident_history"),
-            data.get("tyre_condition"),
-            data.get("service_history"),
-            data.get("transmission"),
-        ),
-        "red_flags": build_red_flags(
-            data.get("accident_history"),
-            owner_count,
-            data.get("service_history"),
-            data.get("tyre_condition"),
-            data.get("insurance_status"),
-        ),
+        "red_flags": red_flags,
+        "inspection_checklist": inspection_checklist,
     }
