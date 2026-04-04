@@ -75,6 +75,21 @@ function UsedCarAdvisor() {
     }
   };
 
+  const hasStructuredResult =
+    result &&
+    (
+      result.recommendation ||
+      result.overall_score !== undefined ||
+      result.scores ||
+      result.fair_price_range ||
+      result.not_worth_above ||
+      result.inspection_checklist ||
+      result.red_flags ||
+      result.analysis
+    );
+
+  const plainAnswer = result?.answer || "";
+
   return (
     <div className="used-car-page">
       <div className="used-car-bg used-car-bg-1"></div>
@@ -312,7 +327,7 @@ function UsedCarAdvisor() {
               </div>
             )}
 
-            {result && (
+            {result && hasStructuredResult && (
               <div className="used-result">
                 <div className="used-verdict-row">
                   <div
@@ -390,6 +405,17 @@ function UsedCarAdvisor() {
                   <ReactMarkdown>
                     {result?.analysis || "No analysis available."}
                   </ReactMarkdown>
+                </div>
+              </div>
+            )}
+
+            {result && !hasStructuredResult && plainAnswer && (
+              <div className="used-result">
+                <div className="used-list-block">
+                  <h4>AI Advice</h4>
+                  <div className="used-analysis">
+                    <ReactMarkdown>{plainAnswer}</ReactMarkdown>
+                  </div>
                 </div>
               </div>
             )}
