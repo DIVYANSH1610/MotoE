@@ -635,13 +635,12 @@ function CarDetails() {
                   AI Garage Assistant
                 </h3>
 
-                <button
-                  type="button"
-                  className="garage-ai-close-btn"
-                  onClick={() => setShowAI(false)}
-                >
-                  <X size={18} />
-                </button>
+
+
+
+
+
+                
               </div>
 
               <div className="garage-ai-chat">
