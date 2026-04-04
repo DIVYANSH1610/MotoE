@@ -13,7 +13,12 @@ function FavouriteButton({ slug }) {
     const fetchFavouriteStatus = async () => {
       try {
         const response = await getFavouriteStatus(slug);
-        setIsFavourited(response.data.is_favourited);
+
+        setIsFavourited(
+          response.data?.is_favourited ??
+            response.data?.is_favorited ??
+            false
+        );
       } catch (error) {
         console.error("Favourite status error:", error.response?.data || error);
         setIsFavourited(false);
@@ -29,16 +34,18 @@ function FavouriteButton({ slug }) {
     e.stopPropagation();
     e.preventDefault();
 
-    if (loading) return;
+    if (loading || !slug) return;
 
     try {
       setLoading(true);
 
       if (isFavourited) {
-        await removeFavourite(slug);
+        const response = await removeFavourite(slug);
+        console.log("Remove favourite response:", response.data);
         setIsFavourited(false);
       } else {
-        await addFavourite(slug);
+        const response = await addFavourite(slug);
+        console.log("Add favourite response:", response.data);
         setIsFavourited(true);
       }
 
@@ -46,12 +53,19 @@ function FavouriteButton({ slug }) {
     } catch (error) {
       console.error("Favourite toggle failed:", error.response?.data || error);
 
-      if (error.response?.status === 401) {
+      const status = error.response?.status;
+      const detail =
+        error.response?.data?.detail ||
+        error.response?.data?.error ||
+        error.message ||
+        "Something went wrong while updating favourites.";
+
+      if (status === 401) {
         alert("Please login first to use favourites.");
-      } else if (error.response?.status === 403) {
+      } else if (status === 403) {
         alert("Request blocked. CSRF/session permission issue on deployed server.");
       } else {
-        alert("Something went wrong while updating favourites.");
+        alert(detail);
       }
     } finally {
       setLoading(false);
