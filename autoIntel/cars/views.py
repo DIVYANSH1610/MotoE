@@ -15,23 +15,7 @@ from .serializers import FavoriteSerializer
 class CarListView(View):
     def get(self, request):
         cars = get_all_cars()
-
-        minimal_cars = [
-            {
-                "id": car["id"],
-                "slug": car["slug"],
-                "company": car["company"],
-                "car_name": car["car_name"],
-                "horsepower": car["horsepower"],
-                "top_speed": car["top_speed"],
-                "price": car["price"],
-                "image": car["image"],
-                "gallery": car.get("gallery", []),
-            }
-            for car in cars
-        ]
-
-        return JsonResponse(minimal_cars, safe=False)
+        return JsonResponse(cars, safe=False)
 
 
 class CarDetailView(View):
