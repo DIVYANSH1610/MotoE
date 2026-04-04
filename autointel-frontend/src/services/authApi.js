@@ -9,6 +9,7 @@ export const getCsrf = async () => {
   const response = await AUTH_API.get("csrf/", {
     withCredentials: true,
   });
+
   return response.data.csrfToken;
 };
 
