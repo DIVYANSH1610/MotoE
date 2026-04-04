@@ -56,13 +56,16 @@ function UsedCarAdvisor() {
       const payload = {
         ...formData,
         year: formData.year ? Number(formData.year) : null,
-        kilometers_driven: formData.kilometers_driven ? Number(formData.kilometers_driven) : 0,
+        kilometers_driven: formData.kilometers_driven
+          ? Number(formData.kilometers_driven)
+          : 0,
         owner_count: formData.owner_count ? Number(formData.owner_count) : 1,
         asking_price: formData.asking_price ? Number(formData.asking_price) : 0,
         seats: formData.seats ? Number(formData.seats) : 5,
       };
 
       const res = await getUsedCarAdvice(payload);
+      console.log("Used car advisor response:", res.data);
       setResult(res.data);
     } catch (error) {
       console.error(error);
@@ -146,15 +149,49 @@ function UsedCarAdvisor() {
 
             <form className="used-car-form" onSubmit={handleSubmit}>
               <div className="used-form-grid">
-                <input placeholder="Brand" value={formData.brand} onChange={(e) => updateField("brand", e.target.value)} />
-                <input placeholder="Model" value={formData.model} onChange={(e) => updateField("model", e.target.value)} />
-                <input placeholder="Variant" value={formData.variant} onChange={(e) => updateField("variant", e.target.value)} />
-                <input placeholder="Year" type="number" value={formData.year} onChange={(e) => updateField("year", e.target.value)} />
-                <input placeholder="Kilometers Driven" type="number" value={formData.kilometers_driven} onChange={(e) => updateField("kilometers_driven", e.target.value)} />
-                <input placeholder="Asking Price" type="number" value={formData.asking_price} onChange={(e) => updateField("asking_price", e.target.value)} />
-                <input placeholder="City" value={formData.city} onChange={(e) => updateField("city", e.target.value)} />
+                <input
+                  placeholder="Brand"
+                  value={formData.brand}
+                  onChange={(e) => updateField("brand", e.target.value)}
+                />
+                <input
+                  placeholder="Model"
+                  value={formData.model}
+                  onChange={(e) => updateField("model", e.target.value)}
+                />
+                <input
+                  placeholder="Variant"
+                  value={formData.variant}
+                  onChange={(e) => updateField("variant", e.target.value)}
+                />
+                <input
+                  placeholder="Year"
+                  type="number"
+                  value={formData.year}
+                  onChange={(e) => updateField("year", e.target.value)}
+                />
+                <input
+                  placeholder="Kilometers Driven"
+                  type="number"
+                  value={formData.kilometers_driven}
+                  onChange={(e) => updateField("kilometers_driven", e.target.value)}
+                />
+                <input
+                  placeholder="Asking Price"
+                  type="number"
+                  value={formData.asking_price}
+                  onChange={(e) => updateField("asking_price", e.target.value)}
+                />
+                <input
+                  placeholder="City"
+                  value={formData.city}
+                  onChange={(e) => updateField("city", e.target.value)}
+                />
 
-                <select value={formData.car_type} onChange={(e) => updateField("car_type", e.target.value)}>
+                <select
+                  value={formData.car_type}
+                  onChange={(e) => updateField("car_type", e.target.value)}
+                >
                   <option value="hatchback">Hatchback</option>
                   <option value="sedan">Sedan</option>
                   <option value="suv">SUV</option>
@@ -164,7 +201,10 @@ function UsedCarAdvisor() {
                   <option value="other">Other</option>
                 </select>
 
-                <select value={formData.fuel_type} onChange={(e) => updateField("fuel_type", e.target.value)}>
+                <select
+                  value={formData.fuel_type}
+                  onChange={(e) => updateField("fuel_type", e.target.value)}
+                >
                   <option value="petrol">Petrol</option>
                   <option value="diesel">Diesel</option>
                   <option value="hybrid">Hybrid</option>
@@ -172,35 +212,50 @@ function UsedCarAdvisor() {
                   <option value="cng">CNG</option>
                 </select>
 
-                <select value={formData.transmission} onChange={(e) => updateField("transmission", e.target.value)}>
+                <select
+                  value={formData.transmission}
+                  onChange={(e) => updateField("transmission", e.target.value)}
+                >
                   <option value="manual">Manual</option>
                   <option value="automatic">Automatic</option>
                   <option value="cvt">CVT</option>
                   <option value="dct">DCT</option>
                 </select>
 
-                <select value={formData.owner_count} onChange={(e) => updateField("owner_count", e.target.value)}>
+                <select
+                  value={formData.owner_count}
+                  onChange={(e) => updateField("owner_count", e.target.value)}
+                >
                   <option value={1}>1st Owner</option>
                   <option value={2}>2nd Owner</option>
                   <option value={3}>3rd Owner</option>
                   <option value={4}>4+ Owners</option>
                 </select>
 
-                <select value={formData.accident_history} onChange={(e) => updateField("accident_history", e.target.value)}>
+                <select
+                  value={formData.accident_history}
+                  onChange={(e) => updateField("accident_history", e.target.value)}
+                >
                   <option value="none">No Accident</option>
                   <option value="minor">Minor Accident</option>
                   <option value="major">Major Accident</option>
                   <option value="unknown">Unknown</option>
                 </select>
 
-                <select value={formData.tyre_condition} onChange={(e) => updateField("tyre_condition", e.target.value)}>
+                <select
+                  value={formData.tyre_condition}
+                  onChange={(e) => updateField("tyre_condition", e.target.value)}
+                >
                   <option value="new">New</option>
                   <option value="good">Good</option>
                   <option value="worn">Worn</option>
                   <option value="needs replacement">Needs Replacement</option>
                 </select>
 
-                <select value={formData.insurance_status} onChange={(e) => updateField("insurance_status", e.target.value)}>
+                <select
+                  value={formData.insurance_status}
+                  onChange={(e) => updateField("insurance_status", e.target.value)}
+                >
                   <option value="comprehensive">Comprehensive</option>
                   <option value="third-party">Third Party</option>
                   <option value="expired">Expired</option>
@@ -260,16 +315,20 @@ function UsedCarAdvisor() {
             {result && (
               <div className="used-result">
                 <div className="used-verdict-row">
-  <div className={`used-verdict used-verdict--${result?.recommendation || "unknown"}`}>
-    {(result?.recommendation || "unknown").toUpperCase()}
-  </div>
-  <div className="used-overall-score">
-    Overall Score: <strong>{result?.overall_score ?? "N/A"}/10</strong>
-  </div>
-</div>
+                  <div
+                    className={`used-verdict used-verdict--${
+                      result?.recommendation || "unknown"
+                    }`}
+                  >
+                    {(result?.recommendation || "unknown").toUpperCase()}
+                  </div>
+                  <div className="used-overall-score">
+                    Overall Score: <strong>{result?.overall_score ?? "N/A"}/10</strong>
+                  </div>
+                </div>
 
                 <div className="used-score-grid">
-                  {Object.entries(result.scores).map(([key, value]) => (
+                  {Object.entries(result?.scores || {}).map(([key, value]) => (
                     <div key={key} className="used-score-card">
                       <span>{key.replaceAll("_", " ")}</span>
                       <strong>{value}/10</strong>
@@ -283,7 +342,8 @@ function UsedCarAdvisor() {
                     <div>
                       <span>Fair Price Range</span>
                       <strong>
-                        ₹{result.fair_price_range.low} - ₹{result.fair_price_range.high}
+                        ₹{result?.fair_price_range?.low ?? "N/A"} - ₹
+                        {result?.fair_price_range?.high ?? "N/A"}
                       </strong>
                     </div>
                   </div>
@@ -292,23 +352,27 @@ function UsedCarAdvisor() {
                     <AlertTriangle size={18} />
                     <div>
                       <span>Not Worth Above</span>
-                      <strong>₹{result.not_worth_above}</strong>
+                      <strong>₹{result?.not_worth_above ?? "N/A"}</strong>
                     </div>
                   </div>
                 </div>
 
                 <div className="used-list-block">
                   <h4>Inspection Checklist</h4>
-                  <ul>
-                    {result.inspection_checklist.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
+                  {(result?.inspection_checklist || []).length > 0 ? (
+                    <ul>
+                      {result.inspection_checklist.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No inspection checklist available.</p>
+                  )}
                 </div>
 
                 <div className="used-list-block">
                   <h4>Red Flags</h4>
-                  {result.red_flags.length ? (
+                  {(result?.red_flags || []).length > 0 ? (
                     <ul>
                       {result.red_flags.map((item, index) => (
                         <li key={index}>{item}</li>
@@ -323,7 +387,9 @@ function UsedCarAdvisor() {
                 </div>
 
                 <div className="used-analysis">
-                  <ReactMarkdown>{result.analysis}</ReactMarkdown>
+                  <ReactMarkdown>
+                    {result?.analysis || "No analysis available."}
+                  </ReactMarkdown>
                 </div>
               </div>
             )}
