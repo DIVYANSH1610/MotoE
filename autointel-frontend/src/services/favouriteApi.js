@@ -6,19 +6,18 @@ const API = axios.create({
   withCredentials: true,
 });
 
-export const getFavourites = () => API.get("favorites/");
+export const getFavourites = async () => {
+  return API.get("favorites/");
+};
 
-export const getFavouriteStatus = (carSlug) =>
-  API.get(`favorites/status/${carSlug}/`);
+export const getFavouriteStatus = async (carSlug) => {
+  return API.get(`favorites/status/${carSlug}/`);
+};
 
 export const addFavourite = async (carSlug) => {
   const csrfToken = await getCsrf();
 
-  console.log("Favourite csrfToken:", csrfToken);
-
-  if (!csrfToken) {
-    throw new Error("CSRF token missing.");
-  }
+  console.log("Favourite add csrfToken:", csrfToken);
 
   return API.post(
     "favorites/",
@@ -35,11 +34,7 @@ export const addFavourite = async (carSlug) => {
 export const removeFavourite = async (carSlug) => {
   const csrfToken = await getCsrf();
 
-  console.log("Favourite csrfToken:", csrfToken);
-
-  if (!csrfToken) {
-    throw new Error("CSRF token missing.");
-  }
+  console.log("Favourite remove csrfToken:", csrfToken);
 
   return API.delete(`favorites/${carSlug}/`, {
     withCredentials: true,
