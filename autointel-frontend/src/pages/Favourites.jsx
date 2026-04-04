@@ -42,7 +42,7 @@ function Favourites() {
 
       setFavouriteCars(filteredCars);
     } catch (error) {
-      console.error("Failed to load favourites:", error);
+      console.error("Failed to load favourites:", error.response?.data || error);
       setFavouriteCars([]);
     } finally {
       setLoading(false);
@@ -60,8 +60,17 @@ function Favourites() {
       }
     };
 
+    const handleFavouritesUpdated = () => {
+      fetchData();
+    };
+
     window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
+    window.addEventListener("favourites-updated", handleFavouritesUpdated);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("favourites-updated", handleFavouritesUpdated);
+    };
   }, [fetchData, location.pathname]);
 
   if (loading) {
