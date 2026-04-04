@@ -18,20 +18,14 @@ import PremiumSectionHeader from "../components/PremiumSectionHeader";
 import GlassCard from "../components/GlassCard";
 import "./AIGarage.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const BACKEND_ORIGIN = API_BASE.replace("/api/cars", "");
+
 function AIGarage() {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
-
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
-    return "";
-  };
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,15 +46,15 @@ function AIGarage() {
     setLoading(true);
 
     try {
-      await getCsrf();
+      const csrfToken = await getCsrf();
 
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/ai/garage/",
+        `${BACKEND_ORIGIN}/api/ai/garage/`,
         { question: finalQuestion },
         {
           withCredentials: true,
           headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
+            "X-CSRFToken": csrfToken,
           },
         }
       );
@@ -73,9 +67,13 @@ function AIGarage() {
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error(err);
+      console.error("AI request failed:", err.response?.data || err);
 
-      let errorText = "AI request failed.";
+      let errorText =
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        "AI request failed.";
+
       if (err.response?.status === 401) {
         errorText = "Please login first.";
       } else if (err.response?.status === 403) {
