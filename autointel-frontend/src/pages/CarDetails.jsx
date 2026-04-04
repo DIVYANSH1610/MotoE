@@ -23,6 +23,7 @@ import {
 import FavouriteButton from "../components/FavouriteButton";
 import GalleryLightbox from "../components/GalleryLightbox";
 import TyreLoader from "../components/TyreLoader";
+import { getCsrf } from "../services/authApi";
 import "./CarDetails.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -167,6 +168,9 @@ function CarDetails() {
     try {
       setAiLoading(true);
 
+      await getCsrf();
+      const csrfToken = getCookie("csrftoken");
+
       const res = await axios.post(
         `${BACKEND_ORIGIN}/api/ai/garage/`,
         {
@@ -175,9 +179,11 @@ function CarDetails() {
         },
         {
           withCredentials: true,
-          headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
-          },
+          headers: csrfToken
+            ? {
+                "X-CSRFToken": csrfToken,
+              }
+            : {},
         }
       );
 
@@ -191,11 +197,15 @@ function CarDetails() {
     } catch (err) {
       console.error("AI request failed:", err.response?.data || err);
 
+      const backendMessage =
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        "## Error\nSomething went wrong while contacting the AI assistant.";
+
       const errorMessage = {
         id: Date.now() + 2,
         role: "assistant",
-        content:
-          "## Error\nSomething went wrong while contacting the AI assistant.",
+        content: backendMessage,
       };
 
       setChatMessages((prev) => [...prev, errorMessage]);
