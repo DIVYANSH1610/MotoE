@@ -13,10 +13,13 @@ User = get_user_model()
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def csrf(request):
-    return Response({
-        "message": "CSRF cookie set",
-        "csrfToken": get_token(request)
-    })
+    return Response(
+        {
+            "message": "CSRF cookie set",
+            "csrfToken": get_token(request),
+        },
+        status=status.HTTP_200_OK,
+    )
 
 
 @api_view(["POST"])
@@ -113,7 +116,10 @@ def login_view(request):
 @permission_classes([IsAuthenticated])
 def logout_view(request):
     logout(request)
-    return Response({"message": "Logout successful."})
+    return Response(
+        {"message": "Logout successful."},
+        status=status.HTTP_200_OK,
+    )
 
 
 @api_view(["GET"])
@@ -132,7 +138,10 @@ def session_view(request):
             status=status.HTTP_200_OK,
         )
 
-    return Response({"authenticated": False}, status=status.HTTP_200_OK)
+    return Response(
+        {"authenticated": False},
+        status=status.HTTP_200_OK,
+    )
 
 
 @api_view(["GET"])
@@ -160,5 +169,6 @@ def dashboard_view(request):
                 "Viewed premium car collection",
                 "Explored performance insights",
             ],
-        }
+        },
+        status=status.HTTP_200_OK,
     )
