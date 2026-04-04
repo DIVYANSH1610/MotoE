@@ -1,8 +1,11 @@
 import axios from "axios";
 import { getCsrf } from "./authApi";
 
+const BACKEND_ROOT =
+  import.meta.env.VITE_BACKEND_ROOT || "https://motoe.onrender.com";
+
 const AI_API = axios.create({
-  baseURL: "https://motoe.onrender.com/api/ai/",
+  baseURL: `${BACKEND_ROOT}/api/ai/`,
   withCredentials: true,
 });
 
@@ -27,5 +30,7 @@ export const askUsedCarAdvisor = async (payload) => {
     },
   });
 };
+
+export const getUsedCarAdvice = askUsedCarAdvisor;
 
 export default AI_API;
