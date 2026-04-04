@@ -14,6 +14,8 @@ export const getFavouriteStatus = (carSlug) =>
 export const addFavourite = async (carSlug) => {
   const csrfToken = await getCsrf();
 
+  console.log("Favourite csrfToken:", csrfToken);
+
   if (!csrfToken) {
     throw new Error("CSRF token missing.");
   }
@@ -32,6 +34,8 @@ export const addFavourite = async (carSlug) => {
 
 export const removeFavourite = async (carSlug) => {
   const csrfToken = await getCsrf();
+
+  console.log("Favourite csrfToken:", csrfToken);
 
   if (!csrfToken) {
     throw new Error("CSRF token missing.");
