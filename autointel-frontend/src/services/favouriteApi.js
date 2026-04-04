@@ -1,15 +1,6 @@
 import axios from "axios";
 import { getCsrf } from "./authApi";
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return decodeURIComponent(parts.pop().split(";").shift());
-  }
-  return "";
-}
-
 const API = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/`,
   withCredentials: true,
@@ -21,11 +12,10 @@ export const getFavouriteStatus = (carSlug) =>
   API.get(`favorites/status/${carSlug}/`);
 
 export const addFavourite = async (carSlug) => {
-  await getCsrf();
-  const csrfToken = getCookie("csrftoken");
+  const csrfToken = await getCsrf();
 
   if (!csrfToken) {
-    throw new Error("CSRF token missing. Cookie not set properly.");
+    throw new Error("CSRF token missing.");
   }
 
   return API.post(
@@ -41,11 +31,10 @@ export const addFavourite = async (carSlug) => {
 };
 
 export const removeFavourite = async (carSlug) => {
-  await getCsrf();
-  const csrfToken = getCookie("csrftoken");
+  const csrfToken = await getCsrf();
 
   if (!csrfToken) {
-    throw new Error("CSRF token missing. Cookie not set properly.");
+    throw new Error("CSRF token missing.");
   }
 
   return API.delete(`favorites/${carSlug}/`, {
