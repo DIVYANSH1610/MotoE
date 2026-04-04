@@ -12,11 +12,19 @@ from rest_framework import status
 from .models import Favorite
 from .serializers import FavoriteSerializer
 
-class CarListView(View):
-    def get(self, request):
-        cars = get_all_cars()
-        return JsonResponse(cars, safe=False)
-
+minimal_cars = [
+    {
+        "id": car["id"],
+        "slug": car["slug"],
+        "company": car["company"],
+        "car_name": car["car_name"],
+        "horsepower": car["horsepower"],
+        "top_speed": car["top_speed"],
+        "price": car["price"],
+        "image": car["image"],
+    }
+    for car in cars
+]
 
 class CarDetailView(View):
     def get(self, request, slug):
