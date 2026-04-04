@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     # local apps
     "cars",
-  # keep this only if your ai app is active and used
+     "ai",# keep this only if your ai app is active and used
 ]
 
 MIDDLEWARE = [
