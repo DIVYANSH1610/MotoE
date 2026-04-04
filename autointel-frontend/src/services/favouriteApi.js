@@ -11,7 +11,7 @@ function getCookie(name) {
 }
 
 const API = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/cars/`,
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/`,
   withCredentials: true,
 });
 
@@ -22,6 +22,7 @@ export const getFavouriteStatus = (carSlug) =>
 
 export const addFavourite = async (carSlug) => {
   await getCsrf();
+
   return API.post(
     "favorites/",
     { car_slug: carSlug },
@@ -36,6 +37,7 @@ export const addFavourite = async (carSlug) => {
 
 export const removeFavourite = async (carSlug) => {
   await getCsrf();
+
   return API.delete(`favorites/${carSlug}/`, {
     withCredentials: true,
     headers: {
