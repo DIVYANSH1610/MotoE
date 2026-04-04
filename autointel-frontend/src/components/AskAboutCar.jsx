@@ -6,19 +6,13 @@ import { getCsrf } from "../services/authApi";
 import GlassCard from "./GlassCard";
 import "./AskAboutCar.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const BACKEND_ORIGIN = API_BASE.replace("/api/cars", "");
+
 function AskAboutCar({ car }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
-    return "";
-  };
 
   const quickPrompts = [
     `What makes ${car?.car_name} special?`,
@@ -36,10 +30,10 @@ function AskAboutCar({ car }) {
       setAnswer("");
       setQuestion(finalQuestion);
 
-      await getCsrf();
+      const csrfToken = await getCsrf();
 
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/ai/garage/",
+        `${BACKEND_ORIGIN}/api/ai/garage/`,
         {
           question: finalQuestion,
           context_car_slug: car?.slug,
@@ -47,20 +41,26 @@ function AskAboutCar({ car }) {
         {
           withCredentials: true,
           headers: {
-            "X-CSRFToken": getCookie("csrftoken"),
+            "X-CSRFToken": csrfToken,
           },
         }
       );
 
-      setAnswer(res.data.answer);
+      setAnswer(res.data.answer || "No response received.");
     } catch (err) {
-      console.error(err);
+      console.error("AI request failed:", err.response?.data || err);
+
+      const backendMessage =
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        "Something went wrong while generating the response.";
+
       if (err.response?.status === 401) {
         setAnswer("## Error\nPlease login first to use AI features.");
       } else if (err.response?.status === 403) {
-        setAnswer("## Error\nCSRF/auth issue. Try refreshing and logging in again.");
+        setAnswer(`## Error\n${backendMessage}`);
       } else {
-        setAnswer("## Error\nSomething went wrong while generating the response.");
+        setAnswer(`## Error\n${backendMessage}`);
       }
     } finally {
       setLoading(false);
@@ -96,7 +96,9 @@ function AskAboutCar({ car }) {
           onClick={() => handleAsk()}
           disabled={loading}
         >
-          {loading ? "Thinking..." : (
+          {loading ? (
+            "Thinking..."
+          ) : (
             <>
               <Send size={16} />
               Ask AI
@@ -134,7 +136,9 @@ function AskAboutCar({ car }) {
               p: ({ children }) => <p className="ask-md-p">{children}</p>,
               ul: ({ children }) => <ul className="ask-md-ul">{children}</ul>,
               li: ({ children }) => <li className="ask-md-li">{children}</li>,
-              strong: ({ children }) => <strong className="ask-md-strong">{children}</strong>,
+              strong: ({ children }) => (
+                <strong className="ask-md-strong">{children}</strong>
+              ),
             }}
           >
             {answer}
