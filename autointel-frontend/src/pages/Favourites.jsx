@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Heart, ShieldCheck } from "lucide-react";
 import { getFavourites } from "../services/favouriteApi";
 import { getCars } from "../services/api";
@@ -26,7 +26,7 @@ function Favourites() {
 
       const favouritesData = Array.isArray(favouritesRes.data)
         ? favouritesRes.data
-        : favouritesRes.data?.favourites || [];
+        : favouritesRes.data?.favourites || favouritesRes.data?.favorites || [];
 
       const favouriteSlugs = new Set(
         favouritesData
@@ -42,7 +42,10 @@ function Favourites() {
 
       setFavouriteCars(filteredCars);
     } catch (error) {
-      console.error("Failed to load favourites:", error.response?.data || error);
+      console.error(
+        "Failed to load favourites:",
+        error.response?.data || error.message || error
+      );
       setFavouriteCars([]);
     } finally {
       setLoading(false);
@@ -130,11 +133,11 @@ function Favourites() {
             <h2>No Favourite Cars Yet</h2>
             <p>
               Start exploring the collection and save the cars that catch your
-              eye. Your favourites will appear here.
+              eye. Your favourite cars will appear here.
             </p>
-            <a href="/" className="favourites-home-btn">
+            <Link to="/" className="favourites-home-btn">
               Explore Cars
-            </a>
+            </Link>
           </GlassCard>
         ) : (
           <section className="favourites-grid-section">
