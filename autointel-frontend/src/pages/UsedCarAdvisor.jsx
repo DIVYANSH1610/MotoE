@@ -75,21 +75,6 @@ function UsedCarAdvisor() {
     }
   };
 
-  const hasStructuredResult =
-    result &&
-    (
-      result.recommendation ||
-      result.overall_score !== undefined ||
-      result.scores ||
-      result.fair_price_range ||
-      result.not_worth_above ||
-      result.inspection_checklist ||
-      result.red_flags ||
-      result.analysis
-    );
-
-  const plainAnswer = result?.answer || "";
-
   return (
     <div className="used-car-page">
       <div className="used-car-bg used-car-bg-1"></div>
@@ -327,23 +312,19 @@ function UsedCarAdvisor() {
               </div>
             )}
 
-            {result && hasStructuredResult && (
+            {result && (
               <div className="used-result">
                 <div className="used-verdict-row">
-                  <div
-                    className={`used-verdict used-verdict--${
-                      result?.recommendation || "unknown"
-                    }`}
-                  >
-                    {(result?.recommendation || "unknown").toUpperCase()}
+                  <div className={`used-verdict used-verdict--${result.recommendation}`}>
+                    {result.recommendation.toUpperCase()}
                   </div>
                   <div className="used-overall-score">
-                    Overall Score: <strong>{result?.overall_score ?? "N/A"}/10</strong>
+                    Overall Score: <strong>{result.overall_score}/10</strong>
                   </div>
                 </div>
 
                 <div className="used-score-grid">
-                  {Object.entries(result?.scores || {}).map(([key, value]) => (
+                  {Object.entries(result.scores || {}).map(([key, value]) => (
                     <div key={key} className="used-score-card">
                       <span>{key.replaceAll("_", " ")}</span>
                       <strong>{value}/10</strong>
@@ -357,8 +338,7 @@ function UsedCarAdvisor() {
                     <div>
                       <span>Fair Price Range</span>
                       <strong>
-                        ₹{result?.fair_price_range?.low ?? "N/A"} - ₹
-                        {result?.fair_price_range?.high ?? "N/A"}
+                        ₹{result.fair_price_range.low} - ₹{result.fair_price_range.high}
                       </strong>
                     </div>
                   </div>
@@ -367,27 +347,23 @@ function UsedCarAdvisor() {
                     <AlertTriangle size={18} />
                     <div>
                       <span>Not Worth Above</span>
-                      <strong>₹{result?.not_worth_above ?? "N/A"}</strong>
+                      <strong>₹{result.not_worth_above}</strong>
                     </div>
                   </div>
                 </div>
 
                 <div className="used-list-block">
                   <h4>Inspection Checklist</h4>
-                  {(result?.inspection_checklist || []).length > 0 ? (
-                    <ul>
-                      {result.inspection_checklist.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>No inspection checklist available.</p>
-                  )}
+                  <ul>
+                    {result.inspection_checklist.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
 
                 <div className="used-list-block">
                   <h4>Red Flags</h4>
-                  {(result?.red_flags || []).length > 0 ? (
+                  {result.red_flags.length ? (
                     <ul>
                       {result.red_flags.map((item, index) => (
                         <li key={index}>{item}</li>
@@ -402,20 +378,7 @@ function UsedCarAdvisor() {
                 </div>
 
                 <div className="used-analysis">
-                  <ReactMarkdown>
-                    {result?.analysis || "No analysis available."}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            )}
-
-            {result && !hasStructuredResult && plainAnswer && (
-              <div className="used-result">
-                <div className="used-list-block">
-                  <h4>AI Advice</h4>
-                  <div className="used-analysis">
-                    <ReactMarkdown>{plainAnswer}</ReactMarkdown>
-                  </div>
+                  <ReactMarkdown>{result.analysis}</ReactMarkdown>
                 </div>
               </div>
             )}
