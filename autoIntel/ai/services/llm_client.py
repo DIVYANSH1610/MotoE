@@ -5,8 +5,14 @@ from .rag import load_cars, find_relevant_cars, get_car_by_slug
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODEL_NAME = "gemini-2.5-flash"
+
+
+def get_client():
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY is missing.")
+    return genai.Client(api_key=api_key)
 
 
 def build_car_context(car):
@@ -34,6 +40,7 @@ Fun Facts: {", ".join(car.get("fun_facts", []))}
 
 
 def generate_response(prompt: str, context_car_slug: str = "") -> str:
+    client = get_client()
     cars = load_cars()
 
     selected_car = get_car_by_slug(context_car_slug, cars) if context_car_slug else None
@@ -140,7 +147,10 @@ User Question:
 
     return response.text or ""
 
+
 def generate_used_car_advice(user_data: dict, scoring_result: dict) -> str:
+    client = get_client()
+
     full_prompt = f"""
 You are an expert used car advisor for an automotive platform in India.
 
