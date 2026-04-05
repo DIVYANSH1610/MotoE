@@ -1,26 +1,84 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  addFavourite,
+  removeFavourite,
+  getFavouriteStatus,
+} from "../services/favouriteApi";
 
 function FavouriteButton({ slug }) {
   const [isFavourited, setIsFavourited] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleToggleFavourite = (e) => {
+  useEffect(() => {
+    const fetchFavouriteStatus = async () => {
+      try {
+        const response = await getFavouriteStatus(slug);
+
+        setIsFavourited(
+          response.data?.is_favourited ??
+            response.data?.is_favorited ??
+            false
+        );
+      } catch (error) {
+        console.error("Favourite status error:", error.response?.data || error);
+        setIsFavourited(false);
+      }
+    };
+
+    if (slug) {
+      fetchFavouriteStatus();
+    }
+  }, [slug]);
+
+  const handleToggleFavourite = async (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    // temporary UI toggle only
-    setIsFavourited((prev) => !prev);
+    if (!slug || loading) return;
 
-    console.log("TEMP favourite toggle:", slug);
+    try {
+      setLoading(true);
+
+      if (isFavourited) {
+        await removeFavourite(slug);
+        setIsFavourited(false);
+      } else {
+        await addFavourite(slug);
+        setIsFavourited(true);
+      }
+
+      window.dispatchEvent(new Event("favourites-updated"));
+    } catch (error) {
+      console.error("Favourite toggle failed:", error.response?.data || error);
+
+      const status = error.response?.status;
+      const detail =
+        error.response?.data?.detail ||
+        error.response?.data?.error ||
+        error.message ||
+        "Something went wrong while updating favourites.";
+
+      if (status === 401) {
+        alert("Please login first to use favourites.");
+      } else if (status === 403) {
+        alert("Request blocked. Session or CSRF issue.");
+      } else {
+        alert(detail);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <button
       type="button"
       onClick={handleToggleFavourite}
+      disabled={loading}
       className="race-fav-btn"
       title={isFavourited ? "Remove from favourites" : "Add to favourites"}
     >
-      {isFavourited ? "❤️" : "🤍"}
+      {loading ? "..." : isFavourited ? "❤️" : "🤍"}
     </button>
   );
 }
