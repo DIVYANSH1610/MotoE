@@ -143,73 +143,79 @@ function CarDetails() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxOpen, closeLightbox, handlePrevImage, handleNextImage]);
 
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
-    return "";
-  };
-
   const handleAskAI = async (presetQuestion = "") => {
-  const finalQuestion = (presetQuestion || question).trim();
-  if (!finalQuestion || !car?.slug) return;
+    const finalQuestion = (presetQuestion || question).trim();
+    if (!finalQuestion || !car?.slug) return;
 
-  const userMessage = {
-    id: Date.now(),
-    role: "user",
-    content: finalQuestion,
+    const userMessage = {
+      id: Date.now(),
+      role: "user",
+      content: finalQuestion,
+    };
+
+    setChatMessages((prev) => [...prev, userMessage]);
+    setQuestion("");
+
+    try {
+      setAiLoading(true);
+
+      const csrfToken = await getCsrf();
+
+      const res = await axios.post(
+        `${BACKEND_ORIGIN}/api/ai/garage/`,
+        {
+          question: finalQuestion,
+          context_car_slug: car.slug,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+        }
+      );
+
+      const assistantMessage = {
+        id: Date.now() + 1,
+        role: "assistant",
+        content: res.data.answer || "No response received.",
+      };
+
+      setChatMessages((prev) => [...prev, assistantMessage]);
+    } catch (err) {
+      console.error("AI request failed:", err.response?.data || err);
+
+      let message =
+        "## Error\nSomething went wrong while contacting the AI assistant.";
+
+      const status = err.response?.status;
+      const detail = err.response?.data?.detail;
+
+      if (
+        status === 401 ||
+        detail === "Authentication credentials were not provided."
+      ) {
+        message =
+          "🔒 Please login first to use the AI assistant on this device.";
+      } else {
+        message =
+          err.response?.data?.error ||
+          err.response?.data?.detail ||
+          message;
+      }
+
+      const errorMessage = {
+        id: Date.now() + 2,
+        role: "assistant",
+        content: message,
+      };
+
+      setChatMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
-  setChatMessages((prev) => [...prev, userMessage]);
-  setQuestion("");
-
-  try {
-    setAiLoading(true);
-
-    const csrfToken = await getCsrf();
-
-    const res = await axios.post(
-      `${BACKEND_ORIGIN}/api/ai/garage/`,
-      {
-        question: finalQuestion,
-        context_car_slug: car.slug,
-      },
-      {
-        withCredentials: true,
-        headers: {
-          "X-CSRFToken": csrfToken,
-        },
-      }
-    );
-
-    const assistantMessage = {
-      id: Date.now() + 1,
-      role: "assistant",
-      content: res.data.answer || "No response received.",
-    };
-
-    setChatMessages((prev) => [...prev, assistantMessage]);
-  } catch (err) {
-    console.error("AI request failed:", err.response?.data || err);
-
-    const backendMessage =
-      err.response?.data?.error ||
-      err.response?.data?.detail ||
-      "## Error\nSomething went wrong while contacting the AI assistant.";
-
-    const errorMessage = {
-      id: Date.now() + 2,
-      role: "assistant",
-      content: backendMessage,
-    };
-
-    setChatMessages((prev) => [...prev, errorMessage]);
-  } finally {
-    setAiLoading(false);
-  }
-};
   const quickPrompts = [
     `What makes ${car?.car_name || "this car"} special?`,
     `Is ${car?.car_name || "this car"} practical for daily use?`,
