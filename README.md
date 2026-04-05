@@ -1,28 +1,27 @@
-# 🏎️ AUTOINTEL GARAGE — AI RACING DASHBOARD
+# 🏎️ AUTOINTEL GARAGE — F1 AI CONTROL SYSTEM
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?color=FF0000&size=28&center=true&vCenter=true&width=900&lines=Welcome+to+AutoIntel+Garage;AI+Powered+Car+Intelligence+System;Race+Through+Data+%F0%9F%9A%97;Built+with+React+%2B+Django" />
+  <img src="https://readme-typing-svg.herokuapp.com?color=FF073A&size=30&center=true&vCenter=true&width=900&lines=AutoIntel+Garage;AI+Driven+Car+Intelligence+System;Full+Stack+%7C+React+%2B+Django;Race+Through+Data+Like+F1" />
 </p>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/3o7TKz9b8d8y7lZ9WU/giphy.gif" width="700"/>
+  <img src="https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif" width="750"/>
 </p>
 
 ---
 
-## 🧭 SYSTEM STATUS
+## 🧭 SYSTEM TELEMETRY
 
-| Module               | Status     |
-| -------------------- | ---------- |
-| 🚗 Car Engine        | 🟢 Active  |
-| 🤖 AI Assistant      | 🟢 Running |
-| ❤️ Favourites System | 🟢 Synced  |
-| 🔐 Authentication    | 🟢 Secure  |
-| ⚙️ Backend API       | 🟢 Stable  |
+<p align="center">
+  <img src="https://img.shields.io/badge/ENGINE-ONLINE-00FF9F?style=for-the-badge&logo=tesla&logoColor=black"/>
+  <img src="https://img.shields.io/badge/AI-MODULE-ACTIVE-FF073A?style=for-the-badge&logo=openai&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AUTH-SECURE-00C2FF?style=for-the-badge&logo=shield&logoColor=black"/>
+  <img src="https://img.shields.io/badge/DEPLOYED-LIVE-FFD700?style=for-the-badge&logo=vercel&logoColor=black"/>
+</p>
 
 ---
 
-## 🚀 LIVE SYSTEM ACCESS
+## 🚀 LIVE RACE TRACK
 
 🌐 **Frontend (Vercel)**
 👉 https://your-frontend-url.vercel.app
@@ -32,111 +31,97 @@
 
 ---
 
-## 🧠 ABOUT THE SYSTEM
+## 🧠 SYSTEM OVERVIEW
 
-AutoIntel Garage is a **next-gen AI-powered car platform** that feels like a **racing control center**.
+AutoIntel Garage is a **next-generation AI-powered automotive intelligence platform**
+designed like a **racing control system**.
 
-It is not just a website — it’s a **machine intelligence interface**.
-
-💡 You explore cars
-💡 AI explains them
-💡 System evaluates them
-
----
-
-## 🎮 CORE GAMEPLAY FEATURES
-
-### 🏎️ CAR EXPLORATION ENGINE
-
-* Slug-based routing system
-* Deep car insights
-* Performance + specs + design + story
+💡 Explore machines
+🤖 Interact with AI
+📊 Analyze vehicles
+❤️ Build your personal garage
 
 ---
 
-### ❤️ PERSONAL GARAGE (FAVOURITES)
+## 🎮 CORE SYSTEM MODULES
 
-* Save cars instantly
-* Sync across sessions
-* Real-time UI updates
+### 🏎️ CAR ENGINE (DATA CORE)
 
----
-
-### 🧠 AI GARAGE ASSISTANT
-
-* Ask anything about any car
-* Performance, design, reliability
-* Model vs model comparisons
+* Slug-based dynamic routing
+* Rich metadata (engine, torque, speed)
+* Story + design intelligence layer
 
 ---
 
-### 🚗 USED CAR ADVISOR (AI)
+### ❤️ PERSONAL GARAGE SYSTEM
 
-* Input car data
-* Get smart recommendation:
-
-  * ✅ Buy
-  * ⚠️ Be Cautious
-  * ❌ Avoid
+* Add/remove favourites instantly
+* Real-time sync engine
+* Persistent user garage
 
 ---
 
-### 🖼️ IMMERSIVE UI EXPERIENCE
+### 🤖 AI GARAGE ASSISTANT
 
-* Racing dashboard UI
-* Glassmorphism + glow effects
-* Image gallery + lightbox
-* Smooth animations (Framer Motion)
-
----
-
-## ⚙️ TECH STACK
-
-### 🎨 FRONTEND
-
-* React (Vite)
-* Framer Motion
-* Axios
-* Custom Racing UI CSS
-
-### 🧠 BACKEND
-
-* Django
-* Django REST Framework
-* Session Auth + CSRF
-
-### ☁️ DEPLOYMENT
-
-* Vercel (Frontend)
-* Render (Backend)
+* Context-aware AI chat
+* Model-specific intelligence
+* Performance + design insights
 
 ---
 
-## 📂 ARCHITECTURE MAP
+### 🚗 USED CAR AI ADVISOR
 
-```id="g7d3f2"
+* Intelligent decision engine
+* Risk scoring system
+* Buy / Avoid recommendations
+
+---
+
+### 🖼️ VISUAL EXPERIENCE ENGINE
+
+* Racing UI (glass + neon glow)
+* Interactive gallery + lightbox
+* Framer Motion animations
+
+---
+
+## ⚙️ TECH STACK MATRIX
+
+| Layer      | Technology                    |
+| ---------- | ----------------------------- |
+| Frontend   | React (Vite), Framer Motion   |
+| Backend    | Django, DRF                   |
+| Auth       | Session + CSRF                |
+| Data       | JSON (cars) + DB (favourites) |
+| Deployment | Vercel + Render               |
+
+---
+
+## 📂 SYSTEM ARCHITECTURE
+
+```id="ultra1"
 AutoIntel Garage
 │
-├── frontend (React)
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── UI system
+├── FRONTEND (React)
+│   ├── Components Engine
+│   ├── Pages System
+│   ├── API Layer
+│   └── Racing UI
 │
-├── backend (Django)
-│   ├── cars/
-│   ├── ai/
-│   ├── auth/
-│   └── APIs
+├── BACKEND (Django)
+│   ├── Cars Engine
+│   ├── AI Engine
+│   ├── Auth System
+│   └── REST APIs
 ```
 
 ---
 
-## ⚡ API ENDPOINTS
+## ⚡ API GRID
 
 ### 🚗 CAR APIs
 
-```id="k91h3s"
+```id="ultra2"
 /api/cars/
 /api/cars/<slug>/
 /api/cars/favorites/
@@ -145,33 +130,50 @@ AutoIntel Garage
 
 ### 🤖 AI APIs
 
-```id="p8a3js"
+```id="ultra3"
 /api/ai/garage/
 /api/ai/used-car-advisor/
 ```
 
 ---
 
+## 📊 LIVE PERFORMANCE STATS
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=DIVYANSH1610&show_icons=true&theme=radical&border_radius=12" height="160"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=DIVYANSH1610&theme=radical&border_radius=12" height="160"/>
+</p>
+
+---
+
+## 🧠 AI SYSTEM FLOW
+
+```id="ultra4"
+User Input → React Frontend → Django API → AI Engine → Response → UI Render
+```
+
+---
+
 ## 🔑 ENV CONFIG
 
-```id="z81k2p"
+```id="ultra5"
 VITE_API_BASE_URL=https://motoe.onrender.com/api/cars
 VITE_BACKEND_ROOT=https://motoe.onrender.com
 ```
 
 ---
 
-## 🧪 FUTURE UPGRADES
+## 🧪 FUTURE EVOLUTION
 
-* 🔐 JWT Authentication (no cookie issues)
+* 🧠 Advanced AI reasoning
+* 🔐 JWT authentication system
 * 📊 AI comparison engine
-* 🧠 smarter LLM responses
-* 📱 PWA support
-* 🏁 leaderboard / gamification
+* 📱 Mobile-first optimization
+* 🎮 Gamification layer
 
 ---
 
-## 🧑‍💻 DRIVER PROFILE
+## 👨‍💻 DRIVER (DEVELOPER)
 
 **Divyansh Dwivedi**
 🚀 Full Stack Developer | AI Builder
@@ -181,14 +183,15 @@ VITE_BACKEND_ROOT=https://motoe.onrender.com
 
 ---
 
-## 🏁 FINAL NOTE
+## 🏁 FINAL SYSTEM MESSAGE
 
-> This project is not just built — it is engineered.
-> Designed like a machine.
-> Driven like a race.
+> This isn’t just a project.
+> It’s a **machine intelligence system** built with precision.
+> Designed like a race car.
+> Engineered for performance.
 
 ---
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=FF0000&height=120&section=footer"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=FF073A&height=140&section=footer"/>
 </p>
