@@ -6,6 +6,22 @@ const API = axios.create({
   withCredentials: true,
 });
 
+// Attach CSRF token automatically to every mutating request
+API.interceptors.request.use(async (config) => {
+  const mutatingMethods = ["post", "put", "patch", "delete"];
+  if (mutatingMethods.includes(config.method?.toLowerCase())) {
+    try {
+      const csrfToken = await getCsrf();
+      if (csrfToken) {
+        config.headers["X-CSRFToken"] = csrfToken;
+      }
+    } catch (err) {
+      console.warn("Could not fetch CSRF token:", err.message);
+    }
+  }
+  return config;
+});
+
 export const getFavourites = async () => {
   return API.get("favorites/");
 };
@@ -15,33 +31,11 @@ export const getFavouriteStatus = async (carSlug) => {
 };
 
 export const addFavourite = async (carSlug) => {
-  const csrfToken = await getCsrf();
-
-  console.log("Favourite add csrfToken:", csrfToken);
-
-  return API.post(
-    "favorites/",
-    { car_slug: carSlug },
-    {
-      withCredentials: true,
-      headers: {
-        "X-CSRFToken": csrfToken,
-      },
-    }
-  );
+  return API.post("favorites/", { car_slug: carSlug });
 };
 
 export const removeFavourite = async (carSlug) => {
-  const csrfToken = await getCsrf();
-
-  console.log("Favourite remove csrfToken:", csrfToken);
-
-  return API.delete(`favorites/${carSlug}/`, {
-    withCredentials: true,
-    headers: {
-      "X-CSRFToken": csrfToken,
-    },
-  });
+  return API.delete(`favorites/${carSlug}/`);
 };
 
 export default API;
