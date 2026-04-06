@@ -143,6 +143,12 @@ function Navbar() {
 >
   Used Advisor
 </Link>
+                <Link
+  to="/analytics"
+  className={`nav-link ${isActive("/analytics") ? "nav-link--active" : ""}`}
+>
+  Analytics
+</Link>
               </>
             )}
           </nav>
