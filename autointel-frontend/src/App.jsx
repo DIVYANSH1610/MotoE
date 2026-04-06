@@ -6,6 +6,7 @@ import Compare from "./pages/Compare";
 import Navbar from "./components/Navbar";
 import AIGarage from "./pages/AIGarage";
 import UsedCarAdvisor from "./pages/UsedCarAdvisor";
+import Analytics from "./pages/Analytics";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import CarDetails from "./pages/CarDetails";
@@ -47,6 +48,7 @@ function App() {
         <Route path="/compare" element={<Compare />} />
         <Route path="/used-car-advisor" element={<UsedCarAdvisor />} />
         <Route path="/ai-garage" element={<AIGarage />} />
+        <Route path="/analytics" element={<Analytics />} />
         <Route
           path="/dashboard"
           element={
