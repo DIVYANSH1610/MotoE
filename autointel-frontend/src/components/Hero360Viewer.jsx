@@ -170,8 +170,6 @@ function Hero360Viewer({
         )}
 
         <div className="hero-360-overlay">
-          <span className="hero-360-badge">240-Frame Showcase</span>
-          <span className="hero-360-hint">Drag to rotate</span>
         </div>
       </div>
     </div>

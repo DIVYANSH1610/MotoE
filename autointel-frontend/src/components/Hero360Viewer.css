@@ -1,16 +1,19 @@
+/* ── VIEWER WRAPPER ──────────────────────────────────────────── */
 .hero-360-viewer {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
+/* ── STAGE ───────────────────────────────────────────────────── */
 .hero-360-stage {
   position: relative;
   width: 100%;
-  min-height: 420px;
-  border-radius: 24px;
+  aspect-ratio: 4 / 3;
+  max-height: 72vh;
+  border-radius: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at center, rgba(255, 122, 0, 0.1), transparent 45%),
-    linear-gradient(180deg, rgba(20, 24, 32, 0.96), rgba(10, 12, 17, 0.98));
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,80 +26,141 @@
   cursor: grabbing;
 }
 
+/* ── IMAGE ───────────────────────────────────────────────────── */
 .hero-360-image {
   width: 100%;
-  max-height: 560px;
+  height: 100%;
   object-fit: contain;
+  object-position: center;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
+  filter: drop-shadow(0 0 60px rgba(255, 90, 0, 0.18));
+  transition: filter 0.3s ease;
 }
 
+.hero-360-stage:active .hero-360-image {
+  filter: drop-shadow(0 0 80px rgba(255, 90, 0, 0.28));
+}
+
+/* ── OVERLAY BADGES ──────────────────────────────────────────── */
 .hero-360-overlay {
   position: absolute;
-  inset: auto 16px 16px 16px;
+  inset: auto 0 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(to top, rgba(8, 10, 13, 0.7) 0%, transparent 100%);
 }
 
-.hero-360-badge,
+.hero-360-badge {
+  font-family: "Barlow Condensed", "Oswald", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 160, 60, 0.9);
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 120, 0, 0.25);
+  border-radius: 2px;
+  background: rgba(255, 80, 0, 0.08);
+  backdrop-filter: blur(8px);
+}
+
 .hero-360-hint {
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-  font-size: 0.82rem;
-  font-weight: 600;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: "Barlow", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(200, 195, 185, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
+.hero-360-hint::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: rgba(255, 106, 0, 0.45);
+  border-radius: 1px;
+}
+
+.hero-360-hint::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: rgba(255, 106, 0, 0.45);
+  border-radius: 1px;
+}
+
+/* ── DRAG INDICATOR LINE ─────────────────────────────────────── */
+.hero-360-stage::after {
+  content: "↔ drag to rotate";
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Barlow", sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.hero-360-stage:active::after {
+  opacity: 0;
+}
+
+/* ── LOADER ──────────────────────────────────────────────────── */
 .hero-360-loader {
   position: absolute;
   inset: 0;
   z-index: 3;
-  display: grid;
-  place-items: center;
-  background: rgba(5, 5, 5, 0.55);
-  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(8, 10, 13, 0.6);
+  backdrop-filter: blur(6px);
 }
 
 .hero-360-loader p {
-  color: white;
-  margin-top: 16px;
-  font-size: 0.95rem;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 160, 60, 0.8);
+  margin: 0;
 }
 
 .hero-360-loader-ring {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.16);
-  border-top-color: #ff7a00;
-  animation: hero360spin 0.8s linear infinite;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-top-color: #ff6a00;
+  animation: hero360spin 0.75s linear infinite;
 }
 
 @keyframes hero360spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
+/* ── MOBILE ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-360-stage {
-    min-height: 280px;
-    border-radius: 18px;
-  }
-
-  .hero-360-image {
-    max-height: 320px;
-  }
-
-  .hero-360-overlay {
-    flex-direction: column;
-    align-items: flex-start;
+    aspect-ratio: 4 / 3;
+    max-height: 42vh;
   }
 }

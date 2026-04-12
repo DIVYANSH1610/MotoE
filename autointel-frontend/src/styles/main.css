@@ -5,6 +5,19 @@ body {
   background: #0d0d0d;
   color: white;
 }
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800&family=Barlow:wght@400;500;700&display=swap');
+ 
+/* Also make sure your body/html has no default margin that pushes the hero down */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+ 
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #080a0d;
+}
+ 
 
 h1 {
   text-align: center;
