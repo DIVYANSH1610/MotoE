@@ -147,10 +147,7 @@ function Home() {
   return (
     <div className="home-page">
       <div className="home-wrapper">
-        <HeroSection
-          featuredCar={featuredCar}
-          onExplore={() => scrollToSection("#explore")}
-        />
+       <HeroSection onExplore={() => scrollToSection("#explore")} />
 
         <motion.section
           id="featured"

@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
+import Hero360Viewer from "./Hero360Viewer";
 import "./HeroSection.css";
 
-function HeroSection({ featuredCar, onExplore }) {
+function HeroSection({ onExplore }) {
   return (
     <section className="motoe-hero">
       <div className="hero-overlay"></div>
@@ -65,18 +66,12 @@ function HeroSection({ featuredCar, onExplore }) {
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <div className="hero-car-glow"></div>
-
-          {featuredCar?.heroImage ? (
-            <img
-              src={featuredCar.heroImage}
-              alt={featuredCar?.car_name || "MotoE Garage featured car"}
-              className="hero-car-image"
-            />
-          ) : (
-            <div className="hero-image-placeholder">
-              No featured image available
-            </div>
-          )}
+          <Hero360Viewer
+            totalFrames={240}
+            filePrefix="ezgif-frame-"
+            fileExtension="jpg"
+            autoRotate={true}
+          />
         </motion.div>
       </div>
     </section>
