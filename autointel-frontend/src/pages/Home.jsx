@@ -67,25 +67,6 @@ function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  const featuredCar = useMemo(() => {
-    if (!cars.length) return null;
-
-    const firstCarWithImage = cars.find(
-      (car) => car?.image || (Array.isArray(car?.gallery) && car.gallery.length)
-    );
-
-    if (!firstCarWithImage) return null;
-
-    const heroImage =
-      firstCarWithImage.image ||
-      (Array.isArray(firstCarWithImage.gallery) ? firstCarWithImage.gallery[0] : "");
-
-    return {
-      ...firstCarWithImage,
-      heroImage: resolveImageUrl(heroImage),
-    };
-  }, [cars, resolveImageUrl]);
-
   const galleryImages = useMemo(() => {
     return cars
       .flatMap((car) => {
@@ -147,7 +128,7 @@ function Home() {
   return (
     <div className="home-page">
       <div className="home-wrapper">
-       <HeroSection onExplore={() => scrollToSection("#explore")} />
+        <HeroSection onExplore={() => scrollToSection("#explore")} />
 
         <motion.section
           id="featured"
