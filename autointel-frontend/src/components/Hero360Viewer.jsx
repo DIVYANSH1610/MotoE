@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./Hero360Viewer.css";
 
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/+$/, "");
+// ✅ FIX 1: Fallback to the known Render URL if env var is missing
+const BACKEND_URL = (
+  import.meta.env.VITE_BACKEND_URL || "https://motoe.onrender.com"
+).replace(/\/+$/, "");
 
 function padFrameNumber(num) {
   return String(num).padStart(3, "0");
@@ -14,36 +17,35 @@ function Hero360Viewer({
   autoRotate = true,
 }) {
   const [currentFrame, setCurrentFrame] = useState(0);
-  const [loadedFrames, setLoadedFrames] = useState(new Set([0]));
-  const [loadedCount, setLoadedCount] = useState(1);
+  const [loadedFrames, setLoadedFrames] = useState(new Set());
+  const [loadedCount, setLoadedCount] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  // ✅ FIX 2: Track failed frames so loader doesn't hang forever
+  const [failedCount, setFailedCount] = useState(0);
 
   const dragStartX = useRef(0);
   const lastFrameRef = useRef(0);
 
-  const frameUrls = useMemo(() => {
-    if (!BACKEND_URL) return [];
+  const PRELOAD_COUNT = Math.min(24, totalFrames);
 
+  const frameUrls = useMemo(() => {
     return Array.from({ length: totalFrames }, (_, index) => {
       const frameNumber = padFrameNumber(index + 1);
       return `${BACKEND_URL}/media/frames/${filePrefix}${frameNumber}.${fileExtension}`;
     });
   }, [totalFrames, filePrefix, fileExtension]);
 
+  // ✅ FIX 3: Preload first 24 frames, counting both successes AND failures
   useEffect(() => {
     if (!frameUrls.length) return;
 
     let cancelled = false;
-    const preloadIndexes = [];
 
-    for (let i = 0; i < Math.min(24, frameUrls.length); i += 1) {
-      preloadIndexes.push(i);
-    }
-
-    preloadIndexes.forEach((index) => {
+    Array.from({ length: PRELOAD_COUNT }, (_, i) => i).forEach((index) => {
       const img = new Image();
       img.src = frameUrls[index];
-      img.onload = img.onerror = () => {
+
+      img.onload = () => {
         if (cancelled) return;
         setLoadedFrames((prev) => {
           if (prev.has(index)) return prev;
@@ -53,13 +55,20 @@ function Hero360Viewer({
           return next;
         });
       };
+
+      img.onerror = () => {
+        if (cancelled) return;
+        // Count failures so the loader doesn't hang if images are broken
+        setFailedCount((prev) => prev + 1);
+      };
     });
 
     return () => {
       cancelled = true;
     };
-  }, [frameUrls]);
+  }, [frameUrls, PRELOAD_COUNT]);
 
+  // Auto-rotate
   useEffect(() => {
     if (!autoRotate || isDragging || totalFrames <= 1) return;
 
@@ -70,13 +79,14 @@ function Hero360Viewer({
     return () => clearInterval(interval);
   }, [autoRotate, isDragging, totalFrames]);
 
+  // Lazy-load current frame on demand
   useEffect(() => {
     if (!frameUrls[currentFrame]) return;
     if (loadedFrames.has(currentFrame)) return;
 
     const img = new Image();
     img.src = frameUrls[currentFrame];
-    img.onload = img.onerror = () => {
+    img.onload = () => {
       setLoadedFrames((prev) => {
         if (prev.has(currentFrame)) return prev;
         const next = new Set(prev);
@@ -125,21 +135,11 @@ function Hero360Viewer({
 
   const handleTouchEnd = () => setIsDragging(false);
 
-  const progressPercent = totalFrames
-    ? Math.round((loadedCount / totalFrames) * 100)
-    : 0;
-
-  if (!BACKEND_URL) {
-    return (
-      <div className="hero-360-viewer">
-        <div className="hero-360-stage">
-          <div className="hero-360-loader">
-            <p>Backend image URL missing. Check VITE_BACKEND_URL.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // ✅ FIX 4: Loading is done when (successes + failures) >= PRELOAD_COUNT
+  const isLoading = loadedCount + failedCount < PRELOAD_COUNT;
+  const progressPercent = Math.round(
+    ((loadedCount + failedCount) / PRELOAD_COUNT) * 100
+  );
 
   return (
     <div className="hero-360-viewer">
@@ -153,7 +153,7 @@ function Hero360Viewer({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {loadedCount < Math.min(totalFrames, 24) && (
+        {isLoading && (
           <div className="hero-360-loader">
             <div className="hero-360-loader-ring"></div>
             <p>Loading hero view... {progressPercent}%</p>
