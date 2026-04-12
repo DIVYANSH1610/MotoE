@@ -8,8 +8,7 @@ import TyreLoader from "../components/TyreLoader";
 import HeroSection from "../components/HeroSection";
 import "./Home.css";
 
-const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000";
+const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/+$/, "");
 
 function Home() {
   const [cars, setCars] = useState([]);
@@ -17,25 +16,44 @@ function Home() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const resolveImageUrl = useCallback((imagePath) => {
-    if (!imagePath) return "";
+  const resolveImageUrl = useCallback(
+    (imagePath) => {
+      if (!imagePath) return "";
 
-    if (
-      imagePath.startsWith("http://") ||
-      imagePath.startsWith("https://") ||
-      imagePath.startsWith("data:")
-    ) {
-      return imagePath;
-    }
+      if (
+        imagePath.startsWith("http://") ||
+        imagePath.startsWith("https://") ||
+        imagePath.startsWith("data:")
+      ) {
+        return imagePath;
+      }
 
-    const cleanedPath = imagePath.replace(/^\/+/, "");
+      const cleanedPath = imagePath.replace(/\\/g, "/").replace(/^\/+/, "");
 
-    if (cleanedPath.startsWith("media/")) {
+      if (!BACKEND_URL) return `/${cleanedPath}`;
+
+      if (cleanedPath.startsWith("media/")) {
+        return `${BACKEND_URL}/${cleanedPath}`;
+      }
+
+      if (cleanedPath.startsWith("data/images/")) {
+        return `${BACKEND_URL}/${cleanedPath}`;
+      }
+
+      if (
+        cleanedPath.endsWith(".png") ||
+        cleanedPath.endsWith(".jpg") ||
+        cleanedPath.endsWith(".jpeg") ||
+        cleanedPath.endsWith(".webp") ||
+        cleanedPath.endsWith(".avif")
+      ) {
+        return `${BACKEND_URL}/media/${cleanedPath}`;
+      }
+
       return `${BACKEND_URL}/${cleanedPath}`;
-    }
-
-    return `${BACKEND_URL}/media/${cleanedPath}`;
-  }, []);
+    },
+    []
+  );
 
   useEffect(() => {
     getCars()
@@ -43,17 +61,26 @@ function Home() {
         const data = Array.isArray(res.data) ? res.data : res.data.cars || [];
         setCars(data);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => console.error("Failed to fetch cars:", err))
       .finally(() => setLoading(false));
   }, []);
 
   const featuredCar = useMemo(() => {
     if (!cars.length) return null;
 
-    const firstCar = cars[0];
+    const firstCarWithImage = cars.find(
+      (car) => car?.image || (Array.isArray(car?.gallery) && car.gallery.length)
+    );
+
+    if (!firstCarWithImage) return null;
+
+    const heroImage =
+      firstCarWithImage.image ||
+      (Array.isArray(firstCarWithImage.gallery) ? firstCarWithImage.gallery[0] : "");
+
     return {
-      ...firstCar,
-      image: resolveImageUrl(firstCar.image),
+      ...firstCarWithImage,
+      heroImage: resolveImageUrl(heroImage),
     };
   }, [cars, resolveImageUrl]);
 
@@ -137,7 +164,6 @@ function Home() {
         <HeroSection
           featuredCar={featuredCar}
           onExplore={() => scrollToSection("#explore")}
-          onCompare={() => scrollToSection("#featured")}
         />
 
         <motion.section
