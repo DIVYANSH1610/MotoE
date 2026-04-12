@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CarDetailsGallery from "../components/CarDetailsGallery";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import {
@@ -746,6 +747,16 @@ function CarDetails() {
           />
         )}
       </AnimatePresence>
+      <CarDetailsGallery
+  images={
+    Array.isArray(car.gallery) && car.gallery.length
+      ? car.gallery
+      : car.image
+      ? [car.image]
+      : []
+  }
+  carName={car.car_name}
+/>
     </div>
   );
 }

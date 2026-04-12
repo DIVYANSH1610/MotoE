@@ -4,6 +4,8 @@ import { getCars } from "../services/api";
 import CarCard from "../components/CarCard";
 import PremiumSectionHeader from "../components/PremiumSectionHeader";
 import GalleryLightbox from "../components/GalleryLightbox";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import TyreLoader from "../components/TyreLoader";
 import HeroSection from "../components/HeroSection";
 import "./Home.css";
@@ -281,19 +283,76 @@ function Home() {
           </div>
         </motion.section>
 
-        <motion.section
-          id="gallery"
-          className="section-block gallery-section"
-          initial={{ opacity: 0, y: 26 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.46 }}
+       <motion.section
+  id="gallery"
+  className="section-block gallery-section"
+  initial={{ opacity: 0, y: 26 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.46 }}
+>
+  <PremiumSectionHeader
+    kicker="Visual Identity"
+    title="Visual Gallery"
+    subtitle="Tap any image to open it in a premium popup viewer."
+  />
+
+  {loading ? (
+    <TyreLoader label="Loading gallery..." />
+  ) : (
+    <>
+      {/* Desktop Grid */}
+      <div className="gallery-grid desktop-gallery">
+        {galleryImages.map((item, index) => (
+          <motion.button
+            key={`${item.src}-${index}`}
+            type="button"
+            className="gallery-item"
+            whileHover={{ y: -6, scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => openLightbox(index)}
+          >
+            <img src={item.src} alt={item.label} />
+            <div className="gallery-item-overlay">
+              <span>{item.label}</span>
+            </div>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Mobile Swiper */}
+      <div className="mobile-gallery-swiper-wrap">
+        <Swiper
+          slidesPerView={1.15}
+          spaceBetween={14}
+          grabCursor={true}
+          breakpoints={{
+            480: { slidesPerView: 1.2 },
+            640: { slidesPerView: 1.5 },
+            768: { slidesPerView: 1.8 },
+          }}
+          className="mobile-gallery-swiper"
         >
-          <PremiumSectionHeader
-            kicker="Visual Identity"
-            title="Visual Gallery"
-            subtitle="Tap any image to open it in a premium popup viewer."
-          />
+          {galleryImages.map((item, index) => (
+            <SwiperSlide key={`${item.src}-${index}`}>
+              <button
+                type="button"
+                className="gallery-item mobile-gallery-item"
+                onClick={() => openLightbox(index)}
+              >
+                <img src={item.src} alt={item.label} />
+                <div className="gallery-item-overlay">
+                  <span>{item.label}</span>
+                </div>
+              </button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </>
+  )}
+</motion.section>
 
           {loading ? (
             <TyreLoader label="Loading gallery..." />
@@ -321,16 +380,14 @@ function Home() {
       </div>
 
       {lightboxOpen && galleryImages.length > 0 && (
-        <GalleryLightbox
-          images={galleryImages.map((item) => item.src)}
-          currentIndex={currentImageIndex}
-          onClose={closeLightbox}
-          onPrev={handlePrevImage}
-          onNext={handleNextImage}
-          onSelect={handleSelectImage}
-          carName={galleryImages[currentImageIndex]?.label || "Garage Gallery"}
-        />
-      )}
+  <GalleryLightbox
+    images={galleryImages.map((item) => item.src)}
+    currentIndex={currentImageIndex}
+    onClose={closeLightbox}
+    onSelect={handleSelectImage}
+    carName={galleryImages[currentImageIndex]?.label || "Garage Gallery"}
+  />
+)}
     </div>
   );
 }
