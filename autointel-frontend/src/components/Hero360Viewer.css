@@ -1,166 +1,95 @@
-/* ── VIEWER WRAPPER ──────────────────────────────────────────── */
+/* ── VIEWER SHELL ─────────────────────────────────── */
 .hero-360-viewer {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  position: relative;
-  z-index: 1;
+  height: 100%;
+  z-index: 0;
 }
 
-/* ── STAGE ───────────────────────────────────────────────────── */
+/* ── STAGE ────────────────────────────────────────── */
 .hero-360-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 72vh;
-  border-radius: 0;
-  overflow: hidden;
+  height: 100%;
   background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: grab;
   user-select: none;
-  touch-action: pan-y;
+  touch-action: none;
+  overflow: hidden;
 }
 
 .hero-360-stage:active {
   cursor: grabbing;
 }
 
-/* ── IMAGE ───────────────────────────────────────────────────── */
+/* ── IMAGE ────────────────────────────────────────── */
 .hero-360-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center;
+  object-position: center 45%;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
-  filter: drop-shadow(0 0 60px rgba(255, 90, 0, 0.18));
+  filter: drop-shadow(0 0 80px rgba(255,75,0,0.16));
   transition: filter 0.3s ease;
 }
 
 .hero-360-stage:active .hero-360-image {
-  filter: drop-shadow(0 0 80px rgba(255, 90, 0, 0.28));
+  filter: drop-shadow(0 0 120px rgba(255,75,0,0.28));
 }
 
-/* ── OVERLAY BADGES ──────────────────────────────────────────── */
+/* ── HIDE THE BUILT-IN OVERLAY (we use HeroSection's HUD instead) */
 .hero-360-overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  background: linear-gradient(to top, rgba(8, 10, 13, 0.7) 0%, transparent 100%);
+  display: none;
 }
 
-.hero-360-badge {
-  font-family: "Barlow Condensed", "Oswald", sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 160, 60, 0.9);
-  padding: 5px 12px;
-  border: 1px solid rgba(255, 120, 0, 0.25);
-  border-radius: 2px;
-  background: rgba(255, 80, 0, 0.08);
-  backdrop-filter: blur(8px);
-}
-
-.hero-360-hint {
-  font-family: "Barlow", system-ui, sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: rgba(200, 195, 185, 0.5);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hero-360-hint::before {
-  content: "";
-  display: block;
-  width: 18px;
-  height: 2px;
-  background: rgba(255, 106, 0, 0.45);
-  border-radius: 1px;
-}
-
-.hero-360-hint::after {
-  content: "";
-  display: block;
-  width: 18px;
-  height: 2px;
-  background: rgba(255, 106, 0, 0.45);
-  border-radius: 1px;
-}
-
-/* ── DRAG INDICATOR LINE ─────────────────────────────────────── */
-.hero-360-stage::after {
-  content: "↔ drag to rotate";
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "Barlow", sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  white-space: nowrap;
-  opacity: 1;
-  transition: opacity 0.4s;
-}
-
-.hero-360-stage:active::after {
-  opacity: 0;
-}
-
-/* ── LOADER ──────────────────────────────────────────────────── */
+/* ── LOADER ───────────────────────────────────────── */
 .hero-360-loader {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  background: rgba(8, 10, 13, 0.6);
-  backdrop-filter: blur(6px);
+  gap: 18px;
+  background: rgba(5,6,10,0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero-360-loader p {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-family: "Barlow Condensed", "Oswald", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(255, 160, 60, 0.8);
+  color: rgba(255,140,50,0.75);
   margin: 0;
 }
 
 .hero-360-loader-ring {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.08);
-  border-top-color: #ff6a00;
-  animation: hero360spin 0.75s linear infinite;
+  border: 2px solid rgba(255,255,255,0.06);
+  border-top-color: #ff6200;
+  animation: ring-spin 0.72s linear infinite;
 }
 
-@keyframes hero360spin {
+@keyframes ring-spin {
   to { transform: rotate(360deg); }
 }
 
-/* ── MOBILE ──────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .hero-360-stage {
-    aspect-ratio: 4 / 3;
-    max-height: 42vh;
+/* ── MOBILE ───────────────────────────────────────── */
+@media (max-width: 540px) {
+  .hero-360-image {
+    object-position: center 40%;
   }
 }
