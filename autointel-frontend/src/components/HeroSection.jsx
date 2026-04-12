@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./HeroSection.css";
 
-function HeroSection() {
+function HeroSection({ featuredCar, onExplore }) {
   return (
     <section className="motoe-hero">
       <div className="hero-overlay"></div>
@@ -32,13 +31,9 @@ function HeroSection() {
           </p>
 
           <div className="hero-buttons">
-            <Link to="/cars" className="hero-btn primary-btn">
+            <button type="button" className="hero-btn primary-btn" onClick={onExplore}>
               Explore Cars
-            </Link>
-
-            <Link to="/compare" className="hero-btn secondary-btn">
-              Compare Models
-            </Link>
+            </button>
           </div>
 
           <div className="hero-stats">
@@ -48,8 +43,8 @@ function HeroSection() {
             </div>
 
             <div className="hero-stat-card">
-              <h3>Smart Comparison</h3>
-              <p>Compare legendary cars side by side with clarity.</p>
+              <h3>Smart Garage</h3>
+              <p>Browse curated automotive excellence with immersive visuals.</p>
             </div>
 
             <div className="hero-stat-card">
@@ -67,15 +62,19 @@ function HeroSection() {
         >
           <div className="hero-car-glow"></div>
 
-          <img
-  src="http://127.0.0.1:8000/media/id1-1.webp"
-  alt="MotoE Garage featured car"
-  className="hero-car-image"
-/>
+          {featuredCar?.heroImage ? (
+            <img
+              src={featuredCar.heroImage}
+              alt={featuredCar?.car_name || "MotoE Garage featured car"}
+              className="hero-car-image"
+            />
+          ) : (
+            <div className="hero-image-placeholder">No featured image available</div>
+          )}
 
           <div className="hero-floating-card top-card">
-            <span>Top Speed</span>
-            <strong>330 km/h</strong>
+            <span>Featured Machine</span>
+            <strong>{featuredCar?.car_name || "Loading..."}</strong>
           </div>
 
           <div className="hero-floating-card bottom-card">
