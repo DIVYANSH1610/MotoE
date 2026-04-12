@@ -76,11 +76,6 @@ function HeroSection({ featuredCar, onExplore }) {
             <span>Featured Machine</span>
             <strong>{featuredCar?.car_name || "Loading..."}</strong>
           </div>
-
-          <div className="hero-floating-card bottom-card">
-            <span>AI Garage Mode</span>
-            <strong>Active</strong>
-          </div>
         </motion.div>
       </div>
     </section>
