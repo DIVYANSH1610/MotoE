@@ -14,13 +14,16 @@ function Hero360Viewer({
   autoRotate = true,
 }) {
   const [currentFrame, setCurrentFrame] = useState(0);
-  const [loadedCount, setLoadedCount] = useState(0);
+  const [loadedFrames, setLoadedFrames] = useState(new Set([0]));
+  const [loadedCount, setLoadedCount] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
 
   const dragStartX = useRef(0);
   const lastFrameRef = useRef(0);
 
   const frameUrls = useMemo(() => {
+    if (!BACKEND_URL) return [];
+
     return Array.from({ length: totalFrames }, (_, index) => {
       const frameNumber = padFrameNumber(index + 1);
       return `${BACKEND_URL}/media/frames/${filePrefix}${frameNumber}.${fileExtension}`;
@@ -28,21 +31,28 @@ function Hero360Viewer({
   }, [totalFrames, filePrefix, fileExtension]);
 
   useEffect(() => {
+    if (!frameUrls.length) return;
+
     let cancelled = false;
-    let count = 0;
+    const preloadIndexes = [];
 
-    frameUrls.forEach((src) => {
+    for (let i = 0; i < Math.min(24, frameUrls.length); i += 1) {
+      preloadIndexes.push(i);
+    }
+
+    preloadIndexes.forEach((index) => {
       const img = new Image();
-      img.src = src;
-
-      const markLoaded = () => {
+      img.src = frameUrls[index];
+      img.onload = img.onerror = () => {
         if (cancelled) return;
-        count += 1;
-        setLoadedCount(count);
+        setLoadedFrames((prev) => {
+          if (prev.has(index)) return prev;
+          const next = new Set(prev);
+          next.add(index);
+          setLoadedCount(next.size);
+          return next;
+        });
       };
-
-      img.onload = markLoaded;
-      img.onerror = markLoaded;
     });
 
     return () => {
@@ -55,10 +65,27 @@ function Hero360Viewer({
 
     const interval = setInterval(() => {
       setCurrentFrame((prev) => (prev + 1) % totalFrames);
-    }, 50);
+    }, 70);
 
     return () => clearInterval(interval);
   }, [autoRotate, isDragging, totalFrames]);
+
+  useEffect(() => {
+    if (!frameUrls[currentFrame]) return;
+    if (loadedFrames.has(currentFrame)) return;
+
+    const img = new Image();
+    img.src = frameUrls[currentFrame];
+    img.onload = img.onerror = () => {
+      setLoadedFrames((prev) => {
+        if (prev.has(currentFrame)) return prev;
+        const next = new Set(prev);
+        next.add(currentFrame);
+        setLoadedCount(next.size);
+        return next;
+      });
+    };
+  }, [currentFrame, frameUrls, loadedFrames]);
 
   const updateFrameFromDrag = (clientX) => {
     const deltaX = clientX - dragStartX.current;
@@ -82,13 +109,8 @@ function Hero360Viewer({
     updateFrameFromDrag(e.clientX);
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
+  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseLeave = () => setIsDragging(false);
 
   const handleTouchStart = (e) => {
     setIsDragging(true);
@@ -101,13 +123,23 @@ function Hero360Viewer({
     updateFrameFromDrag(e.touches[0].clientX);
   };
 
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
+  const handleTouchEnd = () => setIsDragging(false);
 
   const progressPercent = totalFrames
     ? Math.round((loadedCount / totalFrames) * 100)
     : 0;
+
+  if (!BACKEND_URL) {
+    return (
+      <div className="hero-360-viewer">
+        <div className="hero-360-stage">
+          <div className="hero-360-loader">
+            <p>Backend image URL missing. Check VITE_BACKEND_URL.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="hero-360-viewer">
@@ -121,19 +153,21 @@ function Hero360Viewer({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {loadedCount < totalFrames && (
+        {loadedCount < Math.min(totalFrames, 24) && (
           <div className="hero-360-loader">
             <div className="hero-360-loader-ring"></div>
             <p>Loading hero view... {progressPercent}%</p>
           </div>
         )}
 
-        <img
-          src={frameUrls[currentFrame]}
-          alt={`Hero frame ${currentFrame + 1}`}
-          className="hero-360-image"
-          draggable="false"
-        />
+        {frameUrls[currentFrame] && (
+          <img
+            src={frameUrls[currentFrame]}
+            alt={`Hero frame ${currentFrame + 1}`}
+            className="hero-360-image"
+            draggable="false"
+          />
+        )}
 
         <div className="hero-360-overlay">
           <span className="hero-360-badge">240-Frame Showcase</span>

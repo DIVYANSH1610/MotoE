@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Gauge, Zap, Fuel, TimerReset } from "lucide-react";
 import FavouriteButton from "./FavouriteButton";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 import "./CarCard.css";
 
 function CarCard({ car }) {
   const navigate = useNavigate();
+  const imageSrc = resolveImageUrl(car.image);
 
   const goToDetails = () => {
     sessionStorage.setItem("homeScrollY", String(window.scrollY));
@@ -42,9 +44,13 @@ function CarCard({ car }) {
         <div className="race-card__glow"></div>
 
         <img
-          src={car.image}
+          src={imageSrc}
           alt={car.car_name}
           className="race-card__image"
+          loading="lazy"
+          onError={(e) => {
+            e.currentTarget.style.opacity = "0";
+          }}
         />
 
         <div className="race-card__overlay"></div>

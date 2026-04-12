@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { getCars } from "../services/api";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 import CarCard from "../components/CarCard";
 import PremiumSectionHeader from "../components/PremiumSectionHeader";
 import GalleryLightbox from "../components/GalleryLightbox";
@@ -13,49 +14,11 @@ import TyreLoader from "../components/TyreLoader";
 import HeroSection from "../components/HeroSection";
 import "./Home.css";
 
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/+$/, "");
-
 function Home() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const resolveImageUrl = useCallback((imagePath) => {
-    if (!imagePath) return "";
-
-    if (
-      imagePath.startsWith("http://") ||
-      imagePath.startsWith("https://") ||
-      imagePath.startsWith("data:")
-    ) {
-      return imagePath;
-    }
-
-    const cleanedPath = imagePath.replace(/\\/g, "/").replace(/^\/+/, "");
-
-    if (!BACKEND_URL) return `/${cleanedPath}`;
-
-    if (cleanedPath.startsWith("media/")) {
-      return `${BACKEND_URL}/${cleanedPath}`;
-    }
-
-    if (cleanedPath.startsWith("data/images/")) {
-      return `${BACKEND_URL}/${cleanedPath}`;
-    }
-
-    if (
-      cleanedPath.endsWith(".png") ||
-      cleanedPath.endsWith(".jpg") ||
-      cleanedPath.endsWith(".jpeg") ||
-      cleanedPath.endsWith(".webp") ||
-      cleanedPath.endsWith(".avif")
-    ) {
-      return `${BACKEND_URL}/media/${cleanedPath}`;
-    }
-
-    return `${BACKEND_URL}/${cleanedPath}`;
-  }, []);
 
   useEffect(() => {
     getCars()
@@ -88,7 +51,7 @@ function Home() {
       })
       .filter((item) => item.src)
       .slice(0, 24);
-  }, [cars, resolveImageUrl]);
+  }, [cars]);
 
   useEffect(() => {
     if (!loading) {
@@ -181,71 +144,6 @@ function Home() {
         </motion.section>
 
         <motion.section
-          id="performance"
-          className="section-block performance-section"
-          initial={{ opacity: 0, y: 26 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.44 }}
-        >
-          <PremiumSectionHeader
-            kicker="Engineering Focus"
-            title="Performance Insights"
-            subtitle="Power, speed, engineering, and driving emotion explained."
-          />
-
-          <div className="performance-grid">
-            <motion.div
-              className="performance-card"
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h3>Horsepower</h3>
-              <p>
-                Discover how raw power defines throttle response, driving
-                character, and speed potential.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="performance-card"
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h3>Top Speed</h3>
-              <p>
-                Explore the machines that push aerodynamic engineering and
-                mechanical precision to the limit.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="performance-card"
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h3>Acceleration</h3>
-              <p>
-                Understand how 0–100 km/h times reflect traction, tuning,
-                gearing, and real-world urgency.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="performance-card"
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h3>Engineering</h3>
-              <p>
-                Deep dive into engines, torque delivery, weight balance, and the
-                technology behind performance.
-              </p>
-            </motion.div>
-          </div>
-        </motion.section>
-
-        <motion.section
           id="gallery"
           className="section-block gallery-section"
           initial={{ opacity: 0, y: 26 }}
@@ -274,7 +172,14 @@ function Home() {
                     transition={{ duration: 0.22 }}
                     onClick={() => openLightbox(index)}
                   >
-                    <img src={item.src} alt={item.label} />
+                    <img
+                      src={item.src}
+                      alt={item.label}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
                     <div className="gallery-item-overlay">
                       <span>{item.label}</span>
                     </div>
@@ -306,7 +211,14 @@ function Home() {
                         className="mobile-gallery-item"
                         onClick={() => openLightbox(index)}
                       >
-                        <img src={item.src} alt={item.label} />
+                        <img
+                          src={item.src}
+                          alt={item.label}
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
                         <div className="gallery-item-overlay">
                           <span>{item.label}</span>
                         </div>
