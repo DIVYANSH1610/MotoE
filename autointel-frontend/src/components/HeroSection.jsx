@@ -5,100 +5,65 @@ import "./HeroSection.css";
 function HeroSection({ onExplore }) {
   return (
     <section className="motoe-hero">
-      <div className="hero-overlay" />
-      <div className="hero-noise" />
-      <div className="hero-light light-one" />
-      <div className="hero-light light-two" />
 
-      {/* ── TOP NAV ─────────────────────────────────── */}
+      {/* ── atmosphere ─────────────────────────── */}
+      <div className="hero-bg-glow" />
+      <div className="hero-vignette" />
+      <div className="hero-scanlines" />
+
+      {/* ── 360 viewer — full bleed background ── */}
+      <Hero360Viewer
+        totalFrames={240}
+        filePrefix="ezgif-frame-"
+        fileExtension="jpg"
+        autoRotate={true}
+      />
+
+      {/* ── wordmark top-left ───────────────────── */}
       <motion.div
-        className="hero-topbar"
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="hero-wordmark"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.3 }}
       >
-        <div className="hero-wordmark">
-          Moto<span>E</span>
-        </div>
-        <div className="hero-nav-tag">Premium Automotive</div>
+        MOTO<span>E</span>
       </motion.div>
 
-      {/* ── 360 VIEWER — fills entire section ───────── */}
-      <div className="hero-visual-block">
-        <div className="hero-car-glow" />
-        <Hero360Viewer
-          totalFrames={240}
-          filePrefix="ezgif-frame-"
-          fileExtension="jpg"
-          autoRotate={true}
-        />
-      </div>
-
-      {/* ── DRAG HINT — appears then auto-fades ─────── */}
-      <div className="hero-drag-hint">
-        <div className="hero-drag-circle">
-          <svg viewBox="0 0 24 24">
-            <path d="M5 12h14M5 12l4-4M5 12l4 4" />
-            <path d="M19 12l-4-4M19 12l-4 4" />
+      {/* ── drag hint — center, fades out ──────── */}
+      <motion.div
+        className="hero-drag-hint"
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: [0, 1, 1, 0], y: [6, 0, 0, -6] }}
+        transition={{ duration: 4.5, delay: 1.2, times: [0, 0.12, 0.75, 1] }}
+      >
+        <div className="hero-drag-ring">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <path d="M5 12h14" />
+            <path d="M9 8l-4 4 4 4" />
+            <path d="M15 8l4 4-4 4" />
           </svg>
         </div>
-        <span className="hero-drag-label">Drag to rotate</span>
-      </div>
+        <span className="hero-drag-label">drag to rotate</span>
+      </motion.div>
 
-      {/* ── BOTTOM HUD ──────────────────────────────── */}
-      <div className="hero-content-wrapper">
+      {/* ── explore button — bottom-right corner ─ */}
+      <motion.button
+        className="hero-explore-btn"
+        type="button"
+        onClick={onExplore}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+      >
+        <span>Explore Cars</span>
+        <svg className="hero-explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </motion.button>
 
-        {/* LEFT — title + CTA */}
-        <motion.div
-          className="hero-text-block"
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-        >
-          <p className="hero-badge">Premium Automotive Experience</p>
+      {/* ── thin bottom progress bar while loading ─ */}
+      <div className="hero-bottom-bar" />
 
-          <h1 className="hero-title">
-            The Garage of
-            <span>Excellence</span>
-          </h1>
-
-          <p className="hero-description">
-            Iconic machines, real performance data, and AI-powered insights — all in one cinematic garage experience.
-          </p>
-
-          <div className="hero-buttons">
-            <button
-              type="button"
-              className="hero-btn primary-btn"
-              onClick={onExplore}
-            >
-              Explore Cars
-            </button>
-          </div>
-        </motion.div>
-
-        {/* RIGHT — stat cards */}
-        <motion.div
-          className="hero-stats"
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.4 }}
-        >
-          <div className="hero-stat-card">
-            <h3>Detailed Profiles</h3>
-            <p>Performance, design, and legacy explored in depth.</p>
-          </div>
-          <div className="hero-stat-card">
-            <h3>Smart Garage</h3>
-            <p>Curated excellence with immersive 360° visuals.</p>
-          </div>
-          <div className="hero-stat-card">
-            <h3>AI Insights</h3>
-            <p>Ask anything about any car in the collection.</p>
-          </div>
-        </motion.div>
-
-      </div>
     </section>
   );
 }
