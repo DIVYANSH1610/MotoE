@@ -1,3 +1,6 @@
+/* ═══════════════════════════════════════════════
+   CAR CARD
+═══════════════════════════════════════════════ */
 .race-card {
   position: relative;
   display: flex;
@@ -21,33 +24,53 @@
   min-height: 100%;
 }
 
-.race-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 122, 0, 0.22);
-  box-shadow:
-    0 24px 52px rgba(0, 0, 0, 0.38),
-    0 0 0 1px rgba(255, 122, 0, 0.04) inset;
+/* orange top-edge accent — same as glass-card system */
+.race-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff7a00, #ff3b30, transparent 80%);
+  z-index: 4;
+  pointer-events: none;
 }
 
+/* corner bracket — bottom right */
+.race-card::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 36px;
+  height: 36px;
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 40% 100%, 0 100%);
+  border: 1px solid rgba(255, 122, 0, 0.14);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.race-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(255, 122, 0, 0.24);
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 122, 0, 0.05) inset;
+}
+
+/* ── INNER FRAME ──────────────────────────────── */
 .race-card__frame {
   position: absolute;
   inset: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   border-radius: 18px;
   pointer-events: none;
   z-index: 1;
 }
 
-.race-card__frame::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 18px;
-  width: 90px;
-  height: 2px;
-  background: linear-gradient(90deg, #ff7a00, #ff3b30);
-}
-
+/* ── MEDIA BLOCK ──────────────────────────────── */
 .race-card__media {
   position: relative;
   height: 260px;
@@ -58,10 +81,9 @@
 .race-card__scanline {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 100% 6px;
-  opacity: 0.12;
+  opacity: 0.1;
   pointer-events: none;
   z-index: 2;
 }
@@ -71,7 +93,7 @@
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.24), transparent 70%);
+  background: radial-gradient(circle, rgba(255,122,0,0.22), transparent 70%);
   left: -40px;
   bottom: -60px;
   filter: blur(32px);
@@ -86,18 +108,19 @@
 }
 
 .race-card:hover .race-card__image {
-  transform: scale(1.08);
+  transform: scale(1.07);
 }
 
 .race-card__overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.2)),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.7), transparent 42%);
+    linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.18)),
+    linear-gradient(0deg, rgba(0,0,0,0.72), transparent 44%);
   z-index: 2;
 }
 
+/* ── TOPBAR ───────────────────────────────────── */
 .race-card__topbar {
   position: absolute;
   top: 14px;
@@ -117,35 +140,37 @@
 }
 
 .race-card__brand-tag {
-  padding: 9px 12px;
-  border-radius: 12px;
-  background: rgba(10, 12, 17, 0.72);
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(8, 10, 15, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #ffb07a;
   font-family: "Rajdhani", sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
+/* ── PRICE TAG ────────────────────────────────── */
 .race-card__price-tag {
   position: absolute;
   left: 16px;
   bottom: 16px;
   z-index: 3;
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.9), rgba(255, 59, 48, 0.88));
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255,122,0,0.92), rgba(255,59,48,0.9));
   color: white;
   font-family: "Orbitron", sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  box-shadow: 0 12px 24px rgba(255, 90, 40, 0.22);
+  box-shadow: 0 10px 22px rgba(255,80,30,0.22);
 }
 
+/* ── BODY ─────────────────────────────────────── */
 .race-card__body {
   position: relative;
   z-index: 2;
@@ -153,6 +178,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  flex: 1;
 }
 
 .race-card__title-row {
@@ -163,20 +189,20 @@
 }
 
 .race-card__label {
-  margin: 0 0 6px;
-  color: rgba(255, 255, 255, 0.56);
-  font-size: 0.76rem;
+  margin: 0 0 5px;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.7rem;
   font-family: "Rajdhani", sans-serif;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .race-card__title {
   margin: 0;
-  color: white;
+  color: #fff;
   font-family: "Orbitron", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -184,15 +210,16 @@
 
 .race-card__subtitle {
   margin: 0;
-  color: rgba(255, 255, 255, 0.74);
-  line-height: 1.75;
-  font-size: 0.95rem;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.72;
+  font-size: 0.88rem;
 }
 
+/* ── STATS GRID ───────────────────────────────── */
 .race-card__stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .race-stat {
@@ -200,139 +227,157 @@
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  padding: 12px;
-  border-radius: 16px;
+  padding: 11px;
+  border-radius: 14px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.045),
-    rgba(255, 255, 255, 0.025)
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
   );
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.06);
   overflow: hidden;
 }
 
+/* orange micro-line on each stat tile */
 .race-stat::before {
   content: "";
   position: absolute;
-  inset: 0 auto auto 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255, 122, 0, 0.8), transparent 72%);
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,122,0,0.7), transparent 65%);
 }
 
 .race-stat__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.18), rgba(255, 59, 48, 0.16));
+  background: linear-gradient(135deg, rgba(255,122,0,0.16), rgba(255,59,48,0.14));
   color: #ff9b57;
 }
 
 .race-stat__content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   min-width: 0;
 }
 
 .race-stat__content span {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 0.76rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.72rem;
   font-family: "Rajdhani", sans-serif;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .race-stat__content strong {
-  color: white;
-  font-size: 0.92rem;
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 800;
   line-height: 1.3;
   word-break: break-word;
 }
 
+/* ── FOOTER BUTTON ────────────────────────────── */
 .race-card__footer {
-  margin-top: 2px;
+  margin-top: auto;
+  padding-top: 2px;
 }
 
 .race-card__button {
   width: 100%;
-  min-height: 48px;
+  min-height: 46px;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  color: white;
+  color: #fff;
   background: linear-gradient(135deg, #ff7a00, #ff3b30);
   font-family: "Rajdhani", sans-serif;
-  font-size: 0.94rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  box-shadow: 0 12px 24px rgba(255, 90, 40, 0.18);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 10px 22px rgba(255,80,30,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .race-card__button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 28px rgba(255, 90, 40, 0.24);
+  box-shadow: 0 16px 30px rgba(255,80,30,0.28);
 }
 
+.race-card__button:active {
+  transform: translateY(0);
+}
+
+/* ── FAV BUTTON ───────────────────────────────── */
+.race-fav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(8, 10, 15, 0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.race-fav-btn:hover {
+  transform: scale(1.06);
+  background: rgba(255,122,0,0.14);
+  border-color: rgba(255,122,0,0.3);
+}
+
+.race-fav-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── RESPONSIVE ───────────────────────────────── */
 @media (max-width: 768px) {
   .race-card {
     border-radius: 20px;
   }
 
   .race-card__media {
-    height: 230px;
+    height: 220px;
   }
 
   .race-card__body {
     padding: 16px;
+    gap: 12px;
   }
 
   .race-card__title {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
   }
 
   .race-card__subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .race-card__stats {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .race-card__price-tag {
     font-size: 0.76rem;
-    padding: 9px 12px;
+    padding: 8px 11px;
   }
-}
-.race-fav-btn {
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(10, 12, 17, 0.76);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  backdrop-filter: blur(8px);
-  transition: transform 0.22s ease, background 0.22s ease;
-}
 
-.race-fav-btn:hover {
-  transform: scale(1.05);
-  background: rgba(18, 22, 30, 0.92);
-}
-
-.race-fav-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+  .race-card__button {
+    min-height: 44px;
+    font-size: 0.86rem;
+  }
 }
