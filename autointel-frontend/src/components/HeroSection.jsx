@@ -73,7 +73,9 @@ function HeroSection({ featuredCar, onExplore }) {
               className="hero-car-image"
             />
           ) : (
-            <div className="hero-image-placeholder">No featured image available</div>
+            <div className="hero-image-placeholder">
+              No featured image available
+            </div>
           )}
         </motion.div>
       </div>
