@@ -31,7 +31,11 @@ function HeroSection({ featuredCar, onExplore }) {
           </p>
 
           <div className="hero-buttons">
-            <button type="button" className="hero-btn primary-btn" onClick={onExplore}>
+            <button
+              type="button"
+              className="hero-btn primary-btn"
+              onClick={onExplore}
+            >
               Explore Cars
             </button>
           </div>
@@ -56,7 +60,7 @@ function HeroSection({ featuredCar, onExplore }) {
 
         <motion.div
           className="hero-visual-block"
-          initial={{ opacity: 0, scale: 1.08, x: 60 }}
+          initial={{ opacity: 0, scale: 1.04, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
