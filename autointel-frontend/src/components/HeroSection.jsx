@@ -71,11 +71,6 @@ function HeroSection({ featuredCar, onExplore }) {
           ) : (
             <div className="hero-image-placeholder">No featured image available</div>
           )}
-
-          <div className="hero-floating-card top-card">
-            <span>Featured Machine</span>
-            <strong>{featuredCar?.car_name || "Loading..."}</strong>
-          </div>
         </motion.div>
       </div>
     </section>
