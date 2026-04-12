@@ -781,3 +781,87 @@
     max-width: 88%;
   }
 }
+/* ================= MOBILE FIX (IMPORTANT) ================= */
+
+@media (max-width: 900px) {
+  .garage-content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .garage-main-column,
+  .garage-side-column {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .car-details-page {
+    padding: 90px 14px 30px;
+  }
+
+  .garage-hero-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .garage-hero-media {
+    min-height: 240px;
+  }
+
+  .garage-hero-content {
+    text-align: left;
+  }
+
+  .garage-title-main {
+    font-size: 1.6rem;
+  }
+
+  .garage-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .garage-meta-row {
+    gap: 8px;
+  }
+
+  .garage-price,
+  .garage-chip {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  .garage-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .garage-stat {
+    padding: 12px;
+  }
+
+  .garage-panel {
+    padding: 16px;
+  }
+
+  .garage-panel h2 {
+    font-size: 1rem;
+  }
+
+  .garage-panel p,
+  .fun-facts-list li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .garage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .garage-title-main {
+    font-size: 1.4rem;
+  }
+}

@@ -10,6 +10,7 @@ import "./CarDetailsGallery.css";
 
 function CarDetailsGallery({ images = [], carName = "Car" }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [activeImage, setActiveImage] = useState(null);
 
   if (!images.length) return null;
 
@@ -65,15 +66,21 @@ function CarDetailsGallery({ images = [], carName = "Car" }) {
             <SwiperSlide key={`car-thumb-${img}-${index}`}>
               <button type="button" className="car-details-thumb">
                 <img
-                  src={img}
-                  alt={`${carName} thumb ${index + 1}`}
-                  draggable="false"
-                />
+  src={img}
+  alt={`${carName} ${index + 1}`}
+  className="car-details-main-image"
+  onClick={() => setActiveImage(img)}
+/>
               </button>
             </SwiperSlide>
           ))}
         </Swiper>
       )}
+{activeImage && (
+  <div className="image-popup" onClick={() => setActiveImage(null)}>
+    <img src={activeImage} alt="popup" />
+  </div>
+)}
     </div>
   );
 }
