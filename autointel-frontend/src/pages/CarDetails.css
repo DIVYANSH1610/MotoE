@@ -723,8 +723,10 @@
 @media (max-width: 1100px) {
   .garage-hero-card,
   .garage-content-grid {
-    grid-template-columns: 1fr;
-  }
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 24px;
+  align-items: start;
 }
 
 @media (max-width: 768px) {
@@ -782,6 +784,154 @@
   }
 }
 /* ================= MOBILE FIX (IMPORTANT) ================= */
+@media (max-width: 1100px) {
+  .garage-hero-card,
+  .garage-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .car-details-page {
+    padding: 96px 16px 40px;
+  }
+
+  .garage-hero-card,
+  .garage-panel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .garage-hero-card {
+    gap: 18px;
+  }
+
+  .garage-hero-media {
+    min-height: 280px;
+  }
+
+  .garage-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .garage-top-row {
+    flex-direction: column;
+  }
+
+  .garage-meta-row {
+    gap: 8px;
+  }
+
+  .garage-price,
+  .garage-chip {
+    padding: 9px 12px;
+    font-size: 0.78rem;
+  }
+
+  .garage-panel h2,
+  .gallery-header h2 {
+    font-size: 1.02rem;
+  }
+
+  .garage-panel p,
+  .gallery-header p,
+  .fun-facts-list li {
+    font-size: 0.94rem;
+    line-height: 1.8;
+  }
+
+  .garage-ai-modal {
+    height: min(88vh, 760px);
+  }
+
+  .garage-ai-topbar h3 {
+    font-size: 0.9rem;
+  }
+
+  .garage-ai-inputbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .garage-ai-inputbar button {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .garage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .garage-title-main {
+    font-size: 1.8rem;
+  }
+
+  .garage-chat-bubble {
+    max-width: 88%;
+  }
+
+  .garage-price,
+  .garage-chip {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* ================= TEXT OVERFLOW + MOBILE CONTENT FIX ================= */
+
+.garage-content-grid,
+.garage-main-column,
+.garage-side-column,
+.garage-panel,
+.garage-panel p,
+.fun-facts-list,
+.fun-facts-list li,
+.garage-chat-bubble,
+.garage-ai-empty p,
+.gallery-header p,
+.garage-subtitle {
+  min-width: 0;
+}
+
+.garage-panel p,
+.fun-facts-list li,
+.garage-chat-bubble,
+.garage-ai-empty p,
+.gallery-header p,
+.garage-subtitle {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.garage-main-column,
+.garage-side-column {
+  width: 100%;
+}
+
+.garage-panel {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.garage-panel h2,
+.gallery-header h2 {
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fun-facts-list {
+  padding-left: 18px;
+}
+
+.fun-facts-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* ================= MOBILE RESPONSIVE CONTENT ================= */
 
 @media (max-width: 900px) {
   .garage-content-grid {
@@ -796,72 +946,47 @@
 }
 
 @media (max-width: 768px) {
-  .car-details-page {
-    padding: 90px 14px 30px;
-  }
-
-  .garage-hero-card {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .garage-panel,
+  .gallery-panel {
     padding: 16px;
   }
 
-  .garage-hero-media {
-    min-height: 240px;
-  }
-
-  .garage-hero-content {
-    text-align: left;
-  }
-
-  .garage-title-main {
-    font-size: 1.6rem;
-  }
-
-  .garage-subtitle {
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  .garage-meta-row {
-    gap: 8px;
-  }
-
-  .garage-price,
-  .garage-chip {
-    padding: 8px 12px;
-    font-size: 0.75rem;
-  }
-
-  .garage-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .garage-stat {
-    padding: 12px;
-  }
-
-  .garage-panel {
-    padding: 16px;
-  }
-
-  .garage-panel h2 {
+  .garage-panel h2,
+  .gallery-header h2 {
     font-size: 1rem;
+    line-height: 1.35;
   }
 
   .garage-panel p,
-  .fun-facts-list li {
-    font-size: 0.9rem;
+  .gallery-header p,
+  .fun-facts-list li,
+  .garage-subtitle {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .fun-facts-list {
+    padding-left: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .garage-grid {
-    grid-template-columns: 1fr;
+  .garage-panel,
+  .gallery-panel {
+    padding: 14px;
+    border-radius: 18px;
   }
 
-  .garage-title-main {
-    font-size: 1.4rem;
+  .garage-panel h2,
+  .gallery-header h2 {
+    font-size: 0.95rem;
+  }
+
+  .garage-panel p,
+  .gallery-header p,
+  .fun-facts-list li,
+  .garage-subtitle {
+    font-size: 0.89rem;
+    line-height: 1.7;
   }
 }

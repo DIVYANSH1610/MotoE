@@ -185,3 +185,223 @@
     border-radius: 6px;
   }
 }
+.car-details-gallery {
+  width: 100%;
+}
+
+.car-details-main-swiper {
+  width: 100%;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.car-details-main-image-wrap {
+  width: 100%;
+  height: 460px;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at center, rgba(255, 122, 0, 0.08), transparent 42%),
+    linear-gradient(180deg, rgba(14, 16, 22, 0.98), rgba(8, 10, 14, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  touch-action: pan-y;
+  cursor: zoom-in;
+}
+
+.car-details-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  padding: 10px;
+}
+
+.car-details-thumbs-swiper {
+  width: 100%;
+  padding-top: 4px;
+}
+
+.car-details-thumbs-swiper .swiper-slide {
+  height: auto;
+}
+
+.car-details-thumb {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.68;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.car-details-thumb:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.car-details-thumb img {
+  width: 100%;
+  height: 84px;
+  object-fit: cover;
+  display: block;
+  border-radius: 14px;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.car-details-thumbs-swiper .swiper-slide-thumb-active .car-details-thumb {
+  opacity: 1;
+}
+
+.car-details-thumbs-swiper .swiper-slide-thumb-active .car-details-thumb img {
+  border: 2px solid rgba(255, 122, 0, 0.85);
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.18);
+}
+
+.car-details-main-swiper .swiper-button-next,
+.car-details-main-swiper .swiper-button-prev,
+.car-popup-swiper .swiper-button-next,
+.car-popup-swiper .swiper-button-prev {
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(8px);
+}
+
+.car-details-main-swiper .swiper-button-next::after,
+.car-details-main-swiper .swiper-button-prev::after,
+.car-popup-swiper .swiper-button-next::after,
+.car-popup-swiper .swiper-button-prev::after {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.car-details-main-swiper .swiper-pagination,
+.car-popup-swiper .swiper-pagination {
+  bottom: 10px !important;
+}
+
+.car-details-main-swiper .swiper-pagination-bullet,
+.car-popup-swiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+}
+
+.car-details-main-swiper .swiper-pagination-bullet-active,
+.car-popup-swiper .swiper-pagination-bullet-active {
+  background: #ff7a00;
+}
+
+/* POPUP */
+
+.car-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.car-popup-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2100;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.car-popup-content {
+  width: min(1200px, 100%);
+  max-height: 90vh;
+}
+
+.car-popup-swiper {
+  width: 100%;
+}
+
+.car-popup-image-wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-popup-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .car-details-main-image-wrap {
+    height: 250px;
+    border-radius: 18px;
+  }
+
+  .car-details-main-image {
+    padding: 6px;
+  }
+
+  .car-details-thumb img {
+    height: 62px;
+    border-radius: 12px;
+  }
+
+  .car-details-main-swiper .swiper-button-next,
+  .car-details-main-swiper .swiper-button-prev,
+  .car-popup-swiper .swiper-button-next,
+  .car-popup-swiper .swiper-button-prev {
+    display: none;
+  }
+
+  .car-popup-overlay {
+    padding: 8px;
+  }
+
+  .car-popup-content {
+    width: 100%;
+    max-height: 100vh;
+  }
+
+  .car-popup-image-wrap {
+    height: 72vh;
+  }
+
+  .car-popup-close {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+}
