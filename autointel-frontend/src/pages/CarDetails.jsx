@@ -1,9 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CarDetailsGallery from "../components/CarDetailsGallery";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
 import {
   Bot,
   Send,
@@ -21,6 +19,7 @@ import {
   User,
 } from "lucide-react";
 
+import CarDetailsGallery from "../components/CarDetailsGallery";
 import FavouriteButton from "../components/FavouriteButton";
 import GalleryLightbox from "../components/GalleryLightbox";
 import TyreLoader from "../components/TyreLoader";
@@ -47,11 +46,18 @@ function CarDetails() {
 
   const chatEndRef = useRef(null);
 
-  const getImageUrl = (path) => {
+  const getImageUrl = useCallback((path) => {
     if (!path) return "";
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
-    return `${BACKEND_ORIGIN}${path}`;
-  };
+
+    const cleanedPath = path.replace(/\\/g, "/");
+
+    if (cleanedPath.startsWith("/")) return `${BACKEND_ORIGIN}${cleanedPath}`;
+    if (cleanedPath.startsWith("media/")) return `${BACKEND_ORIGIN}/${cleanedPath}`;
+    if (cleanedPath.startsWith("data/images/")) return `${BACKEND_ORIGIN}/${cleanedPath}`;
+
+    return `${BACKEND_ORIGIN}/media/${cleanedPath}`;
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -102,11 +108,11 @@ function CarDetails() {
 
   const galleryImages = useMemo(() => {
     if (Array.isArray(car?.gallery) && car.gallery.length > 0) {
-      return car.gallery;
+      return car.gallery.map(getImageUrl);
     }
-    if (car?.image) return [car.image];
+    if (car?.image) return [getImageUrl(car.image)];
     return [];
-  }, [car]);
+  }, [car, getImageUrl]);
 
   const openLightbox = useCallback((index) => {
     setCurrentImageIndex(index);
@@ -116,33 +122,6 @@ function CarDetails() {
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
   }, []);
-
-  const handlePrevImage = useCallback(() => {
-    if (!galleryImages.length) return;
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? galleryImages.length - 1 : prev - 1
-    );
-  }, [galleryImages]);
-
-  const handleNextImage = useCallback(() => {
-    if (!galleryImages.length) return;
-    setCurrentImageIndex((prev) =>
-      prev === galleryImages.length - 1 ? 0 : prev + 1
-    );
-  }, [galleryImages]);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") handlePrevImage();
-      if (e.key === "ArrowRight") handleNextImage();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxOpen, closeLightbox, handlePrevImage, handleNextImage]);
 
   const handleAskAI = async (presetQuestion = "") => {
     const finalQuestion = (presetQuestion || question).trim();
@@ -187,7 +166,7 @@ function CarDetails() {
       console.error("AI request failed:", err.response?.data || err);
 
       let message =
-        "## Error\nSomething went wrong while contacting the AI assistant.";
+        "Something went wrong while contacting the AI assistant.";
 
       const status = err.response?.status;
       const detail = err.response?.data?.detail;
@@ -196,8 +175,7 @@ function CarDetails() {
         status === 401 ||
         detail === "Authentication credentials were not provided."
       ) {
-        message =
-          "🔒 Please login first to use the AI assistant on this device.";
+        message = "Please login first to use the AI assistant on this device.";
       } else {
         message =
           err.response?.data?.error ||
@@ -227,77 +205,65 @@ function CarDetails() {
   const buildOverview = (c) => {
     if (!c) return "";
     return [
-      `${c.car_name} from ${c.company} sits in your garage as a machine built around presence, speed, and identity. With ${c.engine || "its powertrain"}, ${c.horsepower || "strong output"}, and a claimed top speed of ${c.top_speed || "high performance"}, it immediately positions itself as more than simple transport.`,
-      `What makes this car interesting is not just the headline numbers, but the blend of mechanical character, design attitude, and the way it reflects the engineering priorities of ${c.company}. In this garage view, it should feel like a flagship experience rather than a plain specification sheet.`,
-      `For enthusiasts, ${c.car_name} represents a combination of visual drama, performance intent, and a distinct ownership personality. Whether someone values prestige, power delivery, design appeal, or rarity, this machine carries a strong identity in the collection.`,
+      `${c.car_name} from ${c.company} sits in your garage as a machine built around presence, speed, and identity.`,
+      `With ${c.engine || "its powertrain"}, ${c.horsepower || "strong output"}, and a claimed top speed of ${c.top_speed || "high performance"}, it positions itself as more than simple transport.`,
+      `This machine combines performance, design attitude, and strong road presence into a richer enthusiast experience.`,
     ].join(" ");
   };
 
   const buildStory = (c) => {
     if (!c) return "";
-    const base = c.story?.trim();
-    const extra = [
-      `${c.car_name} can be understood as a statement car in the lineup of ${c.company}. It exists to communicate a certain level of ambition, whether that ambition is extreme speed, luxury, engineering innovation, or brand image.`,
-      `From an enthusiast perspective, the car matters because it is not only about raw numbers on paper. The real character comes from how its performance, proportions, cabin feel, and road presence combine into a complete experience.`,
-      `That makes this car relevant not only for collectors or dreamers, but also for anyone studying how modern performance and premium automotive design are packaged together in a single product.`,
+    return [
+      `${c.car_name} works as a statement car in the lineup of ${c.company}.`,
+      `It communicates ambition through speed, design language, engineering confidence, and emotional road presence.`,
+      `For enthusiasts, the appeal comes from the full experience, not just the headline numbers.`,
     ].join(" ");
-
-    if (base && base.length > 140) {
-      return `${base} ${extra}`;
-    }
-    return extra;
   };
 
   const buildDesignNotes = (c) => {
     if (!c) return "";
-    const base = c.design_notes?.trim();
-    const extra = [
-      `The visual language of ${c.car_name} is built around stance, airflow, and emotional impact. Even when parked, the proportions are intended to imply motion, balance, and control.`,
-      `Design here is not only cosmetic. Elements such as the body shape, the way the surfaces are sculpted, the cabin placement, and the overall silhouette all influence cooling, aerodynamic efficiency, and perceived aggression.`,
-      `In a garage-style presentation, this makes the car feel like a machine with intent. Its shape is part branding, part engineering, and part theatre.`,
+    return [
+      `The visual language of ${c.car_name} is built around stance, airflow, and emotional impact.`,
+      `Its shape is not only cosmetic. Proportions, sculpted surfaces, and silhouette all contribute to cooling, aero behavior, and identity.`,
+      `That gives the car a dramatic premium feel even when standing still.`,
     ].join(" ");
-
-    if (base && base.length > 120) {
-      return `${base} ${extra}`;
-    }
-    return extra;
   };
 
   const buildHistory = (c) => {
     if (!c) return "";
     return [
-      `${c.car_name} should be viewed in the context of ${c.company}'s broader automotive identity. Cars like this usually arrive as halo products, flagship statements, or category benchmarks that strengthen how the brand is perceived.`,
-      `Its place in history is tied to the way it captures the design and engineering philosophy of its era. With ${c.engine || "its powertrain"} and ${c.horsepower || "serious output"}, it reflects the demand for stronger performance, sharper styling, and more emotionally engaging road cars.`,
-      `In practical terms, this car becomes part of the brand narrative because it shows what the manufacturer wants enthusiasts to remember: speed, craftsmanship, technological confidence, and a recognizable visual signature.`,
+      `${c.car_name} should be viewed in the broader context of ${c.company}'s brand identity.`,
+      `Cars like this often serve as halo products or flagship statements that help define how the brand is remembered.`,
+      `Its relevance comes from the way it captures the engineering priorities and design ambition of its era.`,
     ].join(" ");
   };
 
   const buildEngineering = (c) => {
     if (!c) return "";
     return [
-      `From a technical angle, ${c.car_name} is defined by ${c.engine || "its engine architecture"}, ${c.torque || "strong torque delivery"}, and a power figure of ${c.horsepower || "competitive output"}.`,
-      `Those numbers suggest a machine engineered for confident acceleration, usable mid-range response, and strong top-end character. When paired with ${c.performance_0_100 || "its acceleration profile"}, the car reads as a performance-focused package rather than a comfort-first one.`,
-      `For users comparing machines in the same segment, the interesting engineering question is not only how fast it is, but how it delivers that performance: aggressively, smoothly, dramatically, or with refined composure.`,
+      `From a technical angle, ${c.car_name} is defined by ${c.engine || "its engine layout"}, ${c.torque || "strong torque delivery"}, and a power figure of ${c.horsepower || "competitive output"}.`,
+      `Its ${c.performance_0_100 || "acceleration profile"} suggests a car engineered for urgency, control, and drama.`,
+      `The real engineering interest lies in how this performance is delivered on the road.`,
     ].join(" ");
   };
 
   const buildExtraDetails = (c) => {
     if (!c) return "";
     return [
-      `${c.car_name} also stands out as an ownership proposition. Its ${c.fuel_type || "power source"}, ${c.seats || "seating layout"}, and overall segment positioning shape how practical or aspirational it feels in day-to-day use.`,
-      `Some cars in this category are bought for daily road presence, some for weekend excitement, and some purely for their symbolic value. This one sits somewhere on that spectrum depending on what the driver values most: drama, comfort, exclusivity, or technical fascination.`,
-      `Viewed inside your platform, this makes the car ideal for deeper AI-based discussion as well—because it has enough identity in performance, design, and brand story to support richer comparison and analysis.`,
+      `${c.car_name} also stands out as an ownership proposition.`,
+      `Its ${c.fuel_type || "power source"}, ${c.seats || "seating layout"}, and segment positioning shape whether it feels practical, aspirational, or both.`,
+      `That makes it ideal for deeper comparison and AI-based discussion within MotoE Garage.`,
     ].join(" ");
   };
 
   const buildFunFacts = (c) => {
-    const facts = Array.isArray(c?.fun_facts) ? [...c.fun_facts] : [];
+    const facts = Array.isArray(c?.fun_facts) ? c.fun_facts : [];
     const generatedFacts = [
-      `${c?.car_name || "This car"} combines strong visual identity with a specification sheet that immediately positions it as an enthusiast-focused machine.`,
-      `${c?.company || "The manufacturer"} uses cars like this to shape perception around performance, prestige, and engineering confidence.`,
+      `${c?.car_name || "This car"} combines strong visual identity with enthusiast-focused performance.`,
+      `${c?.company || "The manufacturer"} uses machines like this to shape perception around prestige and engineering confidence.`,
       `${c?.horsepower || "Its output"} and ${c?.top_speed || "its speed potential"} make it one of the more memorable entries in the collection.`,
-      `${c?.engine || "Its mechanical layout"} plays a major role in how the car is discussed by enthusiasts, especially when comparing feel and character.`,
-      `${c?.car_name || "This machine"} is not just interesting for its numbers, but for the complete experience created by design, story, and road presence.`,
+      `${c?.engine || "Its mechanical layout"} plays a major role in how enthusiasts discuss its character.`,
+      `${c?.car_name || "This machine"} is interesting not only for its numbers, but for its full design and ownership story.`,
     ];
 
     return [...facts, ...generatedFacts].slice(0, 6);
@@ -347,7 +313,7 @@ function CarDetails() {
           <div className="garage-hero-media">
             <div className="garage-hero-glow"></div>
             <img
-              src={getImageUrl(car.image || galleryImages[0] || "")}
+              src={galleryImages[0] || ""}
               alt={car.car_name}
               className="garage-hero-image"
               onClick={() => openLightbox(0)}
@@ -392,28 +358,26 @@ function CarDetails() {
 
               <div className="garage-stat">
                 <Timer size={18} />
-                <span>0-100</span>
+                <span>0–100</span>
                 <strong>{car.performance_0_100 || "N/A"}</strong>
               </div>
 
               <div className="garage-stat">
                 <Fuel size={18} />
-                <span>Fuel</span>
+                <span>Fuel Type</span>
                 <strong>{car.fuel_type || "N/A"}</strong>
               </div>
 
               <div className="garage-stat">
-                <Cpu size={18} />
+                <Layers size={18} />
                 <span>Torque</span>
                 <strong>{car.torque || "N/A"}</strong>
               </div>
 
               <div className="garage-stat">
-                <Factory size={18} />
-                <span>Manufacturer</span>
-                <strong>
-                  {car.manufacturer_details?.manufacturer || car.company || "N/A"}
-                </strong>
+                <Cpu size={18} />
+                <span>Engine</span>
+                <strong>{car.engine || "N/A"}</strong>
               </div>
             </div>
 
@@ -422,217 +386,120 @@ function CarDetails() {
               className="garage-ai-btn"
               onClick={() => setShowAI(true)}
             >
-              <Bot size={16} />
-              Ask AI about this car
+              <Bot size={18} />
+              Ask AI About This Car
             </button>
           </div>
         </motion.section>
 
-        <section className="garage-content-grid">
+        <div className="garage-content-grid">
           <div className="garage-main-column">
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <section className="garage-panel">
               <h2>
-                <Sparkles size={18} /> Overview
+                <Sparkles size={18} />
+                Overview
               </h2>
               <p>{overviewText}</p>
-            </motion.div>
+            </section>
 
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <section className="garage-panel">
               <h2>
-                <Trophy size={18} /> Story
+                <Factory size={18} />
+                Story
               </h2>
               <p>{storyText}</p>
-            </motion.div>
+            </section>
 
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <section className="garage-panel">
               <h2>
-                <Layers size={18} /> Design Notes
+                <ShieldCheck size={18} />
+                Design Notes
               </h2>
               <p>{designText}</p>
-            </motion.div>
+            </section>
 
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2>
-                <Factory size={18} /> History & Legacy
-              </h2>
-              <p>{historyText}</p>
-            </motion.div>
+            <section className="garage-panel gallery-panel">
+              <div className="gallery-header">
+                <h2>
+                  <Layers size={18} />
+                  Image Gallery
+                </h2>
+                <p>Swipe on mobile or use thumbnails to explore more angles.</p>
+              </div>
 
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2>
-                <ShieldCheck size={18} /> Engineering Insight
-              </h2>
-              <p>{engineeringText}</p>
-            </motion.div>
-
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2>
-                <Cpu size={18} /> Extra Details
-              </h2>
-              <p>{extraText}</p>
-            </motion.div>
+              <CarDetailsGallery
+                images={galleryImages}
+                carName={car.car_name}
+              />
+            </section>
           </div>
 
           <div className="garage-side-column">
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <section className="garage-panel">
               <h2>
-                <Factory size={18} /> Key Specifications
+                <Trophy size={18} />
+                Heritage
               </h2>
+              <p>{historyText}</p>
+            </section>
 
-              <div className="info-list">
-                <div className="info-row">
-                  <span>Brand</span>
-                  <strong>{car.company || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Model</span>
-                  <strong>{car.car_name || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Engine</span>
-                  <strong>{car.engine || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Horsepower</span>
-                  <strong>{car.horsepower || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Torque</span>
-                  <strong>{car.torque || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Top Speed</span>
-                  <strong>{car.top_speed || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>0-100 km/h</span>
-                  <strong>{car.performance_0_100 || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Fuel Type</span>
-                  <strong>{car.fuel_type || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Seating</span>
-                  <strong>{car.seats || "N/A"}</strong>
-                </div>
-                <div className="info-row">
-                  <span>Price</span>
-                  <strong>{car.price || "N/A"}</strong>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="garage-panel"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <section className="garage-panel">
               <h2>
-                <Sparkles size={18} /> Fun Facts
+                <Cpu size={18} />
+                Engineering
+              </h2>
+              <p>{engineeringText}</p>
+            </section>
+
+            <section className="garage-panel">
+              <h2>
+                <User size={18} />
+                Ownership Perspective
+              </h2>
+              <p>{extraText}</p>
+            </section>
+
+            <section className="garage-panel">
+              <h2>
+                <Sparkles size={18} />
+                Quick Facts
               </h2>
               <ul className="fun-facts-list">
                 {funFacts.map((fact, index) => (
                   <li key={index}>{fact}</li>
                 ))}
               </ul>
-            </motion.div>
+            </section>
           </div>
-        </section>
-
-        <motion.section
-          className="garage-panel gallery-panel"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="gallery-header">
-            <h2>
-              <Layers size={18} /> Gallery
-            </h2>
-            <p>
-              Explore the visual side of {car.car_name || "this car"} through its image
-              gallery.
-            </p>
-          </div>
-
-          <div className="garage-gallery">
-            {galleryImages.length > 0 ? (
-              galleryImages.map((img, index) => (
-                <motion.button
-                  type="button"
-                  key={index}
-                  className="garage-gallery-item"
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => openLightbox(index)}
-                >
-                  <div className="garage-gallery-overlay"></div>
-                  <img
-                    src={getImageUrl(img)}
-                    alt={`${car.car_name} ${index + 1}`}
-                  />
-                </motion.button>
-              ))
-            ) : (
-              <div className="garage-no-gallery">No images available.</div>
-            )}
-          </div>
-        </motion.section>
+        </div>
       </div>
 
       <AnimatePresence>
         {showAI && (
-          <div className="garage-ai-overlay" onClick={() => setShowAI(false)}>
+          <motion.div
+            className="garage-ai-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
-              className="garage-ai-panel"
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              className="garage-ai-modal"
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 18, scale: 0.98 }}
-              transition={{ duration: 0.24 }}
-              onClick={(e) => e.stopPropagation()}
+              exit={{ opacity: 0, y: 24, scale: 0.98 }}
+              transition={{ duration: 0.22 }}
             >
-              <div className="garage-ai-header">
-                <h3>
-                  <Bot size={16} />
-                  AI Garage Assistant
-                </h3>
+              <div className="garage-ai-topbar">
+                <button
+                  type="button"
+                  className="garage-ai-back-btn"
+                  onClick={() => setShowAI(false)}
+                >
+                  Back
+                </button>
+
+                <h3>AI Garage Assistant</h3>
+
                 <button
                   type="button"
                   className="garage-ai-close-btn"
@@ -643,49 +510,43 @@ function CarDetails() {
               </div>
 
               <div className="garage-ai-chat">
-                {chatMessages.length === 0 && !aiLoading ? (
+                {!chatMessages.length && !aiLoading && (
                   <div className="garage-ai-empty">
                     <div className="garage-ai-empty-icon">
-                      <Bot size={24} />
+                      <Bot size={22} />
                     </div>
-                    <h4>Ask anything about this car</h4>
+                    <h4>Ask anything about {car.car_name}</h4>
                     <p>
-                      Explore performance, reliability, engine character, design,
-                      practicality, and more.
+                      Learn about reliability, engineering, practicality,
+                      performance, and more.
                     </p>
                   </div>
-                ) : (
-                  chatMessages.map((message) => (
+                )}
+
+                {chatMessages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`garage-chat-message ${
+                      message.role === "user"
+                        ? "garage-chat-message--user"
+                        : "garage-chat-message--assistant"
+                    }`}
+                  >
+                    <div className="garage-chat-avatar">
+                      {message.role === "user" ? <User size={16} /> : <Bot size={16} />}
+                    </div>
+
                     <div
-                      key={message.id}
-                      className={`garage-chat-message ${
+                      className={`garage-chat-bubble ${
                         message.role === "user"
-                          ? "garage-chat-message--user"
-                          : "garage-chat-message--assistant"
+                          ? "garage-chat-bubble--user"
+                          : "garage-chat-bubble--assistant"
                       }`}
                     >
-                      <div className="garage-chat-avatar">
-                        {message.role === "user" ? <User size={16} /> : <Bot size={16} />}
-                      </div>
-
-                      <div
-                        className={`garage-chat-bubble ${
-                          message.role === "user"
-                            ? "garage-chat-bubble--user"
-                            : "garage-chat-bubble--assistant"
-                        }`}
-                      >
-                        {message.role === "user" ? (
-                          <p className="garage-chat-user-text">{message.content}</p>
-                        ) : (
-                          <div className="garage-chat-markdown">
-                            <ReactMarkdown>{message.content}</ReactMarkdown>
-                          </div>
-                        )}
-                      </div>
+                      {message.content}
                     </div>
-                  ))
-                )}
+                  </div>
+                ))}
 
                 {aiLoading && (
                   <div className="garage-chat-message garage-chat-message--assistant">
@@ -719,7 +580,7 @@ function CarDetails() {
 
               <div className="garage-ai-inputbar">
                 <textarea
-                  placeholder="Ask anything about this car."
+                  placeholder="Ask anything about this car..."
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                 />
@@ -730,33 +591,21 @@ function CarDetails() {
                 </button>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {lightboxOpen && galleryImages.length > 0 && (
           <GalleryLightbox
-            images={galleryImages.map(getImageUrl)}
+            images={galleryImages}
             currentIndex={currentImageIndex}
             onClose={closeLightbox}
-            onPrev={handlePrevImage}
-            onNext={handleNextImage}
             onSelect={setCurrentImageIndex}
             carName={car?.car_name}
           />
         )}
       </AnimatePresence>
-      <CarDetailsGallery
-  images={
-    Array.isArray(car.gallery) && car.gallery.length
-      ? car.gallery
-      : car.image
-      ? [car.image]
-      : []
-  }
-  carName={car.car_name}
-/>
     </div>
   );
 }
