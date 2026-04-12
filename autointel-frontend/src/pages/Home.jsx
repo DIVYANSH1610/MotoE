@@ -1,18 +1,41 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Gauge, ShieldCheck } from "lucide-react";
 import { getCars } from "../services/api";
 import CarCard from "../components/CarCard";
 import PremiumSectionHeader from "../components/PremiumSectionHeader";
 import GalleryLightbox from "../components/GalleryLightbox";
 import TyreLoader from "../components/TyreLoader";
+import HeroSection from "../components/HeroSection";
 import "./Home.css";
+
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000";
 
 function Home() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const resolveImageUrl = useCallback((imagePath) => {
+    if (!imagePath) return "";
+
+    if (
+      imagePath.startsWith("http://") ||
+      imagePath.startsWith("https://") ||
+      imagePath.startsWith("data:")
+    ) {
+      return imagePath;
+    }
+
+    const cleanedPath = imagePath.replace(/^\/+/, "");
+
+    if (cleanedPath.startsWith("media/")) {
+      return `${BACKEND_URL}/${cleanedPath}`;
+    }
+
+    return `${BACKEND_URL}/media/${cleanedPath}`;
+  }, []);
 
   useEffect(() => {
     getCars()
@@ -24,12 +47,22 @@ function Home() {
       .finally(() => setLoading(false));
   }, []);
 
+  const featuredCar = useMemo(() => {
+    if (!cars.length) return null;
+
+    const firstCar = cars[0];
+    return {
+      ...firstCar,
+      image: resolveImageUrl(firstCar.image),
+    };
+  }, [cars, resolveImageUrl]);
+
   const galleryImages = useMemo(() => {
     return cars
       .flatMap((car) => {
         if (Array.isArray(car.gallery) && car.gallery.length) {
           return car.gallery.map((img) => ({
-            src: img,
+            src: resolveImageUrl(img),
             label: car.car_name,
           }));
         }
@@ -37,14 +70,15 @@ function Home() {
         return car.image
           ? [
               {
-                src: car.image,
+                src: resolveImageUrl(car.image),
                 label: car.car_name,
               },
             ]
           : [];
       })
+      .filter((item) => item.src)
       .slice(0, 24);
-  }, [cars]);
+  }, [cars, resolveImageUrl]);
 
   useEffect(() => {
     if (!loading) {
@@ -100,87 +134,11 @@ function Home() {
   return (
     <div className="home-page">
       <div className="home-wrapper">
-        <section className="home-hero">
-          <div className="home-hero-bg home-hero-bg-1"></div>
-          <div className="home-hero-bg home-hero-bg-2"></div>
-
-          <div className="home-hero-content">
-            <motion.div
-              className="home-hero-copy"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="home-kicker">
-                <Sparkles size={16} />
-                Premium Automotive Intelligence
-              </span>
-
-              <h1>
-                Explore the future of
-                <span> automotive intelligence</span>
-              </h1>
-
-              <p>
-                Dive into premium car insights, performance data, stories, visual
-                galleries, and immersive automotive experiences built for
-                enthusiasts.
-              </p>
-
-              <div className="home-hero-actions">
-                <button
-                  type="button"
-                  className="home-primary-btn"
-                  onClick={() => scrollToSection("#explore")}
-                >
-                  Explore Cars
-                  <ArrowRight size={18} />
-                </button>
-
-                <button
-                  type="button"
-                  className="home-secondary-btn"
-                  onClick={() => scrollToSection("#performance")}
-                >
-                  Performance Insights
-                </button>
-              </div>
-
-              <div className="home-hero-stats">
-                <div className="home-stat">
-                  <Gauge size={18} />
-                  <div>
-                    <strong>Performance Data</strong>
-                    <span>Power, speed, and acceleration</span>
-                  </div>
-                </div>
-
-                <div className="home-stat">
-                  <ShieldCheck size={18} />
-                  <div>
-                    <strong>Premium Experience</strong>
-                    <span>Stories, design, and curated details</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="home-hero-visual"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.55 }}
-            >
-              <div className="home-visual-glow"></div>
-
-              <img
-                src={cars[0]?.image || "/hero-car.png"}
-                alt={cars[0]?.car_name || "Featured supercar"}
-                className="home-hero-image"
-              />
-            </motion.div>
-          </div>
-        </section>
+        <HeroSection
+          featuredCar={featuredCar}
+          onExplore={() => scrollToSection("#explore")}
+          onCompare={() => scrollToSection("#featured")}
+        />
 
         <motion.section
           id="featured"
