@@ -19,14 +19,17 @@ function HeroSection({ onExplore }) {
         autoRotate={true}
       />
 
-      {/* ── wordmark top-left ───────────────────── */}
+      {/* ── title — top center ──────────────────── */}
       <motion.div
-        className="hero-wordmark"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
+        className="hero-title-block"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
       >
-        MOTO<span>E</span>
+        <p className="hero-title-eyebrow">Premium Automotive</p>
+        <h1 className="hero-title-main">
+          MotoE <span>Garage</span>
+        </h1>
       </motion.div>
 
       {/* ── drag hint — center, fades out ──────── */}
@@ -61,7 +64,6 @@ function HeroSection({ onExplore }) {
         </svg>
       </motion.button>
 
-      {/* ── thin bottom progress bar while loading ─ */}
       <div className="hero-bottom-bar" />
 
     </section>

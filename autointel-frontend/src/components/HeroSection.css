@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;800;900&family=Barlow:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500&display=swap');
 
 /* ═══════════════════════════════════════════════
-   HERO — 100vh, full bleed, no scroll
+   ROOT
 ═══════════════════════════════════════════════ */
 .motoe-hero {
   position: relative;
@@ -13,8 +13,6 @@
 }
 
 /* ── ATMOSPHERE ───────────────────────────────── */
-
-/* warm glow behind the car */
 .hero-bg-glow {
   position: absolute;
   inset: 0;
@@ -22,14 +20,11 @@
   pointer-events: none;
   background:
     radial-gradient(ellipse 72% 55% at 50% 46%,
-      rgba(255, 72, 0, 0.1) 0%,
-      transparent 65%),
+      rgba(255, 72, 0, 0.1) 0%, transparent 65%),
     radial-gradient(ellipse 90% 35% at 50% 100%,
-      rgba(255, 60, 0, 0.07) 0%,
-      transparent 60%);
+      rgba(255, 60, 0, 0.07) 0%, transparent 60%);
 }
 
-/* deep vignette — darkens all 4 edges */
 .hero-vignette {
   position: absolute;
   inset: 0;
@@ -37,12 +32,11 @@
   pointer-events: none;
   background:
     radial-gradient(ellipse 100% 100% at 50% 50%,
-      transparent 35%,
-      rgba(0, 0, 0, 0.55) 75%,
-      rgba(0, 0, 0, 0.9) 100%);
+      transparent 32%,
+      rgba(0, 0, 0, 0.52) 72%,
+      rgba(0, 0, 0, 0.88) 100%);
 }
 
-/* very subtle scan-lines — film grain feel */
 .hero-scanlines {
   position: absolute;
   inset: 0;
@@ -50,34 +44,53 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    transparent 0,
-    transparent 3px,
-    rgba(0, 0, 0, 0.03) 3px,
-    rgba(0, 0, 0, 0.03) 4px
+    transparent 0, transparent 3px,
+    rgba(0, 0, 0, 0.03) 3px, rgba(0, 0, 0, 0.03) 4px
   );
 }
 
-/* ── WORDMARK — top left ──────────────────────── */
-.hero-wordmark {
+/* ── TOP-CENTER TITLE BLOCK ───────────────────── */
+.hero-title-block {
   position: absolute;
-  top: 32px;
-  left: 40px;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 20;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.75);
-  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   pointer-events: none;
+  white-space: nowrap;
+}
+
+.hero-title-eyebrow {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 120, 40, 0.6);
+  margin: 0;
+}
+
+.hero-title-main {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
   line-height: 1;
+  /* glass-like — no background, no border, just semi-transparent text */
 }
 
-.hero-wordmark span {
-  color: #ff5500;
+.hero-title-main span {
+  color: rgba(255, 106, 0, 0.85);
 }
 
-/* ── DRAG HINT — center screen ────────────────── */
+/* ── DRAG HINT ────────────────────────────────── */
 .hero-drag-hint {
   position: absolute;
   top: 50%;
@@ -95,11 +108,11 @@
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.42);
   position: relative;
 }
 
@@ -108,7 +121,7 @@
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 85, 0, 0.18);
+  border: 1px solid rgba(255, 85, 0, 0.16);
   animation: ring-pulse 2.2s ease-in-out infinite;
 }
 
@@ -123,7 +136,7 @@
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.26);
   white-space: nowrap;
 }
 
@@ -141,22 +154,24 @@
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.82);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 2px;
   padding: 13px 26px;
   cursor: pointer;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease,
+              color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
   line-height: 1;
 }
 
 .hero-explore-btn:hover {
-  background: rgba(255, 85, 0, 0.18);
-  border-color: rgba(255, 85, 0, 0.5);
-  box-shadow: 0 0 32px rgba(255, 70, 0, 0.22);
+  background: rgba(255, 85, 0, 0.16);
+  border-color: rgba(255, 85, 0, 0.45);
+  color: #fff;
+  box-shadow: 0 0 28px rgba(255, 70, 0, 0.18);
   transform: translateY(-2px);
 }
 
@@ -173,7 +188,7 @@
   transform: translateX(3px);
 }
 
-/* ── THIN BOTTOM ACCENT LINE ──────────────────── */
+/* ── BOTTOM ACCENT LINE ───────────────────────── */
 .hero-bottom-bar {
   position: absolute;
   bottom: 0;
@@ -184,8 +199,8 @@
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(255, 80, 0, 0.25) 30%,
-    rgba(255, 80, 0, 0.25) 70%,
+    rgba(255, 80, 0, 0.22) 30%,
+    rgba(255, 80, 0, 0.22) 70%,
     transparent 100%
   );
   pointer-events: none;
@@ -195,10 +210,17 @@
    RESPONSIVE
 ═══════════════════════════════════════════════ */
 @media (max-width: 600px) {
-  .hero-wordmark {
-    top: 22px;
-    left: 24px;
-    font-size: 0.88rem;
+  .hero-title-block {
+    top: 24px;
+  }
+
+  .hero-title-main {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+  }
+
+  .hero-title-eyebrow {
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
   }
 
   .hero-explore-btn {
