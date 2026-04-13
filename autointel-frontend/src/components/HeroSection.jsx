@@ -25,8 +25,6 @@ function HeroSection({ onExplore }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
       >
-        <span className="hero-name-dot" />
-        MotoE&nbsp;<span>Garage</span>
       </motion.div>
 
       {/* ── drag hint ───────────────────────────── */}
